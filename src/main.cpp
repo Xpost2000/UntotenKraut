@@ -34,7 +34,10 @@ int main( int argc, char** argv ){
 			std::cout << "A key pressed" << std::endl;
 		}
 		if(inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_A )){
-			std::cout << "A(x on playstation) Down" << std::endl;
+			std::cout << "A(X on playstation) Down" << std::endl;
+		}
+		if(inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_B )){
+			std::cout << "B(O on playstation) Down" << std::endl;
 		}
 		inputManager.Update();
 		window.Refresh();
