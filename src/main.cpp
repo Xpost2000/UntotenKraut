@@ -22,7 +22,7 @@ int main( int argc, char** argv ){
 
 	inputManager.AddCallback(
 			SDL_QUIT,
-			[&](){
+			[&](SDL_Event& evnt){
 				runProgram=false;
 			}
 		    );

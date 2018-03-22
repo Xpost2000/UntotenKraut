@@ -22,9 +22,9 @@ namespace core{
 			const int GetMouseX() { return m_mX; }
 			const int GetMouseY() { return m_mY; }
 
-			void AddCallback( int event, std::function<void()> function );
+			void AddCallback( int event, std::function<void(SDL_Event& evnt)> function );
 		private:
-			std::unordered_map< int, std::function<void()> > m_callbacks;
+			std::unordered_map< int, std::function<void(SDL_Event& evnt)> > m_callbacks;
 			// todo: add callbacks and stuff.
 			const uint8_t* m_keys;
 			uint8_t m_buttons[SDL_CONTROLLER_BUTTON_MAX] = {0}; // for controllers.

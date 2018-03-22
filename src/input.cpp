@@ -30,14 +30,14 @@ namespace core{
 		}
 	}
 
-	void InputManager::AddCallback( int event, std::function<void()> function ){
+	void InputManager::AddCallback( int event, std::function<void(SDL_Event& event)> function ){
 		m_callbacks[event] = function;
 	}
 
 	void InputManager::Update(){
 		while( SDL_PollEvent( &m_event ) ){
 			if(m_callbacks.find(m_event.type) != m_callbacks.end()){
-				m_callbacks[m_event.type]();
+				m_callbacks[m_event.type](m_event);
 			}
 		}
 		SDL_GetMouseState(&m_mX, &m_mY);

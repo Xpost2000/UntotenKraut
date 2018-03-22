@@ -1,4 +1,3 @@
-
 GCC=g++
 LIBS=`pkg-config --libs --cflags sdl2` `pkg-config --libs --cflags glew` -lOpenGL32
 CFLAGS=-std=gnu++11 -Wall -O2
