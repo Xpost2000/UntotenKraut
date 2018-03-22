@@ -7,6 +7,8 @@
 #include "input.h"
 
 int main( int argc, char** argv ){
+	bool runProgram=true;
+
 	SDL_Init(SDL_INIT_EVERYTHING);
 	glewInit();
 	core::Window window;
@@ -17,7 +19,15 @@ int main( int argc, char** argv ){
 		       1024    ,
 		       768 
 		     );
-	while(true){
+
+	inputManager.AddCallback(
+			SDL_QUIT,
+			[&](){
+				runProgram=false;
+			}
+		    );
+
+	while(runProgram){
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.3, 0.3, 0.3, 1.0);
 		inputManager.Update();
