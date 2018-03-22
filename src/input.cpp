@@ -5,7 +5,7 @@
 namespace core{
 	InputManager::InputManager(){
 		if( RegisterController() ){
-			fprintf(stderr, "controller found\n");
+			fprintf(stderr, "controller found : %s\n", SDL_GameControllerName( m_controller ));
 		}else{
 			fprintf(stderr, "No controller found...\n");
 		}
