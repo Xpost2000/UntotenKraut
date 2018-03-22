@@ -30,14 +30,18 @@ int main( int argc, char** argv ){
 	while(runProgram){
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.3, 0.3, 0.3, 1.0);
-		if(inputManager.isKeyDown( SDL_SCANCODE_A )){
+		if( inputManager.isKeyDown( SDL_SCANCODE_A ) ){
 			std::cout << "A key pressed" << std::endl;
 		}
-		if(inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_A )){
-			std::cout << "A(X on playstation) Down" << std::endl;
-		}
-		if(inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_B )){
-			std::cout << "B(O on playstation) Down" << std::endl;
+		if(inputManager.CheckForController()){
+			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_A ) ){
+				std::cout << "A(X on playstation) Down" << std::endl;
+			}
+			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_B ) ){
+				std::cout << "B(O on playstation) Down" << std::endl;
+			}
+			std::cout << "Joystick Right X: " << inputManager.GetJoystickState().right_horizontal << std::endl;
+			std::cout << "Trigger Right : " << inputManager.GetTriggerState().right_vertical << std::endl;
 		}
 		inputManager.Update();
 		window.Refresh();

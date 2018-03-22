@@ -7,6 +7,20 @@
 #include <SDL2/SDL.h>
 
 namespace core{
+	// Stores information pertaining to the Controller's joysticks
+	// it helps make handling events related to it easier.
+	struct JoystickAxisEvent{
+		int right_vertical  =0;
+		int right_horizontal=0;
+
+		int left_vertical   =0;
+		int left_horizontal =0;
+	};
+
+	struct JoystickTriggerEvent{
+		int right_vertical  =0;
+		int left_vertical   =0;
+	};
 	class InputManager{
 		public:
 			InputManager();
@@ -17,7 +31,11 @@ namespace core{
 			bool isKeyDown( int key );
 			bool isButtonDown( int button );
 
-			bool CheckForController();
+			bool RegisterController();
+			int  CheckForController(); // returns the amount of controllers SDL reports to us.
+
+			JoystickAxisEvent GetJoystickState();
+			JoystickTriggerEvent GetTriggerState();
 
 			const int GetMouseX() { return m_mX; }
 			const int GetMouseY() { return m_mY; }

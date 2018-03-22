@@ -4,7 +4,7 @@
 
 namespace core{
 	InputManager::InputManager(){
-		if( CheckForController() ){
+		if( RegisterController() ){
 			fprintf(stderr, "controller found\n");
 		}else{
 			fprintf(stderr, "No controller found...\n");
@@ -12,12 +12,17 @@ namespace core{
 	}
 	
 	InputManager::~InputManager(){
+		SDL_GameControllerClose( m_controller );
 	}	
 
-	bool InputManager::CheckForController(){
+	int  InputManager::CheckForController(){
+		return SDL_NumJoysticks();
+	}
+
+	bool InputManager::RegisterController(){
 		fprintf(stderr, "Joysticks : %d\n", SDL_NumJoysticks());
 		// search for the first "controller"
-		if( SDL_NumJoysticks() >= 1 ){
+		if( CheckForController() >= 1 ){
 			for(int i = 0; i < SDL_NumJoysticks(); ++i){
 				if(SDL_IsGameController(i)){	
 					m_controller = SDL_GameControllerOpen( i );
@@ -28,6 +33,7 @@ namespace core{
 				}
 			}
 		}
+		return false;
 	}
 
 	void InputManager::AddCallback( int event, std::function<void(SDL_Event& event)> function ){
@@ -55,5 +61,37 @@ namespace core{
 
 	bool InputManager::isButtonDown( int button ){
 		return m_buttons[button];
+	}
+
+	JoystickAxisEvent InputManager::GetJoystickState(){
+		JoystickAxisEvent axis;
+		if( m_controller != nullptr ){
+			axis.left_horizontal  = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_LEFTX );
+			axis.left_vertical    = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_LEFTY );
+
+			axis.right_horizontal = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_RIGHTX );
+			axis.right_vertical   = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_RIGHTY );
+
+			// downscale it to out of 255 / 256
+			// by dividing by 128.
+			axis.left_horizontal   /=128;
+			axis.left_vertical     /=128;
+			axis.right_horizontal  /=128;
+			axis.right_vertical    /=128;
+		}
+		return axis;
+	}
+
+	JoystickTriggerEvent InputManager::GetTriggerState(){
+		JoystickTriggerEvent triggers;
+		if( m_controller != nullptr ){
+			triggers.left_vertical  = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT );	
+			triggers.right_vertical = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT );
+			// read the above in ::GetJoystickState()
+			triggers.left_vertical  /=128;
+			triggers.right_vertical /=128;
+		}
+		return triggers;
+
 	}
 };
