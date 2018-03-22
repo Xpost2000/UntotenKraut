@@ -27,7 +27,7 @@ namespace core{
 			std::unordered_map< int, std::function<void()> > m_callbacks;
 			// todo: add callbacks and stuff.
 			const uint8_t* m_keys;
-			uint8_t m_buttons[SDL_CONTROLLER_BUTTON_MAX+1]; // for controllers.
+			uint8_t m_buttons[SDL_CONTROLLER_BUTTON_MAX] = {0}; // for controllers.
 
 			int m_mX=0, m_mY=0;
 

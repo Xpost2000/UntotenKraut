@@ -4,7 +4,7 @@
 
 namespace core{
 	InputManager::InputManager(){
-		if(CheckForController()){
+		if( CheckForController() ){
 			fprintf(stderr, "controller found\n");
 		}else{
 			fprintf(stderr, "No controller found...\n");
@@ -15,15 +15,17 @@ namespace core{
 	}	
 
 	bool InputManager::CheckForController(){
-		// SDL Doesn't seem to detect my dualshock 3 under SCP driver... Eh.
 		fprintf(stderr, "Joysticks : %d\n", SDL_NumJoysticks());
+		// search for the first "controller"
 		if( SDL_NumJoysticks() >= 1 ){
-			if(SDL_IsGameController(0)){	
-				m_controller = SDL_GameControllerOpen( 0 );
-				return true;
-			}else{
-				m_controller = nullptr;
-				return false;
+			for(int i = 0; i < SDL_NumJoysticks(); ++i){
+				if(SDL_IsGameController(i)){	
+					m_controller = SDL_GameControllerOpen( i );
+					return true;
+				}else{
+					m_controller = nullptr;
+					return false;
+				}
 			}
 		}
 	}
