@@ -28,14 +28,14 @@ namespace core{
 
 			void Update();
 
-			bool isKeyDown( int key );
-			bool isButtonDown( int button );
+			const bool isKeyDown( int key );
+			const bool isButtonDown( int button );
 
-			bool RegisterController();
-			int  CheckForController(); // returns the amount of controllers SDL reports to us.
+			const bool RegisterController();
+			const int  CheckForController(); // returns the amount of controllers SDL reports to us.
 
-			JoystickAxisEvent GetJoystickState();
-			JoystickTriggerEvent GetTriggerState();
+			const JoystickAxisEvent GetJoystickState();
+			const JoystickTriggerEvent GetTriggerState();
 
 			const int GetMouseX() { return m_mX; }
 			const int GetMouseY() { return m_mY; }

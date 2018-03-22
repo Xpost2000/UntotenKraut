@@ -15,11 +15,11 @@ namespace core{
 		SDL_GameControllerClose( m_controller );
 	}	
 
-	int  InputManager::CheckForController(){
+	const int InputManager::CheckForController(){
 		return SDL_NumJoysticks();
 	}
 
-	bool InputManager::RegisterController(){
+	const bool InputManager::RegisterController(){
 		fprintf(stderr, "Joysticks : %d\n", SDL_NumJoysticks());
 		// search for the first "controller"
 		if( CheckForController() >= 1 ){
@@ -55,15 +55,15 @@ namespace core{
 		}
 	}
 
-	bool InputManager::isKeyDown( int key ){
+	const bool InputManager::isKeyDown( int key ){
 		return m_keys[key];
 	}
 
-	bool InputManager::isButtonDown( int button ){
+	const bool InputManager::isButtonDown( int button ){
 		return m_buttons[button];
 	}
 
-	JoystickAxisEvent InputManager::GetJoystickState(){
+	const JoystickAxisEvent InputManager::GetJoystickState(){
 		JoystickAxisEvent axis;
 		if( m_controller != nullptr ){
 			axis.left_horizontal  = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_LEFTX );
@@ -82,7 +82,7 @@ namespace core{
 		return axis;
 	}
 
-	JoystickTriggerEvent InputManager::GetTriggerState(){
+	const JoystickTriggerEvent InputManager::GetTriggerState(){
 		JoystickTriggerEvent triggers;
 		if( m_controller != nullptr ){
 			triggers.left_vertical  = SDL_GameControllerGetAxis( m_controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT );	

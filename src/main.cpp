@@ -41,9 +41,9 @@ int main( int argc, char** argv ){
 				std::cout << "B(O on playstation) Down" << std::endl;
 			}
 			if(inputManager.GetJoystickState().right_horizontal > 5)
-			std::cout << "Joystick Right X: " << inputManager.GetJoystickState().right_horizontal << std::endl;
+				std::cout << "Joystick Right X: " << inputManager.GetJoystickState().right_horizontal << std::endl;
 			if(inputManager.GetTriggerState().right_vertical > 5)
-			std::cout << "Trigger Right : " << inputManager.GetTriggerState().right_vertical << std::endl;
+				std::cout << "Trigger Right : " << inputManager.GetTriggerState().right_vertical << std::endl;
 		}
 		inputManager.Update();
 		window.Refresh();
