@@ -30,7 +30,7 @@ int main( int argc, char** argv ){
 				runProgram=false;
 			}
 		    );
-	core::Renderer renderer(1024, 768);
+	core::gfx::Renderer renderer(1024, 768);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	while(runProgram){
