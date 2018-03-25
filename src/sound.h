@@ -16,7 +16,7 @@ namespace core{
 		class SoundManager{
 			public:
 				SoundManager();
-				~SoundManager();
+				void free();
 				void addSound ( std::string path , std::string sound );
 				void addMusic ( std::string path , std::string music );
 				void playSound( std::string sound , int channel , int volume=100, int loops=0);

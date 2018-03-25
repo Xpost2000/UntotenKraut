@@ -6,7 +6,11 @@ namespace core{
 		SoundManager::SoundManager(){
 
 		}
-		SoundManager::~SoundManager(){
+		// You have to manually deconstruct this since 
+		// if I declare this on the stack like all my other variables.
+		// It dies whenever the main function finishes. But SDL_Mixer quits
+		// before the end of the main function so these functions below would do nothing.
+		void SoundManager::free(){
 			for(auto& music : m_musics){
 				Mix_FreeMusic(music.second);
 			}

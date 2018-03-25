@@ -82,7 +82,7 @@ int main( int argc, char** argv ){
 		inputManager.Update();
 		window.Refresh();
 	}
-
+	soundManager.free();
 	IMG_Quit();
 	Mix_CloseAudio();
 	Mix_Quit();
