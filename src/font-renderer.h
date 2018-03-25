@@ -13,7 +13,7 @@ namespace core{
 				FontRenderer();
 				~FontRenderer();
 				void addFont( std::string path, std::string font_name );
-				void setSize( int sz );
+				inline void setSize( int sz ) { size = sz; }
 				void renderText( float x, float y, std::string text, std::string font_name, float r=1, float g=1, float b=1, float a=1 );
 			private:
 				int size=12;

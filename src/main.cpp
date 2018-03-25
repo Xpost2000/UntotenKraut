@@ -32,7 +32,7 @@ int main( int argc, char** argv ){
 			}
 		    );
 	core::gfx::Renderer renderer(1024, 768);
-	core::gfx::Sprite   zed_test_image( 200, 300, 512, 512 );
+	core::gfx::Sprite   zed_test_image( 200, 300, 256, 256 );
 	zed_test_image.loadTexture("assests\\textures\\dev_zombie_test.png");
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -65,7 +65,12 @@ int main( int argc, char** argv ){
 		renderer.setTextSize(80);
 		renderer.drawText( "ocr", 0, 100, "abcdefghijklmnopqrstuvwxyz", 1, 0, 0, 1 );
 		renderer.drawText( "ocr", 0, 200, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0, 1, 0, 1 );
+		zed_test_image.setX(200);
+		zed_test_image.setY(300);
 		renderer.drawSprite(zed_test_image);
+		renderer.drawRect(300, 450, 150, 150, 0.0, 0.5, 1.0, 0.7);
+		zed_test_image.setX(500);
+		renderer.drawSprite(zed_test_image, 1, 1, 0, 0.4);
 		inputManager.Update();
 		window.Refresh();
 	}

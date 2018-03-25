@@ -24,9 +24,6 @@ namespace core{
 			
 			SDL_Window* m_windowHandle = nullptr;
 			SDL_GLContext m_context;
-
-			int width=0;
-			int height=0;
 	};
 };
 

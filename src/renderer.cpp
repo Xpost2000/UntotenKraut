@@ -13,23 +13,30 @@ namespace core{
 				     );
 			glGenBuffers(1, &vbo);
 			glGenVertexArrays(1, &vao);
-			// I could "orphan it first." but I'll do it later. This is easier
-			// let's setup the vertex attributes first.
+
 			glBindVertexArray(vao);
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			// orphaning data.
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float)*8, NULL, GL_DYNAMIC_DRAW);
+
 			glEnableVertexAttribArray(0);
 			glEnableVertexAttribArray(1);
 			glEnableVertexAttribArray(2);
+
 			glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float)*8, 0);
 			glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(float)*8, (void*)(sizeof(float)*2));
 			glVertexAttribPointer(2, 4, GL_FLOAT, false, sizeof(float)*8, (void*)(sizeof(float)*4));
+
 			texture_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\textured.fs");
 			default_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\default.fs");
 			text_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\text.fs");
+
 			default_shader.uniformMatrix(default_shader.getUniform("projection"), projection);
 			default_shader.uniformMatrix(default_shader.getUniform("view"), view);
+
 			texture_shader.uniformMatrix(texture_shader.getUniform("projection"), projection);
 			texture_shader.uniformMatrix(texture_shader.getUniform("view"), view);
+
 			text_shader.uniformMatrix(text_shader.getUniform("projection"), projection);
 			text_shader.uniformMatrix(text_shader.getUniform("view"), view);
 		}
@@ -51,12 +58,7 @@ namespace core{
 	
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 			glBindVertexArray(vao);
-			glBufferData(
-					GL_ARRAY_BUFFER,
-					sizeof data,
-					data,
-					GL_DYNAMIC_DRAW
-				    );
+			glBufferData( GL_ARRAY_BUFFER, sizeof data, data, GL_DYNAMIC_DRAW );
 			default_shader.useProgram();
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
@@ -81,12 +83,7 @@ namespace core{
 	
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 			glBindVertexArray(vao);
-			glBufferData(
-					GL_ARRAY_BUFFER,
-					sizeof data,
-					data,
-					GL_DYNAMIC_DRAW
-				    );
+			glBufferData( GL_ARRAY_BUFFER, sizeof data, data, GL_DYNAMIC_DRAW );
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture( GL_TEXTURE_2D, texture );
 			texture_shader.useProgram();
@@ -110,12 +107,11 @@ namespace core{
 	
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 			glBindVertexArray(vao);
-			glBufferData(
+			glBufferSubData(
 					GL_ARRAY_BUFFER,
-					sizeof data,
-					data,
-					GL_DYNAMIC_DRAW
-				    );
+					0, sizeof(data),
+					data
+			);
 			glActiveTexture(GL_TEXTURE0);
 			spr.getTexture().use();
 			texture_shader.useProgram();

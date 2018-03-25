@@ -35,15 +35,16 @@ namespace core{
 			glShaderSource(vertex_shader,   1, &vscstr, 0);
 			glShaderSource(fragment_shader, 1, &fscstr, 0);
 			glCompileShader(vertex_shader);
-			char log[2048];
+			char log[2048]; // since shaders aren't that big usually. There's less room for errors, so 2048 byte longs strings should be fine.
+
 			glGetShaderInfoLog(vertex_shader, 2048, 0, log);
-			std::cout << log << std::endl;
+
 			glCompileShader(fragment_shader);
 			glGetShaderInfoLog(fragment_shader, 2048, 0, log);
-			std::cout << log << std::endl;
-			std::cout << "Shader logs above... If any at all" << std::endl;
+
 			glAttachShader(shader_program, fragment_shader);
 			glAttachShader(shader_program, vertex_shader);
+
 			glLinkProgram(shader_program);
 			glGetProgramInfoLog(shader_program, 2048, 0, log);
 			std::cout << log << std::endl;
@@ -56,18 +57,19 @@ namespace core{
 			vs_src = vs_str;
 			fs_src = fs_str;
 			const char* vscstr = vs_src.c_str(), *fscstr = fs_src.c_str();
+			char log[2048];
 			glShaderSource(vertex_shader,   1, &vscstr, 0);
 			glShaderSource(fragment_shader, 1, &fscstr, 0);
+
 			glCompileShader(vertex_shader);
-			char log[2048];
 			glGetShaderInfoLog(vertex_shader, 2048, 0, log);
-			std::cout << log << std::endl;
+
 			glCompileShader(fragment_shader);
 			glGetShaderInfoLog(fragment_shader, 2048, 0, log);
-			std::cout << log << std::endl;
-			std::cout << "Shader logs above... If any at all" << std::endl;
+
 			glAttachShader(shader_program, fragment_shader);
 			glAttachShader(shader_program, vertex_shader);
+
 			glLinkProgram(shader_program);
 			glGetProgramInfoLog(shader_program, 2048, 0, log);
 			std::cout << log << std::endl;

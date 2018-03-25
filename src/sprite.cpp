@@ -5,14 +5,14 @@
 namespace core{
 	namespace gfx{
 		Sprite::Sprite( float x, float y, float w, float h, float angle )
-		: x(x), y(y), w(w), h(h), angle(angle){
+		: m_x(x), m_y(y), m_w(w), m_h(h), m_angle(angle){
 		}
 
 		Sprite::~Sprite(){
 		}
 
 		void Sprite::loadTexture( std::string path ){
-			texture.loadFile( path );
+			m_texture.loadFile( path );
 		}
 	};
 };

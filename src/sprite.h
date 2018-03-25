@@ -11,24 +11,24 @@ namespace core{
 			public:
 				Sprite( float x, float y, float w, float h, float angle=0.0f );
 				~Sprite();
-				float getX() { return x; }
-				float getY() { return y; }
-				float getW() { return w; }
-				float getH() { return h; }
-				float getAngle() { return angle; }
-				Texture& getTexture() { return texture; }
+				float getX() { return m_x; }
+				float getY() { return m_y; }
+				float getW() { return m_w; }
+				float getH() { return m_h; }
+				float getAngle() { return m_angle; }
+				Texture& getTexture() { return m_texture; }
 
-				void setX( float nX ) { x = nX; }
-				void setY( float nY ) { y = nY; }
-				void setW( float nW ) { w = nW; }
-				void setH( float nH ) { h = nH; }
-				void setAngle( float nAngle ) { angle = nAngle; }
+				void setX( float nX ) { m_x = nX; }
+				void setY( float nY ) { m_y = nY; }
+				void setW( float nW ) { m_w = nW; }
+				void setH( float nH ) { m_h = nH; }
+				void setAngle( float nAngle ) { m_angle = nAngle; }
 				void loadTexture( std::string path );
 			private:
-				float x, y, w, h;
-				float angle;
+				float m_x, m_y, m_w, m_h;
+				float m_angle;
 				// until I make a texture class use that.
-				Texture texture;
+				Texture m_texture;
 		};
 	};
 };
