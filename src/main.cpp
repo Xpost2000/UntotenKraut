@@ -33,6 +33,8 @@ int main( int argc, char** argv ){
 	core::gfx::Renderer renderer(1024, 768);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	renderer.loadFont("arial.ttf", "arial");
+	renderer.loadFont("ocr.ttf",   "ocr");
 	while(runProgram){
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -52,11 +54,14 @@ int main( int argc, char** argv ){
 				std::cout << "Trigger Right : " << inputManager.GetTriggerState().right_vertical << std::endl;
 		}
 		renderer.refreshCamera();
-		renderer.drawRect(0, 0, 150, 150, 1.0, 0, 0, 1.0);
+		renderer.drawRect(0, 0, 150, 150, 1.0, 0, 1.0, 1.0);
 		renderer.drawRect(60, 0, 150, 150, 0.0, 0.5, 0.3, 0.7);
 		renderer.setTextSize(40);
-		renderer.drawText( 0, 0, "abcdefghijklmnopqrstuvwxyz" );
-		renderer.drawText( 0, 50, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
+		renderer.drawText( "arial", 0, 0, "abcdefghijklmnopqrstuvwxyz", 0,0,1,1 );
+		renderer.drawText( "arial", 0, 50, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
+		renderer.setTextSize(80);
+		renderer.drawText( "ocr", 0, 100, "abcdefghijklmnopqrstuvwxyz", 1, 0, 0, 1 );
+		renderer.drawText( "ocr", 0, 200, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0, 1, 0, 1 );
 		inputManager.Update();
 		window.Refresh();
 	}

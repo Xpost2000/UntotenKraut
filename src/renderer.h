@@ -32,7 +32,8 @@ namespace core{
 				// void setCameraPos();
 				void refreshCamera();
 
-				void drawText( float x, float y, std::string text, float r=1, float g=1, float b=1, float a=1 );
+				void loadFont( std::string path, std::string name );
+				void drawText( std::string font_name, float x, float y, std::string text, float r=1, float g=1, float b=1, float a=1 );
 				void setTextSize( int sz ){ fontRenderer.setSize(sz); }
 			private:
 				Shader texture_shader, default_shader, text_shader;

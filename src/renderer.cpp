@@ -32,9 +32,6 @@ namespace core{
 			texture_shader.uniformMatrix(texture_shader.getUniform("view"), view);
 			text_shader.uniformMatrix(text_shader.getUniform("projection"), projection);
 			text_shader.uniformMatrix(text_shader.getUniform("view"), view);
-
-			// testing reasons....
-			fontRenderer.addFont( "arial.ttf", "test" );
 		}
 
 		Renderer::~Renderer(){
@@ -131,9 +128,13 @@ namespace core{
 			texture_shader.uniformMatrix(texture_shader.getUniform("view"), view);
 		}
 
-		void Renderer::drawText( float x, float y, std::string text, float r, float g, float b, float a ){
+		void Renderer::loadFont( std::string path, std::string name ){
+			fontRenderer.addFont(path, name);
+		}
+
+		void Renderer::drawText( std::string font_name, float x, float y, std::string text, float r, float g, float b, float a ){
 			text_shader.useProgram();
-			fontRenderer.renderText( x, y, text, "test" );
+			fontRenderer.renderText( x, y, text, font_name, r, g, b, a );
 		}	
 	};
 };

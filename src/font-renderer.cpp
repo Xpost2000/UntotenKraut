@@ -50,12 +50,13 @@ namespace core{
 
 		// I realize this is sort of stupidly inefficient.
 		// I refill the texture with a different image each frame but on modern pcs it should be fine. Like mine.
-		void FontRenderer::renderText( float x, float y, std::string text, std::string font_name ){
+		void FontRenderer::renderText( float x, float y, std::string text, std::string font_name, float r, float g, float b, float a ){
 			FT_Face& cur = m_faces[m_indices[font_name]];
 			FT_Set_Pixel_Sizes(cur, 0, size);
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 			glBindVertexArray(vao);
 
+			glBindTexture(GL_TEXTURE_2D, textureId);
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			for( unsigned char i : text ){
 				FT_Load_Char( cur, 'H', FT_LOAD_RENDER );
@@ -65,7 +66,6 @@ namespace core{
 				float fy = y + hBearing-cur->glyph->bitmap_top;
 				float w  = cur->glyph->bitmap.width;
 				float h  = cur->glyph->bitmap.rows;
-				glBindTexture(GL_TEXTURE_2D, textureId);
 				glTexImage2D(
 						GL_TEXTURE_2D,
 						0,
@@ -78,13 +78,13 @@ namespace core{
 						cur->glyph->bitmap.buffer
 					    );
 				float data[]={
-					fx,   fy,   0, 0, 1, 1, 1, 1,
-					fx,   fy+h, 0, 1, 1, 1, 1, 1,
-					fx+w, fy,   1, 0, 1, 1, 1, 1,
+					fx,   fy,   0, 0, r, g, b, a,
+					fx,   fy+h, 0, 1, r, g, b, a,
+					fx+w, fy,   1, 0, r, g, b, a,
 
-					fx+w, fy,   1, 0, 1, 1, 1, 1,
-					fx,   fy+h, 0, 1, 1, 1, 1, 1,
-					fx+w, fy+h, 1, 1, 1, 1, 1, 1
+					fx+w, fy,   1, 0, r, g, b, a,
+					fx,   fy+h, 0, 1, r, g, b, a,
+					fx+w, fy+h, 1, 1, r, g, b, a
 				};
 				glBufferData(
 						GL_ARRAY_BUFFER,
