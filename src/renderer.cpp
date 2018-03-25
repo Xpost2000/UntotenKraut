@@ -20,8 +20,9 @@ namespace core{
 		glVertexAttribPointer(0, 2, GL_FLOAT, false, sizeof(float)*8, 0);
 		glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(float)*8, (void*)(sizeof(float)*2));
 		glVertexAttribPointer(2, 4, GL_FLOAT, false, sizeof(float)*8, (void*)(sizeof(float)*4));
-		texture_shader.loadFile("default.vs", "textured.fs");
-		default_shader.loadFile("default.vs", "default.fs");
+		texture_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\textured.fs");
+		default_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\default.fs");
+		text_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\text.fs");
 		default_shader.uniformMatrix(default_shader.getUniform("projection"), projection);
 		default_shader.uniformMatrix(default_shader.getUniform("view"), view);
 		texture_shader.uniformMatrix(texture_shader.getUniform("projection"), projection);
@@ -87,8 +88,12 @@ namespace core{
 		texture_shader.uniformi(texture_shader.getUniform("texture"), 0);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
+
 	void Renderer::refreshCamera(){
 		default_shader.uniformMatrix(default_shader.getUniform("view"), view);
 		texture_shader.uniformMatrix(texture_shader.getUniform("view"), view);
 	}
+
+	void Renderer::drawText( std::string text, float scaleX, float scaleY, float r, float g, float b, float a ){
+	}	
 };

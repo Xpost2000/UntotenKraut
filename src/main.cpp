@@ -31,9 +31,11 @@ int main( int argc, char** argv ){
 			}
 		    );
 	core::Renderer renderer(1024, 768);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	while(runProgram){
 		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0.3, 0.3, 0.3, 1.0);
+		glClearColor(0.0, 0.0, 0.0, 1.0);
 		if( inputManager.isKeyDown( SDL_SCANCODE_A ) ){
 			std::cout << "A key pressed" << std::endl;
 		}
@@ -51,6 +53,7 @@ int main( int argc, char** argv ){
 		}
 		renderer.refreshCamera();
 		renderer.drawRect(0, 0, 150, 150, 1.0, 0, 0, 1.0);
+		renderer.drawRect(60, 0, 150, 150, 0.0, 0.5, 0.3, 0.7);
 		inputManager.Update();
 		window.Refresh();
 	}
