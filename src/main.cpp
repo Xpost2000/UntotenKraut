@@ -54,6 +54,9 @@ int main( int argc, char** argv ){
 		renderer.refreshCamera();
 		renderer.drawRect(0, 0, 150, 150, 1.0, 0, 0, 1.0);
 		renderer.drawRect(60, 0, 150, 150, 0.0, 0.5, 0.3, 0.7);
+		renderer.setTextSize(40);
+		renderer.drawText( 0, 0, "abcdefghijklmnopqrstuvwxyz" );
+		renderer.drawText( 0, 50, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
 		inputManager.Update();
 		window.Refresh();
 	}

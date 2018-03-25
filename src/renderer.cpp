@@ -1,6 +1,8 @@
 #include "renderer.h"
 #include <iostream>
 
+#include "sprite.h"
+
 namespace core{
 	namespace gfx{
 		Renderer::Renderer( int w, int h ){
@@ -28,7 +30,11 @@ namespace core{
 			default_shader.uniformMatrix(default_shader.getUniform("view"), view);
 			texture_shader.uniformMatrix(texture_shader.getUniform("projection"), projection);
 			texture_shader.uniformMatrix(texture_shader.getUniform("view"), view);
+			text_shader.uniformMatrix(text_shader.getUniform("projection"), projection);
+			text_shader.uniformMatrix(text_shader.getUniform("view"), view);
 
+			// testing reasons....
+			fontRenderer.addFont( "arial.ttf", "test" );
 		}
 
 		Renderer::~Renderer(){
@@ -90,13 +96,44 @@ namespace core{
 			texture_shader.uniformi(texture_shader.getUniform("texture"), 0);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
+		
+		void Renderer::drawSprite( Sprite& spr, float r, float g, float b, float a ){
+			float x = spr.getX();
+			float y = spr.getY();
+			float w = spr.getW();
+			float h = spr.getH();
+			float data[]= {
+				x, y,       0, 1,  r, g, b, a,
+				x, y+h,     1, 0,  r, g, b, a,
+				x+w, y,     0, 1,  r, g, b, a,
+				x+w, y,     0, 1,  r, g, b, a,
+				x, y+h,     1, 0,  r, g, b, a,
+				x+w, y+h,   1, 1,  r, g, b, a
+			};
+	
+			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			glBindVertexArray(vao);
+			glBufferData(
+					GL_ARRAY_BUFFER,
+					sizeof data,
+					data,
+					GL_DYNAMIC_DRAW
+				    );
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture( GL_TEXTURE_2D, spr.getTexture() );
+			texture_shader.useProgram();
+			texture_shader.uniformi(texture_shader.getUniform("texture"), 0);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		}
 	
 		void Renderer::refreshCamera(){
 			default_shader.uniformMatrix(default_shader.getUniform("view"), view);
 			texture_shader.uniformMatrix(texture_shader.getUniform("view"), view);
 		}
 
-		void Renderer::drawText( std::string text, float scaleX, float scaleY, float r, float g, float b, float a ){
+		void Renderer::drawText( float x, float y, std::string text, float r, float g, float b, float a ){
+			text_shader.useProgram();
+			fontRenderer.renderText( x, y, text, "test" );
 		}	
 	};
 };
