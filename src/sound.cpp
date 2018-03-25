@@ -11,6 +11,8 @@ namespace core{
 		// It dies whenever the main function finishes. But SDL_Mixer quits
 		// before the end of the main function so these functions below would do nothing.
 		void SoundManager::free(){
+			stopMusic();
+			stopSound(-1);
 			for(auto& music : m_musics){
 				Mix_FreeMusic(music.second);
 			}
