@@ -1,4 +1,5 @@
 #include "window.h"
+#include <GL/glew.h>
 
 
 namespace core{
@@ -29,6 +30,7 @@ namespace core{
 		SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL    , 1 );
 
 		m_context = SDL_GL_CreateContext(m_windowHandle);
+		glewInit();
 
 		SDL_GL_SetSwapInterval(1);
 		SDL_GL_MakeCurrent(m_windowHandle, m_context);
