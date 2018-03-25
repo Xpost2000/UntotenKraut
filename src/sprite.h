@@ -24,6 +24,7 @@ namespace core{
 				void setH( float nH ) { m_h = nH; }
 				void setAngle( float nAngle ) { m_angle = nAngle; }
 				void loadTexture( std::string path );
+				void setTexture( Texture &tex ) { m_texture = tex; }
 			private:
 				float m_x, m_y, m_w, m_h;
 				float m_angle;
