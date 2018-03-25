@@ -8,6 +8,7 @@
 #include "input.h"
 #include "shader.h"
 #include "renderer.h"
+#include "sprite.h"
 
 int main( int argc, char** argv ){
 	bool runProgram=true;
@@ -31,6 +32,8 @@ int main( int argc, char** argv ){
 			}
 		    );
 	core::gfx::Renderer renderer(1024, 768);
+	core::gfx::Sprite   zed_test_image( 200, 300, 512, 512 );
+	zed_test_image.loadTexture("assests\\textures\\dev_zombie_test.png");
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	renderer.loadFont("arial.ttf", "arial");
@@ -62,6 +65,7 @@ int main( int argc, char** argv ){
 		renderer.setTextSize(80);
 		renderer.drawText( "ocr", 0, 100, "abcdefghijklmnopqrstuvwxyz", 1, 0, 0, 1 );
 		renderer.drawText( "ocr", 0, 200, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0, 1, 0, 1 );
+		renderer.drawSprite(zed_test_image);
 		inputManager.Update();
 		window.Refresh();
 	}

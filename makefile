@@ -5,7 +5,9 @@ FILES=src/main.cpp\
       src/window.cpp\
       src/input.cpp\
       src/shader.cpp\
+      src/texture.cpp\
       src/renderer.cpp\
+      src/sprite.cpp\
       src/font-renderer.cpp
 OUTPUT=game.exe
 

@@ -71,11 +71,11 @@ namespace core{
 	
 		void Renderer::drawRectTextured( int texture, float x, float y, float w, float h, float r, float g, float b, float a ){
 			float data[]= {
-				x, y,       0, 1,  r, g, b, a,
-				x, y+h,     1, 0,  r, g, b, a,
-				x+w, y,     0, 1,  r, g, b, a,
-				x+w, y,     0, 1,  r, g, b, a,
-				x, y+h,     1, 0,  r, g, b, a,
+				x, y,       0, 0,  r, g, b, a,
+				x, y+h,     0, 1,  r, g, b, a,
+				x+w, y,     1, 0,  r, g, b, a,
+				x+w, y,     1, 0,  r, g, b, a,
+				x, y+h,     0, 1,  r, g, b, a,
 				x+w, y+h,   1, 1,  r, g, b, a
 			};
 	
@@ -100,11 +100,11 @@ namespace core{
 			float w = spr.getW();
 			float h = spr.getH();
 			float data[]= {
-				x, y,       0, 1,  r, g, b, a,
-				x, y+h,     1, 0,  r, g, b, a,
-				x+w, y,     0, 1,  r, g, b, a,
-				x+w, y,     0, 1,  r, g, b, a,
-				x, y+h,     1, 0,  r, g, b, a,
+				x, y,       0, 0,  r, g, b, a,
+				x, y+h,     0, 1,  r, g, b, a,
+				x+w, y,     1, 0,  r, g, b, a,
+				x+w, y,     1, 0,  r, g, b, a,
+				x, y+h,     0, 1,  r, g, b, a,
 				x+w, y+h,   1, 1,  r, g, b, a
 			};
 	
@@ -117,7 +117,7 @@ namespace core{
 					GL_DYNAMIC_DRAW
 				    );
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture( GL_TEXTURE_2D, spr.getTexture() );
+			spr.getTexture().use();
 			texture_shader.useProgram();
 			texture_shader.uniformi(texture_shader.getUniform("texture"), 0);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
