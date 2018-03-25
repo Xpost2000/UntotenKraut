@@ -1,10 +1,12 @@
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 
 #include <iostream>
 
 #include "window.h"
+#include "sound.h"
 #include "input.h"
 #include "shader.h"
 #include "renderer.h"
@@ -15,9 +17,14 @@ int main( int argc, char** argv ){
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	IMG_Init(IMG_INIT_PNG);
+	Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
+	Mix_Init(MIX_INIT_MP3);
 	glewInit();
 	core::Window window;
 	core::InputManager inputManager;
+	core::audio::SoundManager soundManager;
+
+	soundManager.addSound( "main.wav", "test" );
 
 	window.Create( 
 		       "Test"  ,
@@ -39,6 +46,7 @@ int main( int argc, char** argv ){
 	renderer.loadFont("arial.ttf", "arial");
 	renderer.loadFont("ocr.ttf",   "ocr");
 	while(runProgram){
+		soundManager.playSound( "test", -1, 100 );
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 		if( inputManager.isKeyDown( SDL_SCANCODE_A ) ){
@@ -76,6 +84,8 @@ int main( int argc, char** argv ){
 	}
 
 	IMG_Quit();
+	Mix_CloseAudio();
+	Mix_Quit();
 	SDL_Quit();
 	return 0;
 }
