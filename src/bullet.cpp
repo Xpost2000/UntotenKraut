@@ -16,9 +16,15 @@ namespace game{
 		renderer.drawRect( x, y, w, h, 1, 0, 1, 1 );
 	}
 
-	void Bullet::update(float dt, World&){
+	void Bullet::update(float dt, World& world){
 		sprite.setX(x);
 		sprite.setY(y);
+
+		for(auto& wall : world.getWalls()){
+			if(touching(wall)){
+				lifeTime=0;
+			}
+		}
 
 		x += speedX;
 		y += speedY;
