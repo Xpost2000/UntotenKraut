@@ -1,3 +1,5 @@
+#ifndef BULLET_H
+#define BULLET_H
 #include "entity.h"
 #include "sprite.h"
 
@@ -8,7 +10,7 @@ namespace game{
 			Bullet();
 			~Bullet();
 			void draw(core::gfx::Renderer&);
-			void update(float dt);
+			void update(float dt, World&);
 
 			void setDamage( float dmg ) { damage = dmg; }
 			float getDamage() { return damage; }
@@ -28,3 +30,5 @@ namespace game{
 			core::gfx::Sprite sprite;
 	};
 };
+
+#endif

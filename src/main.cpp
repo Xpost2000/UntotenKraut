@@ -12,6 +12,9 @@
 #include "renderer.h"
 #include "sprite.h"
 
+#include "world.h"
+
+#include "wall.h"
 #include "player.h"
 
 int main( int argc, char** argv ){
@@ -25,7 +28,6 @@ int main( int argc, char** argv ){
 	core::Window window;
 	core::InputManager inputManager;
 	core::audio::SoundManager soundManager;
-
 
 	window.Create( 
 		       "Test"  ,
@@ -47,21 +49,38 @@ int main( int argc, char** argv ){
 
 	renderer.loadFont("arial.ttf", "arial");
 	renderer.loadFont("ocr.ttf",   "ocr");
+
+	game::World world;
+	game::Gun pistol("M1911A1", 5, 5, 500, 3, false);
+	game::Gun smg("M4A1", 5, 8, 600, 1.5, true);
+
+	player.getGun() = pistol;
+
+	world.setPlayer(&player);
+	world.addWall(game::Wall( 100, 200, 60, 60 ));
+	world.addWall(game::Wall( 100, 500, 60, 60 ));
+
 	while(runProgram){
 		soundManager.playSound( "test", -1, 100 );
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 		if( inputManager.isKeyDown( SDL_SCANCODE_W ) ){
-			player.y -= 4;
+			player.move(1, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_S ) ){
-			player.y += 4;
+			player.move(2, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_A ) ){
-			player.x -= 4;
+			player.move(3, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_D ) ){
-			player.x += 4;
+			player.move(4, world);
+		}
+		if( inputManager.isKeyDown( SDL_SCANCODE_1 ) ){
+			player.getGun() = pistol;
+		}
+		if( inputManager.isKeyDown( SDL_SCANCODE_2 ) ){
+			player.getGun() = smg;
 		}
 		if( inputManager.isMouseKeyDown( SDL_BUTTON_LEFT ) ){
 			player.fire(inputManager.GetMouseX(), inputManager.GetMouseY());
@@ -75,20 +94,24 @@ int main( int argc, char** argv ){
 		renderer.refreshCamera();
 		renderer.setTextSize(40);
 		renderer.drawText( "arial", 0, 0, "Player Test...", 0,0,1,1 );
+		renderer.drawText( "arial", 0, 40, "Current Gun : " + player.getGun().getName(), 1,1,1,1 );
 		renderer.setTextSize(15);
 		player.draw(renderer);
 		renderer.drawText( "arial", player.x, player.y, "playerpos", 1,1,1,1 );
 		renderer.drawText( "arial", inputManager.GetMouseX(), inputManager.GetMouseY() , "mousePos", 1,1,1,1 );
 
-		player.update(0.1f);
 		for(int i = 0; i < player.getBullets().size(); ++i){
-			player.getBullets()[i].update( 0.1f );
+			player.getBullets()[i].update( 0.1f, world );
 			if(!player.getBullets()[i].isAlive()){
 				player.getBullets().erase(player.getBullets().begin()+i);
 			}
 
 			player.getBullets()[i].draw(renderer);
 		}
+		world.draw(renderer);
+
+		player.update(0.1f, world);
+		world.update(0.1f);
 
 		inputManager.Update();
 		window.Refresh();

@@ -14,7 +14,7 @@ namespace game{
 
 	}
 
-	void Entity::update(float dt){
+	void Entity::update(float dt, World& world){
 
 	}
 
@@ -23,8 +23,8 @@ namespace game{
 	}
 
 	bool Entity::touching(Entity& other){
-		return( x > other.x + other.w && x+w < other.x )
+		return( x < other.x + other.w && x+w > other.x )
 			&&
-			( y > other.y + other.h && y+h < other.y );
+		      ( y < other.y + other.h && y+h > other.y );
 	}
 };

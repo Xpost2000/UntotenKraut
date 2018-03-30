@@ -1,5 +1,9 @@
+#ifndef PLAYER_H
+#define PLAYER_H
 #include "entity.h"
 #include "bullet.h"
+
+#include "gun.h"
 
 #include <vector>
 
@@ -10,7 +14,7 @@ namespace game{
 			Player();
 			~Player();
 
-			void update(float dt);
+			void update(float dt, World&);
 			void draw(core::gfx::Renderer& renderer);
 
 			void setSpeed( float s ) { speed=s; }
@@ -22,10 +26,21 @@ namespace game{
 			void fire(float mX, float mY);
 			
 			std::vector<Bullet>& getBullets() { return bullets; }
+
+			void setGun(Gun g){ currentGun = g; }
+
+			Gun &getGun() { return currentGun; }
+
+			void move(int direction, World& world);
 		private:
 			core::gfx::Sprite sprite;
+			Gun currentGun;
+
 			std::vector<Bullet> bullets;
+
+			bool fired=false;
 			float speed=0;
 			float hp=0;
 	};
 };
+#endif
