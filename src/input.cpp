@@ -55,6 +55,9 @@ namespace core{
 		}
 	}
 
+	const bool InputManager::isMouseKeyDown( int bitmask ){
+		return(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(bitmask));
+	}
 	const bool InputManager::isKeyDown( int key ){
 		return m_keys[key];
 	}

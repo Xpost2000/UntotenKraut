@@ -28,6 +28,7 @@ namespace core{
 
 			void Update();
 
+			const bool isMouseKeyDown( int bitmask );
 			const bool isKeyDown( int key );
 			const bool isButtonDown( int button );
 

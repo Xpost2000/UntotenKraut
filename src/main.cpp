@@ -12,6 +12,8 @@
 #include "renderer.h"
 #include "sprite.h"
 
+#include "player.h"
+
 int main( int argc, char** argv ){
 	bool runProgram=true;
 
@@ -24,7 +26,6 @@ int main( int argc, char** argv ){
 	core::InputManager inputManager;
 	core::audio::SoundManager soundManager;
 
-	soundManager.addSound( "main.wav", "test" );
 
 	window.Create( 
 		       "Test"  ,
@@ -39,46 +40,56 @@ int main( int argc, char** argv ){
 			}
 		    );
 	core::gfx::Renderer renderer(1024, 768);
-	core::gfx::Sprite   zed_test_image( 200, 300, 256, 256 );
-	zed_test_image.loadTexture("assests\\textures\\dev_zombie_test.png");
+	game::Player player(0, 0, 30, 30, 15, 100);
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	renderer.loadFont("arial.ttf", "arial");
 	renderer.loadFont("ocr.ttf",   "ocr");
 	while(runProgram){
 		soundManager.playSound( "test", -1, 100 );
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
+		if( inputManager.isKeyDown( SDL_SCANCODE_W ) ){
+			player.y -= 4;
+		}
+		if( inputManager.isKeyDown( SDL_SCANCODE_S ) ){
+			player.y += 4;
+		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_A ) ){
-			std::cout << "A key pressed" << std::endl;
+			player.x -= 4;
+		}
+		if( inputManager.isKeyDown( SDL_SCANCODE_D ) ){
+			player.x += 4;
+		}
+		if( inputManager.isMouseKeyDown( SDL_BUTTON_LEFT ) ){
+			player.fire(inputManager.GetMouseX(), inputManager.GetMouseY());
 		}
 		if(inputManager.CheckForController()){
 			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_A ) ){
-				std::cout << "A(X on playstation) Down" << std::endl;
 			}
 			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_B ) ){
-				std::cout << "B(O on playstation) Down" << std::endl;
 			}
-			if(inputManager.GetJoystickState().right_horizontal > 5)
-				std::cout << "Joystick Right X: " << inputManager.GetJoystickState().right_horizontal << std::endl;
-			if(inputManager.GetTriggerState().right_vertical > 5)
-				std::cout << "Trigger Right : " << inputManager.GetTriggerState().right_vertical << std::endl;
 		}
 		renderer.refreshCamera();
-		renderer.drawRect(0, 0, 150, 150, 1.0, 0, 1.0, 1.0);
-		renderer.drawRect(60, 0, 150, 150, 0.0, 0.5, 0.3, 0.7);
 		renderer.setTextSize(40);
-		renderer.drawText( "arial", 0, 0, "abcdefghijklmnopqrstuvwxyz", 0,0,1,1 );
-		renderer.drawText( "arial", 0, 50, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
-		renderer.setTextSize(80);
-		renderer.drawText( "ocr", 0, 100, "abcdefghijklmnopqrstuvwxyz", 1, 0, 0, 1 );
-		renderer.drawText( "ocr", 0, 200, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0, 1, 0, 1 );
-		zed_test_image.setX(200);
-		zed_test_image.setY(300);
-		renderer.drawSprite(zed_test_image);
-		renderer.drawRect(300, 450, 150, 150, 0.0, 0.5, 1.0, 0.7);
-		zed_test_image.setX(500);
-		renderer.drawSprite(zed_test_image, 1, 1, 0, 0.4);
+		renderer.drawText( "arial", 0, 0, "Player Test...", 0,0,1,1 );
+		renderer.setTextSize(15);
+		player.draw(renderer);
+		renderer.drawText( "arial", player.x, player.y, "playerpos", 1,1,1,1 );
+		renderer.drawText( "arial", inputManager.GetMouseX(), inputManager.GetMouseY() , "mousePos", 1,1,1,1 );
+
+		player.update(0.1f);
+		for(int i = 0; i < player.getBullets().size(); ++i){
+			player.getBullets()[i].update( 0.1f );
+			if(!player.getBullets()[i].isAlive()){
+				player.getBullets().erase(player.getBullets().begin()+i);
+			}
+
+			player.getBullets()[i].draw(renderer);
+		}
+
 		inputManager.Update();
 		window.Refresh();
 	}

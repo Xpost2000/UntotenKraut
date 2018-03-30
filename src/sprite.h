@@ -9,6 +9,7 @@ namespace core{
 		class Texture;
 		class Sprite{
 			public:
+				Sprite(){}
 				Sprite( float x, float y, float w, float h, float angle=0.0f );
 				~Sprite();
 				float getX() { return m_x; }
