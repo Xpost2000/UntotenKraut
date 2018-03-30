@@ -15,6 +15,7 @@ FILES=src/main.cpp\
       src/wall.cpp\
       src/world.cpp\
       src/gun.cpp\
+      src/levelloader.cpp\
       src/font-renderer.cpp
 OUTPUT=game.exe
 
