@@ -96,22 +96,12 @@ int main( int argc, char** argv ){
 		renderer.drawText( "arial", 0, 0, "Player Test...", 0,0,1,1 );
 		renderer.drawText( "arial", 0, 40, "Current Gun : " + player.getGun().getName(), 1,1,1,1 );
 		renderer.setTextSize(15);
-		player.draw(renderer);
 		renderer.drawText( "arial", player.x, player.y, "playerpos", 1,1,1,1 );
 		renderer.drawText( "arial", inputManager.GetMouseX(), inputManager.GetMouseY() , "mousePos", 1,1,1,1 );
 
-		for(int i = 0; i < player.getBullets().size(); ++i){
-			player.getBullets()[i].update( 0.1f, world );
-			if(!player.getBullets()[i].isAlive()){
-				player.getBullets().erase(player.getBullets().begin()+i);
-			}
-
-			player.getBullets()[i].draw(renderer);
-		}
 		world.draw(renderer);
-
-		player.update(0.1f, world);
 		world.update(0.1f);
+
 
 		inputManager.Update();
 		window.Refresh();

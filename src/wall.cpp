@@ -9,6 +9,6 @@ namespace game{
 	}
 
 	void Wall::draw(core::gfx::Renderer& renderer){
-		renderer.drawRect(x, y, w, h, 0, 1, 0, 1);
+		renderer.drawRect(x, y, w, h, 0.3, 0.3, 0.3, 1);
 	}
 };
