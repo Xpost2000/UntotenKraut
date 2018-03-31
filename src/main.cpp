@@ -62,9 +62,10 @@ int main( int argc, char** argv ){
 	world.addZombie(game::Zombie( 300, 200, 30, 30, 6, 50 ));
 
 	while(runProgram){
-		soundManager.playSound( "test", -1, 100 );
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
+		if(player.getHp() > 0){
+		soundManager.playSound( "test", -1, 100 );
 		if( inputManager.isKeyDown( SDL_SCANCODE_W ) ){
 			player.move(1, world);
 		}
@@ -97,11 +98,15 @@ int main( int argc, char** argv ){
 		renderer.drawText( "arial", 0, 0, "Player Test...", 0,0,1,1 );
 		renderer.drawText( "arial", 0, 40, "Current Gun : " + player.getGun().getName(), 1,1,1,1 );
 		renderer.setTextSize(15);
-		renderer.drawText( "arial", player.x, player.y, "playerpos", 1,1,1,1 );
 		renderer.drawText( "arial", inputManager.GetMouseX(), inputManager.GetMouseY() , "mousePos", 1,1,1,1 );
 
 		world.draw(renderer);
+		renderer.drawText( "arial", player.x, player.y, std::to_string(player.getHp()), 1,1,1,1 );
 		world.update(0.1f);
+		}else{
+			renderer.setTextSize(40);
+			renderer.drawText("arial", 0, 0, "Player has died...", 1, 0, 0, 1);
+		}
 
 
 		inputManager.Update();

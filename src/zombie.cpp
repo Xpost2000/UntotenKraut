@@ -16,9 +16,15 @@ namespace game{
 			float targetX=world.getPlayer()->x, targetY=world.getPlayer()->y;
 			float angle = atan2(targetY - y, targetX - x);
 
+			if(touching(*world.getPlayer())&& hitDelay<=0){
+				world.getPlayer()->setHp( world.getPlayer()->getHp() - 50 );
+				hitDelay=13;
+			}
+
 			// now because there are no other objects to
 			// compare distances of. Just target the player.
 
+			hitDelay-=dt;
 			x += speed* cos(angle)*dt;
 			y += speed* sin(angle)*dt;
 		}

@@ -16,6 +16,7 @@ namespace game{
 			void setSpeed( float nspeed ) { speed = nspeed; }
 			float getSpeed() { return speed; }
 		private:
+			float hitDelay=0;
 			float speed=0, hp=0;
 	};
 };
