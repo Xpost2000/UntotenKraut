@@ -59,7 +59,9 @@ int main( int argc, char** argv ){
 	world.setPlayer(&player);
 	world.addWall(game::Wall( 100, 200, 60, 60 ));
 	world.addWall(game::Wall( 100, 500, 60, 60 ));
-	world.addZombie(game::Zombie( 300, 200, 30, 30, 6, 50 ));
+	world.addSpawner(300, 200, 30);
+	world.addSpawner(600, 200, 30);
+	world.addSpawner(800, 500, 30);
 
 	while(runProgram){
 		glClear(GL_COLOR_BUFFER_BIT);

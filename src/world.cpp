@@ -2,6 +2,10 @@
 
 namespace game{
 	void World::draw(core::gfx::Renderer& renderer){
+		for(auto& spawner : zombieSpawners){
+			renderer.setTextSize(16);
+			renderer.drawText("arial", spawner.x, spawner.y, "ZSPAWNER", 0, 1, 0, 1);
+		}
 		for(auto& wall : walls){
 			wall.draw(renderer);
 		}
@@ -16,6 +20,10 @@ namespace game{
 	}
 
 	void World::update(float dt){
+		for(auto& spawner : zombieSpawners){
+			if(spawner.isActive())
+			spawner.update(dt);
+		}
 		for(int i = 0; i < zombies.size(); ++i){
 			auto& zombie = zombies[i];
 			zombie.update(0.1f, *this);

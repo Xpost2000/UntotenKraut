@@ -7,6 +7,8 @@
 #include "zombie.h"
 #include "bullet.h"
 
+#include "spawner.h"
+
 #include <vector>
 
 namespace game{
@@ -27,6 +29,10 @@ namespace game{
 
 			void addZombie(Zombie& zombie) { zombies.push_back(zombie); }
 			void addZombie(Zombie zombie) { zombies.push_back(zombie); }
+			void addSpawner(float x, float y, float delay){ 
+				zombieSpawners.push_back(Spawner<Zombie>(&zombies, delay, x, y));
+				zombieSpawners.back().setCloneOf(Zombie(0, 0, 30, 30, 10, 50));
+		       	}
 
 			std::vector<Wall>& getWalls() { return walls; }
 			std::vector<Zombie>& getZombies() { return zombies; }
@@ -37,6 +43,8 @@ namespace game{
 			Player *player;
 			std::vector<Wall> walls;
 			std::vector<Zombie> zombies;
+
+			std::vector<Spawner<Zombie>> zombieSpawners;
 	};
 };
 

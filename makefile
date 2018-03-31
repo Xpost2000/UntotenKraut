@@ -18,9 +18,9 @@ FILES=src/main.cpp\
       src/levelloader.cpp\
       src/level.cpp\
       src/zombie.cpp\
+      src/spawner.cpp\
       src/font-renderer.cpp
 ## IMPLEMENT LEVELOADER.cpp
-## IMPLEMENT ZOMBIE.cpp
 ## IMPLEMENT LEVEL.cpp
 OUTPUT=game.exe
 
