@@ -46,7 +46,7 @@ namespace core{
 			glDeleteVertexArrays(1, &vao);
 		}
 	
-		void Renderer::drawRect( float x, float y, float w, float h, float r, float g, float b, float a ){
+		void Renderer::drawRect( float x, float y, float w, float h, float r, float g, float b, float a, bool wireFrame ){
 			float data[]= {
 				x, y,       0, 1,  r, g, b, a,
 				x, y+h,     1, 0,  r, g, b, a,
@@ -60,6 +60,11 @@ namespace core{
 			glBindVertexArray(vao);
 			glBufferData( GL_ARRAY_BUFFER, sizeof data, data, GL_DYNAMIC_DRAW );
 			default_shader.useProgram();
+			if(wireFrame){
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+			}else{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
 

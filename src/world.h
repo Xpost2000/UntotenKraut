@@ -12,6 +12,10 @@
 #include <vector>
 
 namespace game{
+	// actually it's more like gamestate.
+	// The world contains everything including game logic stuff
+	// (because I don't have messaging systems to deliever signals
+	// and stuff.)
 	class Level;
 	class World{
 		public:
@@ -39,12 +43,17 @@ namespace game{
 
 			void draw(core::gfx::Renderer&);
 			void update(float dt);
+
+			int &getScore(){ return score; }
+			int &getKillcount(){ return killCount; }
 		private:
 			Player *player;
 			std::vector<Wall> walls;
 			std::vector<Zombie> zombies;
 
 			std::vector<Spawner<Zombie>> zombieSpawners;
+
+			int score=0,killCount=0;
 	};
 };
 

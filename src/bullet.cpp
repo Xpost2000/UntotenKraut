@@ -31,6 +31,7 @@ namespace game{
 		for(auto& zombie : world.getZombies()){
 			if(touching(zombie)){
 				zombie.setHp( zombie.getHp() - damage );
+				world.getScore() +=10;
 				lifeTime=0;
 				break;
 			}

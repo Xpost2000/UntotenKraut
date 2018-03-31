@@ -25,7 +25,7 @@ namespace core{
 				Renderer( int w, int h );
 				~Renderer();
 	
-				void drawRect( float x, float y, float w, float h, float r =1, float g =1, float b =1, float a =1 );
+				void drawRect( float x, float y, float w, float h, float r =1, float g =1, float b =1, float a =1, bool wireFrame=false );
 				void drawRectTextured( int texture, float x, float y, float w, float h, float r =1, float g =1, float b =1, float a =1 );
 				void drawSprite( Sprite& spr, float r=1, float g=1, float b=1, float a=1 );		
 				void setResolution( int w, int h );

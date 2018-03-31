@@ -29,6 +29,8 @@ namespace game{
 			zombie.update(0.1f, *this);
 			if(zombie.getHp() <= 0){
 				zombies.erase(zombies.begin()+i);
+				killCount++;
+				score+=150;
 			}
 		}
 		for(int i = 0; i < player->getBullets().size(); ++i){
