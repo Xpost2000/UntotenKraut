@@ -9,12 +9,15 @@
 #include <vector>
 
 namespace game{
+	class Level;
 	class World{
 		public:
 			World(){}
 			~World(){}
 
 			Player* getPlayer() { return player; }
+
+			void loadLevel( Level& );
 
 			void setPlayer(Player* nplayer) { player=nplayer;}
 			void addWall(Wall& wall) { walls.push_back(wall); }
