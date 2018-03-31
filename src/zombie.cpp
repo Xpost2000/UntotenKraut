@@ -25,9 +25,22 @@ namespace game{
 			// compare distances of. Just target the player.
 
 			hitDelay-=dt;
-			x += speed* cos(angle)*dt;
-			y += speed* sin(angle)*dt;
+			move(angle, world, dt);
 		}
+	}
+
+	void Zombie::move(float angle, World& world, float dt){
+		Zombie clone= *this;
+		clone.x += speed* cos(angle)*dt;
+		clone.y += speed* sin(angle)*dt;
+		for(auto wall : world.getWalls()){
+			if(clone.touching(wall)){
+				return;
+				break;
+			}
+		}
+		x += speed* cos(angle)*dt;
+		y += speed* sin(angle)*dt;
 	}
 
 	void Zombie::draw(core::gfx::Renderer& renderer){

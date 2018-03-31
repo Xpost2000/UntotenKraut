@@ -20,9 +20,9 @@ namespace game{
 	void Player::fire(float mX, float mY){
 		float angle = atan2( mY - y, mX - x );
 		if( currentGun.canFire() ){
-			currentGun.fire();
-			bullets.push_back(Bullet(x, y, w/2, h/2, cos(angle)*currentGun.getBulletSpeed(), sin(angle)*currentGun.getBulletSpeed(), currentGun.getBulletLifetime(), currentGun.getDamage()));
-			std::cout << currentGun.getDamage() << std::endl;
+			if(currentGun.fire()){
+				bullets.push_back(Bullet(x, y, w/2, h/2, cos(angle)*currentGun.getBulletSpeed(), sin(angle)*currentGun.getBulletSpeed(), currentGun.getBulletLifetime(), currentGun.getDamage()));
+			}
 		}
 	}
 

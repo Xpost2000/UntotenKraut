@@ -15,7 +15,10 @@ namespace game{
 
 			void setSpeed( float nspeed ) { speed = nspeed; }
 			float getSpeed() { return speed; }
+
+			// zombies can't strafe. they move from an angle.
 		private:
+			void move(float angle, World& world, float dt);
 			float hitDelay=0;
 			float speed=0, hp=0;
 	};
