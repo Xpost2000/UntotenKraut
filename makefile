@@ -16,10 +16,12 @@ FILES=src/main.cpp\
       src/world.cpp\
       src/gun.cpp\
       src/levelloader.cpp\
+      src/level.cpp\
       src/zombie.cpp\
       src/font-renderer.cpp
 ## IMPLEMENT LEVELOADER.cpp
 ## IMPLEMENT ZOMBIE.cpp
+## IMPLEMENT LEVEL.cpp
 OUTPUT=game.exe
 
 all:
