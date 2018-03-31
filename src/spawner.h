@@ -35,6 +35,8 @@ namespace game{
 			bool isActive() { return active; }
 			void setActive(bool t) { active = t; }
 
+			T& getClone() { return template_object; }
+
 			float x, y;
 		private:
 			T template_object;

@@ -28,14 +28,20 @@ namespace game{
        	}
 
 	bool Gun::reload(float dt){
+		if(magSize <= 0){ return false; }
 		if(reloadSpeed > 0){
-			std::cout << "RELOAD SPEED: " << reloadSpeed << std::endl;
 			reloadSpeed-=dt;
 			return false;
 		}else{
 			magSize -= maxMagSize-currentMagSize;
-			currentMagSize = maxMagSize;
+			if(maxMagSize <= magSize){
+				currentMagSize = maxMagSize;
+			}else{
+				currentMagSize = magSize;
+			}
 			reloadSpeed=reloadSpeedStart;
+			currentMagSize = std::max(0, currentMagSize);
+			magSize = std::max(0, magSize);
 			return true;
 		}
 	}
