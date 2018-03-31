@@ -1,6 +1,8 @@
 #include "bullet.h"
 #include "world.h"
 
+#include <iostream>
+
 namespace game{
 	Bullet::Bullet( float x, float y, float w, float h, float sX, float sY, float lifeTime, float damage ): Entity(x, y, w, h), speedX(sX), speedY(sY), lifeTime(lifeTime), damage(damage){
 		sprite.setW(w);
@@ -23,6 +25,14 @@ namespace game{
 		for(auto& wall : world.getWalls()){
 			if(touching(wall)){
 				lifeTime=0;
+				break;
+			}
+		}
+		for(auto& zombie : world.getZombies()){
+			if(touching(zombie)){
+				zombie.setHp( zombie.getHp() - damage );
+				lifeTime=0;
+				break;
 			}
 		}
 

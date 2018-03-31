@@ -7,6 +7,7 @@ namespace game{
 		}
 		for(auto& zombie : zombies){
 			zombie.draw(renderer);
+			renderer.drawText( "arial", zombie.x, zombie.y, "HP: " + std::to_string(zombie.getHp()), 1, 1, 1, 1);
 		}
 		for(auto& bullet : player->getBullets()){
 			bullet.draw(renderer);
@@ -15,8 +16,12 @@ namespace game{
 	}
 
 	void World::update(float dt){
-		for(auto& zombie : zombies){
+		for(int i = 0; i < zombies.size(); ++i){
+			auto& zombie = zombies[i];
 			zombie.update(0.1f, *this);
+			if(zombie.getHp() <= 0){
+				zombies.erase(zombies.begin()+i);
+			}
 		}
 		for(int i = 0; i < player->getBullets().size(); ++i){
 			player->getBullets()[i].update( 0.1f, *this );

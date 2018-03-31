@@ -51,14 +51,15 @@ int main( int argc, char** argv ){
 	renderer.loadFont("ocr.ttf",   "ocr");
 
 	game::World world;
-	game::Gun pistol("M1911A1", 5, 5, 500, 3, false);
-	game::Gun smg("M4A1", 5, 8, 600, 1.5, true);
+	game::Gun pistol("M1911A1", 30, 5, 500, 3, false);
+	game::Gun smg("M4A1", 30, 8, 600, 1.5, true);
 
 	player.getGun() = pistol;
 
 	world.setPlayer(&player);
 	world.addWall(game::Wall( 100, 200, 60, 60 ));
 	world.addWall(game::Wall( 100, 500, 60, 60 ));
+	world.addZombie(game::Zombie( 300, 200, 30, 30, 6, 50 ));
 
 	while(runProgram){
 		soundManager.playSound( "test", -1, 100 );

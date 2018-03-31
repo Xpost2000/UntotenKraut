@@ -1,6 +1,8 @@
 #include "player.h"
 #include "world.h"
 
+#include <iostream>
+
 namespace game{
 	Player::Player(float x, float y, float w, float h, float speed, float hp)
 	: Entity(x,y,w,h), speed(speed), hp(hp){
@@ -20,6 +22,7 @@ namespace game{
 		if( currentGun.canFire() ){
 			currentGun.fire();
 			bullets.push_back(Bullet(x, y, w/2, h/2, cos(angle)*currentGun.getBulletSpeed(), sin(angle)*currentGun.getBulletSpeed(), currentGun.getBulletLifetime(), currentGun.getDamage()));
+			std::cout << currentGun.getDamage() << std::endl;
 		}
 	}
 
