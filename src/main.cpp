@@ -122,7 +122,6 @@ int main( int argc, char** argv ){
 			renderer.drawText("arial", 0, 43, "Final Score : " + std::to_string(world.getScore()), 1, 1, 1, 1);
 		}
 
-
 		inputManager.Update();
 		window.Refresh();
 	}

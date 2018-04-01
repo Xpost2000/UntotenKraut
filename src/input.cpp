@@ -59,10 +59,12 @@ namespace core{
 		return(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(bitmask));
 	}
 	const bool InputManager::isKeyDown( int key ){
+		if(m_keys==nullptr){return false;}
 		return m_keys[key];
 	}
 
 	const bool InputManager::isButtonDown( int button ){
+		if(m_keys==nullptr){return false;}
 		return m_buttons[button];
 	}
 
