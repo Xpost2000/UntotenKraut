@@ -27,7 +27,6 @@ int main( int argc, char** argv ){
 	glewInit();
 	core::Window window;
 	core::InputManager inputManager;
-	core::audio::SoundManager soundManager;
 
 	window.Create( 
 		       "Test"  ,
@@ -125,7 +124,6 @@ int main( int argc, char** argv ){
 		inputManager.Update();
 		window.Refresh();
 	}
-	soundManager.free();
 	IMG_Quit();
 	Mix_CloseAudio();
 	Mix_Quit();

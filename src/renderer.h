@@ -37,6 +37,7 @@ namespace core{
 				void setTextSize( int sz ){ fontRenderer.setSize(sz); }
 			private:
 				Shader texture_shader, default_shader, text_shader;
+				//TODO: ADD TEXTURE MANAGER
 				FontRenderer fontRenderer;
 				unsigned int vbo, vao;
 	
