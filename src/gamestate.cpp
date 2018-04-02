@@ -9,6 +9,7 @@ GameState::GameState(){
 
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
+	gunUi = core::gfx::Sprite(900, 650, 90, 45);
 
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("M4A1"));
 	player.useGun(0);
@@ -25,8 +26,8 @@ GameState::GameState(){
 	weaponText = GUIText(900, 720, "", 15);
 	scoreText =  GUIText(900, 700, "", 15);
 
-	weaponText.setBoxColor(1, 1, 1, 1);
-	weaponText.setTextColor(0, 0, 0, 1);
+	weaponText.setBoxColor(1, 0, 1, 1);
+	weaponText.setTextColor(1, 1, 1, 1);
 	scoreText.setBoxColor(1, 0, 0, 1);
 	scoreText.setTextColor(1, 1, 1, 1);
 
@@ -118,19 +119,25 @@ void GameState::update(float dt){
 }
 
 void GameState::draw(core::gfx::Renderer& renderer){
+	renderer.centerCameraOn(player.x, player.y);
+	renderer.refreshCamera();
+	world.draw(renderer);
+
+	// Rendering the hud is down here.
 
 	renderer.identityCamera();
+
+	gunUi.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\"+player.getGun().getName()+"_hud.png"));
 	scoreText.setText("Score: "+ std::to_string(world.getScore()), 14);
-	weaponText.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()));
+	weaponText.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()), 14);
+	renderer.drawSprite(gunUi);
 	scoreText.draw(renderer, &uiBloodStain);
-	weaponText.draw(renderer);
-	renderer.setTextSize(33);
+	weaponText.draw(renderer, &uiBloodStain);
+
+	renderer.setTextSize(45);
 	renderer.drawText("ocr",0,700, std::to_string(gameWave), 1, 0, 0, 1);	
 	if(world.getMaxZombies() == world.getKillCount()){
 		renderer.setTextSize(20);
 		renderer.drawText("ocr",0,680, "Preparation Time.", 1, 0, 0, 1);	
 	}
-	renderer.centerCameraOn(player.x, player.y);
-	renderer.refreshCamera();
-	world.draw(renderer);
 }

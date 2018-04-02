@@ -23,6 +23,7 @@ class GameState : public State{
 	private:
 		friend class DeathState;
 		core::gfx::Sprite uiBloodStain;
+		core::gfx::Sprite gunUi;
 
 		float roundDelay=20;
 		int gameWave=0;
