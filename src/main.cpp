@@ -51,8 +51,8 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\ui\\ui_stain.png");
 
-	renderer.loadFont("ocr.ttf",   "ocr");
-	renderer.loadFont("arial.ttf", "arial");
+	renderer.loadFont("assests\\fonts\\ocr.ttf",   "ocr");
+	renderer.loadFont("assests\\fonts\\arial.ttf", "arial");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
