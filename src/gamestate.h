@@ -9,6 +9,7 @@
 #include "gui_text.h"
 
 #include "state.h"
+#include "sprite.h"
 
 #include "gunmanager.h"
 
@@ -21,6 +22,7 @@ class GameState : public State{
 		void draw(core::gfx::Renderer&);
 	private:
 		friend class DeathState;
+		core::gfx::Sprite uiBloodStain;
 
 		float roundDelay=20;
 		int gameWave=0;

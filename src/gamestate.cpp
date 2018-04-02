@@ -1,10 +1,15 @@
 #include "gamestate.h"
 #include "fsm.h"
 #include "sound.h"
+#include "texturemanager.h"
 #include <iostream>
 
 GameState::GameState(){
 	player = game::Player(0, 0, 30, 30, 15, 100);
+
+	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
+	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
+
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("M4A1"));
 	player.useGun(0);
 	
@@ -115,9 +120,9 @@ void GameState::update(float dt){
 void GameState::draw(core::gfx::Renderer& renderer){
 
 	renderer.identityCamera();
-	scoreText.setText("Score: "+ std::to_string(world.getScore()));
+	scoreText.setText("Score: "+ std::to_string(world.getScore()), 14);
 	weaponText.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()));
-	scoreText.draw(renderer);
+	scoreText.draw(renderer, &uiBloodStain);
 	weaponText.draw(renderer);
 	renderer.setTextSize(33);
 	renderer.drawText("ocr",0,700, std::to_string(gameWave), 1, 0, 0, 1);	

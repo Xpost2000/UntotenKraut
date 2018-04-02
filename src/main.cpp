@@ -49,6 +49,7 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\ui\\ui_stain.png");
 
 	renderer.loadFont("ocr.ttf",   "ocr");
 	renderer.loadFont("arial.ttf", "arial");
