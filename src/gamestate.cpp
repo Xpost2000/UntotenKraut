@@ -9,9 +9,10 @@ GameState::GameState(){
 	world.setPlayer(&player);
 	world.addWall(game::Wall( 100, 200, 60, 60 ));
 	world.addWall(game::Wall( 100, 500, 60, 60 ));
-	world.addSpawner(300, 200, 30);
-	world.addSpawner(600, 200, 30);
-	world.addSpawner(800, 500, 30);
+
+	world.addSpawner(300, 200, 30, 5);
+	world.addSpawner(600, 200, 30, 5);
+	world.addSpawner(800, 500, 30, 5);
 
 	weaponText = GUIText(900, 720, "", 15);
 	scoreText =  GUIText(900, 700, "", 15);
@@ -26,6 +27,15 @@ GameState::~GameState(){
 }
 
 void GameState::update(float dt){
+	if(world.getMaxZombies() == world.getKillCount()){
+		roundDelay-=dt;
+	}
+	if(roundDelay<=0){
+		gameWave++;
+		world.nextWave();
+		world.getKillCount()=0;
+		roundDelay=20;
+	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_W ) ){
 		player.move(0.1f, 1, world);
 	}
@@ -85,11 +95,17 @@ void GameState::update(float dt){
 }
 
 void GameState::draw(core::gfx::Renderer& renderer){
+
 	scoreText.setText("Score: "+ std::to_string(world.getScore()));
 	weaponText.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()));
 	scoreText.draw(renderer);
 	weaponText.draw(renderer);
-
+	renderer.setTextSize(33);
+	renderer.drawText("ocr",0,700, std::to_string(gameWave), 1, 0, 0, 1);	
+	if(world.getMaxZombies() == world.getKillCount()){
+		renderer.setTextSize(20);
+		renderer.drawText("ocr",0,680, "Preparation Time.", 1, 0, 0, 1);	
+	}
 	renderer.refreshCamera();
 	world.draw(renderer);
 }

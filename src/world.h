@@ -33,8 +33,8 @@ namespace game{
 
 			void addZombie(Zombie& zombie) { zombies.push_back(zombie); }
 			void addZombie(Zombie zombie) { zombies.push_back(zombie); }
-			void addSpawner(float x, float y, float delay){ 
-				zombieSpawners.push_back(Spawner<Zombie>(&zombies, delay, x, y));
+			void addSpawner(float x, float y, float delay, int limit=-1){ 
+				zombieSpawners.push_back(Spawner<Zombie>(&zombies, delay, x, y, limit));
 				zombieSpawners.back().setCloneOf(Zombie(0, 0, 30, 30, 10, 50));
 		       	}
 
@@ -44,8 +44,22 @@ namespace game{
 			void draw(core::gfx::Renderer&);
 			void update(float dt);
 
+			void nextWave() { 
+				for(auto& spawner : zombieSpawners){
+					spawner.reset();
+					spawner.setMaxSpawned(spawner.getMax()+4);
+				}
+		        }
+
 			int &getScore(){ return score; }
-			int &getKillcount(){ return killCount; }
+			int &getKillCount(){ return killCount; }
+			int getMaxZombies(){
+				int sum=0;
+				for(auto spawner : zombieSpawners){
+					sum += spawner.getMax();
+				}
+				return sum;
+			}
 		private:
 			Player *player;
 			std::vector<Wall> walls;

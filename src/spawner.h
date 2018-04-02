@@ -14,7 +14,7 @@ namespace game{
 	template<class T>
 	class Spawner{
 		public:
-			Spawner(std::vector<T>* ptr_to_vector, float spawn_delay, float x, float y)
+			Spawner(std::vector<T>* ptr_to_vector, float spawn_delay, float x, float y, int maxSpawned=-1)
 			: spawn_delay(0), spawn_delay_max(spawn_delay), x(x), y(y)
 			{
 				vectorPtr = ptr_to_vector;
@@ -25,9 +25,12 @@ namespace game{
 				template_object.y = y;
 			}
 			void update(float dt){
-				if(spawn_delay <= 0){
-					vectorPtr->push_back(template_object);
-					spawn_delay = spawn_delay_max;
+				if(spawned < maxSpawned){
+					if(spawn_delay <= 0){
+						vectorPtr->push_back(template_object);
+						spawned++;
+						spawn_delay = spawn_delay_max;
+					}
 				}
 				spawn_delay-=dt;
 			}
@@ -37,8 +40,13 @@ namespace game{
 
 			T& getClone() { return template_object; }
 
+			void reset() { spawned=0; }
+			void setMaxSpawned(int limit) { maxSpawned = limit; }
+
 			float x, y;
+			int getMax() { return maxSpawned; }
 		private:
+			int spawned=0, maxSpawned=0;
 			T template_object;
 
 			bool active=true;
