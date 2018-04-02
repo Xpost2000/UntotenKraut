@@ -49,6 +49,8 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
+	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M4A1_fire.wav", "M4A1_fire");
+	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M1911A1_fire.wav", "M1911A1_fire");
 	game::Player player(0, 0, 30, 30, 15, 100);
 
 	glEnable(GL_BLEND);
@@ -133,8 +135,6 @@ int main( int argc, char** argv ){
 		window.Refresh();
 	}
 	IMG_Quit();
-	Mix_CloseAudio();
-	Mix_Quit();
 	SDL_Quit();
 	return 0;
 }

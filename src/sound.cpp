@@ -3,8 +3,13 @@
 
 namespace core{
 	namespace audio{
+		std::shared_ptr<SoundManager> SoundManager::instance;
 		SoundManager::SoundManager(){
 
+		}
+		SoundManager::~SoundManager(){
+			free();
+			Mix_Quit();
 		}
 		// You have to manually deconstruct this since 
 		// if I declare this on the stack like all my other variables.

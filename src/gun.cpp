@@ -1,5 +1,5 @@
 #include "gun.h"
-#include <iostream>
+#include "sound.h"
 
 namespace game{
 	Gun::Gun(){}
@@ -21,6 +21,7 @@ namespace game{
 		if(currentMagSize > 0){
 			delay = delayStart;
 			currentMagSize--;
+			core::audio::SoundManager::getInstance()->playSound(name+"_fire", 0);
 			return true;
 		}else{
 			return false;
