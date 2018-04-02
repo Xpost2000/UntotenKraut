@@ -1,6 +1,6 @@
 GCC=g++
 LIBS=`pkg-config --libs --cflags sdl2` `pkg-config --libs --cflags glew` -Wl,-Bstatic -lfreetype -Wl,-Bdynamic -lOpenGL32 -lSDL2_image -lSDL2_mixer
-CFLAGS=-std=gnu++11 -Os
+CFLAGS=-std=gnu++11 -g
 FILES=src/main.cpp\
       src/window.cpp\
       src/input.cpp\
@@ -19,6 +19,7 @@ FILES=src/main.cpp\
       src/level.cpp\
       src/zombie.cpp\
       src/spawner.cpp\
+      src/texturemanager.cpp\
       src/font-renderer.cpp
 ## IMPLEMENT LEVELOADER.cpp
 ## IMPLEMENT LEVEL.cpp
