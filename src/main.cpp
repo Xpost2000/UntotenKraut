@@ -8,23 +8,14 @@
 #include "window.h"
 #include "sound.h"
 #include "input.h"
-#include "shader.h"
 #include "renderer.h"
-#include "sprite.h"
-
-#include "world.h"
-
-#include "wall.h"
-#include "player.h"
 
 #include "texturemanager.h"
 #include "gunmanager.h"
 
-#include "gui_text.h"
-#include "gui_button.h"
-
 #include "gamestate.h"
 #include "menustate.h"
+#include "quitstate.h"
 #include "fsm.h"
 
 extern "C"{
@@ -42,7 +33,6 @@ int main( int argc, char** argv ){
 	IMG_Init(IMG_INIT_PNG);
 	Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
 	Mix_Init(MIX_INIT_MP3);
-	bool runProgram=true;
 	core::Window window;
 	core::InputManager inputManager;
 
@@ -52,12 +42,6 @@ int main( int argc, char** argv ){
 		       768 
 		     );
 
-	inputManager.AddCallback(
-			SDL_QUIT,
-			[&](SDL_Event& evnt){
-				runProgram=false;
-			}
-		    );
 	core::gfx::Renderer renderer(1024, 768);
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_512_tset.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_barricade_test.png");
@@ -77,15 +61,21 @@ int main( int argc, char** argv ){
 	StateMachine stateMachine;
 	GameState gameState;
 	MenuState menuState;
+	QuitState quitState;
+
 	stateMachine.addState(&gameState, "game");
 	stateMachine.addState(&menuState, "menu");
+	stateMachine.addState(&quitState, "quit");
 	stateMachine.setCurrentState("menu");
-#ifdef TESTING_MACHINE
-	while(true){
-		stateMachine.update(10);
-	}
-#endif
-	while(runProgram){
+
+	inputManager.AddCallback(
+			SDL_QUIT,
+			[&](SDL_Event& evnt){
+				stateMachine.setCurrentState("quit");
+			}
+	 );
+
+	while( stateMachine.getCurrentState() != &quitState ){
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 		stateMachine.update(0.1f);
