@@ -1,5 +1,6 @@
 #include "gamestate.h"
 #include "fsm.h"
+#include "sound.h"
 #include <iostream>
 
 GameState::GameState(){
@@ -10,9 +11,9 @@ GameState::GameState(){
 	world.addWall(game::Wall( 100, 200, 60, 60 ));
 	world.addWall(game::Wall( 100, 500, 60, 60 ));
 
-	world.addSpawner(300, 200, 30, 5);
-	world.addSpawner(600, 200, 30, 5);
-	world.addSpawner(800, 500, 30, 5);
+	world.addSpawner(300, 200, 10, 5);
+	world.addSpawner(600, 200, 10, 5);
+	world.addSpawner(800, 500, 10, 5);
 
 	weaponText = GUIText(900, 720, "", 15);
 	scoreText =  GUIText(900, 700, "", 15);
@@ -31,6 +32,7 @@ void GameState::update(float dt){
 		roundDelay-=dt;
 	}
 	if(roundDelay<=0){
+		core::audio::SoundManager::getInstance()->playSound("round_end", 1);
 		gameWave++;
 		world.nextWave();
 		world.getKillCount()=0;
@@ -96,6 +98,7 @@ void GameState::update(float dt){
 
 void GameState::draw(core::gfx::Renderer& renderer){
 
+	renderer.identityCamera();
 	scoreText.setText("Score: "+ std::to_string(world.getScore()));
 	weaponText.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()));
 	scoreText.draw(renderer);
@@ -106,6 +109,7 @@ void GameState::draw(core::gfx::Renderer& renderer){
 		renderer.setTextSize(20);
 		renderer.drawText("ocr",0,680, "Preparation Time.", 1, 0, 0, 1);	
 	}
+	renderer.centerCameraOn(player.x, player.y);
 	renderer.refreshCamera();
 	world.draw(renderer);
 }

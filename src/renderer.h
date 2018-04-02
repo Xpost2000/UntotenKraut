@@ -29,13 +29,16 @@ namespace core{
 				void drawRectTextured( int texture, float x, float y, float w, float h, float r =1, float g =1, float b =1, float a =1 );
 				void drawSprite( Sprite& spr, float r=1, float g=1, float b=1, float a=1 );		
 				void setResolution( int w, int h );
-				// void setCameraPos();
 				void refreshCamera();
+				void centerCameraOn( float x, float y );
+				void identityCamera();
 
 				void loadFont( std::string path, std::string name );
 				void drawText( std::string font_name, float x, float y, std::string text, float r=1, float g=1, float b=1, float a=1 );
 				void setTextSize( int sz ){ fontRenderer.setSize(sz); }
+				float camX=0, camY=0;
 			private:
+				int scrW=0, scrH=0;
 				Shader texture_shader, default_shader, text_shader;
 				//TODO: ADD TEXTURE MANAGER
 				FontRenderer fontRenderer;

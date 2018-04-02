@@ -11,6 +11,8 @@ namespace core{
 					(float)h, 0.f,
 					-1.f, 1000.f
 				     );
+			scrW=w;
+			scrH=h;
 			glGenBuffers(1, &vbo);
 			glGenVertexArrays(1, &vao);
 
@@ -74,6 +76,8 @@ namespace core{
 				(float)h, 0.f,
 				-1.f, 1000.f
 			);
+			scrW=w;
+			scrH=h;
 		}
 	
 		void Renderer::drawRectTextured( int texture, float x, float y, float w, float h, float r, float g, float b, float a ){
@@ -138,5 +142,16 @@ namespace core{
 			fontRenderer.renderText( x, y, text, font_name, r, g, b, a );
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}	
+
+		void Renderer::identityCamera(){
+			view = glm::mat4();
+			refreshCamera();
+		}
+
+		void Renderer::centerCameraOn(float x, float y){
+			camX = -x + (scrW/2.0f);
+			camY = -y + (scrH/2.0f);
+			view = glm::translate(view, glm::vec3(camX, camY, 0.0f));
+		}
 	};
 };
