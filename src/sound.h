@@ -31,8 +31,8 @@ namespace core{
 					}
 					return instance;
 				}
-			private:
 				void free();
+			private:
 				static std::shared_ptr<SoundManager> instance;
 				std::unordered_map<std::string, Mix_Chunk*> m_chunks;
 				std::unordered_map<std::string, Mix_Music*> m_musics;

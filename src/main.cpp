@@ -50,7 +50,9 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
 	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M4A1_fire.wav", "M4A1_fire");
+	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M4A1_reload.wav", "M4A1_reload");
 	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M1911A1_fire.wav", "M1911A1_fire");
+	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M1911A1_reload.wav", "M1911A1_reload");
 	game::Player player(0, 0, 30, 30, 15, 100);
 
 	glEnable(GL_BLEND);
@@ -60,6 +62,7 @@ int main( int argc, char** argv ){
 	renderer.loadFont("ocr.ttf",   "ocr");
 
 	game::World world;
+	// TODO: make gun manager class to deal with guns.
 	game::Gun pistol("M1911A1", 9, 30, 500, 3, false, 14, 7, 2);
 	game::Gun smg("M4A1", 12, 30, 600, 1.5, true, 200, 30, 3);
 
@@ -134,6 +137,8 @@ int main( int argc, char** argv ){
 		inputManager.Update();
 		window.Refresh();
 	}
+	core::audio::SoundManager::getInstance()->free();	
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 	return 0;

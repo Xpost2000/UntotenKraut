@@ -43,6 +43,7 @@ namespace game{
 			reloadSpeed=reloadSpeedStart;
 			currentMagSize = std::max(0, currentMagSize);
 			magSize = std::max(0, magSize);
+			core::audio::SoundManager::getInstance()->playSound(name+"_reload", 0);
 			return true;
 		}
 	}
