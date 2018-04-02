@@ -15,6 +15,7 @@
 
 #include "gamestate.h"
 #include "menustate.h"
+#include "deathstate.h"
 #include "quitstate.h"
 #include "fsm.h"
 
@@ -62,12 +63,14 @@ int main( int argc, char** argv ){
 
 	StateMachine stateMachine;
 	GameState gameState;
+	DeathState deathState;
 	MenuState menuState;
 	QuitState quitState;
 
 	stateMachine.addState(&gameState, "game");
 	stateMachine.addState(&menuState, "menu");
 	stateMachine.addState(&quitState, "quit");
+	stateMachine.addState(&deathState, "death");
 	stateMachine.setCurrentState("menu");
 
 	inputManager.AddCallback(
@@ -85,6 +88,7 @@ int main( int argc, char** argv ){
 		inputManager.Update();
 		window.Refresh();
 	}
+	SDL_SetRelativeMouseMode(SDL_FALSE);
 	core::audio::SoundManager::getInstance()->free();	
 	core::TextureManager::getInstance()     ->free();
 	return 0;

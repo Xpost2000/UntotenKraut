@@ -9,6 +9,7 @@ GameState::GameState(){
 	player.useGun(0);
 	
 	world.setPlayer(&player);
+	// this is for the test world. In the future I will load maps from files instead.
 	world.addWall(game::Wall( 100, 200, 60, 60 ));
 	world.addWall(game::Wall( 100, 500, 60, 60 ));
 
@@ -23,12 +24,23 @@ GameState::GameState(){
 	weaponText.setTextColor(0, 0, 0, 1);
 	scoreText.setBoxColor(1, 0, 0, 1);
 	scoreText.setTextColor(1, 1, 1, 1);
+
+	inputManager.AddCallback(
+			SDL_QUIT,
+			[&](SDL_Event& evnt){
+				parent->setCurrentState("quit");
+			}
+	 );
 }
 
 GameState::~GameState(){
 }
 
 void GameState::update(float dt){
+	if(player.getHp()<=0){
+		parent->setCurrentState("death");
+	}
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	if(world.getMaxZombies() == world.getKillCount()){
 		roundDelay-=dt;
 	}

@@ -28,6 +28,7 @@ FILES=src/main.cpp\
       src/gamestate.cpp\
       src/menustate.cpp\
       src/quitstate.cpp\
+      src/deathstate.cpp\
       src/font-renderer.cpp
 OUTPUT=game.exe
 
