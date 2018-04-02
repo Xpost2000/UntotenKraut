@@ -23,6 +23,8 @@ FILES=src/main.cpp\
       src/gunmanager.cpp\
       src/gui_text.cpp\
       src/gui_button.cpp\
+      src/fsm.cpp\
+      src/state.cpp\
       src/font-renderer.cpp
 OUTPUT=game.exe
 
