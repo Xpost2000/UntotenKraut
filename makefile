@@ -20,6 +20,7 @@ FILES=src/main.cpp\
       src/zombie.cpp\
       src/spawner.cpp\
       src/texturemanager.cpp\
+      src/gunmanager.cpp\
       src/font-renderer.cpp
 ## IMPLEMENT LEVELOADER.cpp
 ## IMPLEMENT LEVEL.cpp

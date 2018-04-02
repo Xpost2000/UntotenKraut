@@ -2,6 +2,8 @@
 
 #include <cstdio>
 
+// CHANGE IMPLEMENTATION of ISKEYDOWN :FIXME:::
+
 namespace core{
 	InputManager::InputManager(){
 		if( RegisterController() ){
@@ -12,7 +14,9 @@ namespace core{
 	}
 	
 	InputManager::~InputManager(){
-		SDL_GameControllerClose( m_controller );
+		if(SDL_IsGameController(0))
+			if(m_controller)
+				SDL_GameControllerClose( m_controller );
 	}	
 
 	const int InputManager::CheckForController(){
@@ -26,6 +30,7 @@ namespace core{
 			for(int i = 0; i < SDL_NumJoysticks(); ++i){
 				if(SDL_IsGameController(i)){	
 					m_controller = SDL_GameControllerOpen( i );
+					fprintf(stderr, "Controller has been opened.\n");
 					return true;
 				}else{
 					m_controller = nullptr;
@@ -47,7 +52,7 @@ namespace core{
 			}
 		}
 		SDL_GetMouseState(&m_mX, &m_mY);
-		m_keys = SDL_GetKeyboardState( NULL );
+		//m_keys = SDL_GetKeyboardState( NULL );
 		if(m_controller != nullptr){
 			for( int i = 0; i < SDL_CONTROLLER_BUTTON_MAX; ++i ){
 				m_buttons[i] = SDL_GameControllerGetButton( m_controller, (SDL_GameControllerButton)i );
@@ -59,12 +64,12 @@ namespace core{
 		return(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(bitmask));
 	}
 	const bool InputManager::isKeyDown( int key ){
-		if(m_keys==nullptr){return false;}
-		return m_keys[key];
+		return SDL_GetKeyboardState(NULL)[key];
+		//if(m_keys==nullptr){return false;}
+		//return m_keys[key];
 	}
 
 	const bool InputManager::isButtonDown( int button ){
-		if(m_keys==nullptr){return false;}
 		return m_buttons[button];
 	}
 

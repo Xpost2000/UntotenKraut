@@ -18,10 +18,20 @@
 #include "player.h"
 
 #include "texturemanager.h"
+#include "gunmanager.h"
+
+extern "C"{
+	void _atExit(void){
+		printf("Freeing sdl resources...\n");
+		Mix_Quit();
+		IMG_Quit();
+		SDL_Quit();	
+	}
+}
 
 int main( int argc, char** argv ){
 	bool runProgram=true;
-
+	atexit(_atExit);
 	SDL_Init(SDL_INIT_EVERYTHING);
 	IMG_Init(IMG_INIT_PNG);
 	Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
@@ -49,10 +59,8 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M4A1_fire.wav", "M4A1_fire");
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M4A1_reload.wav", "M4A1_reload");
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M1911A1_fire.wav", "M1911A1_fire");
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\M1911A1_reload.wav", "M1911A1_reload");
+
+
 	game::Player player(0, 0, 30, 30, 15, 100);
 
 	glEnable(GL_BLEND);
@@ -62,11 +70,10 @@ int main( int argc, char** argv ){
 	renderer.loadFont("ocr.ttf",   "ocr");
 
 	game::World world;
-	// TODO: make gun manager class to deal with guns.
-	game::Gun pistol("M1911A1", 9, 30, 500, 3, false, 14, 7, 2);
-	game::Gun smg("M4A1", 12, 30, 600, 1.5, true, 200, 30, 3);
+	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 9, 30, 500, 3, false, 14, 7, 2));
+	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1.5, true, 200, 30, 3));
 
-	player.getGun() = pistol;
+	player.getGun() = game::GunManager::getInstance()->get("M1911A1");
 
 	world.setPlayer(&player);
 	world.addWall(game::Wall( 100, 200, 60, 60 ));
@@ -92,10 +99,10 @@ int main( int argc, char** argv ){
 			player.move(4, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_1 ) ){
-			player.getGun() = pistol;
+			player.getGun() = game::GunManager::getInstance()->get("M1911A1");
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_2 ) ){
-			player.getGun() = smg;
+			player.getGun() = game::GunManager::getInstance()->get("M4A1");
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_R ) ){
 			reloading=true;
@@ -138,8 +145,6 @@ int main( int argc, char** argv ){
 		window.Refresh();
 	}
 	core::audio::SoundManager::getInstance()->free();	
-	Mix_Quit();
-	IMG_Quit();
-	SDL_Quit();
+	core::TextureManager::getInstance()     ->free();
 	return 0;
 }

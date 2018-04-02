@@ -26,6 +26,7 @@ namespace core{
 			// the identifier will be the path for once.
 			gfx::Texture* loadTexture( std::string path );
 			gfx::Texture* getTexture ( std::string path );
+			void free();
 		private:
 			// I'm actually using std::shared_ptr for the right reason.
 			static std::shared_ptr<TextureManager> instance;

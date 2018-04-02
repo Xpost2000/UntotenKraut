@@ -3,7 +3,11 @@
 
 namespace core{
 	std::shared_ptr<TextureManager> TextureManager::instance=nullptr;
+	//TODO: Debug a crash that is somehow happening here...
 	TextureManager::~TextureManager(){
+	}
+
+	void TextureManager::free(){
 		for(auto& texture : textures){
 			if(texture.second){
 				delete texture.second;
