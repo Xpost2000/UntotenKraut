@@ -4,6 +4,7 @@
 #include "bullet.h"
 
 #include "gun.h"
+#include "input.h"
 
 #include <vector>
 

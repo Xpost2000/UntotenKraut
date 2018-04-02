@@ -41,6 +41,7 @@ namespace game{
 
 	void Player::move( float dt, int direction, World& world, float speedModifier ){
 		Player clone = *this; // why is this causing a side effect?
+		const float speed=35;
 		/*
 		 * Wait I know why.....
 		 * These crashes are what happens when I don't decouple rendering and game logic, logic.
@@ -48,43 +49,43 @@ namespace game{
 		switch(direction){
 			// up
 			case 1:
-				clone.y -= 20*speedModifier*dt;
+				clone.y -= speed*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				y -= 20*speedModifier*dt;
+				y -= speed*speedModifier*dt;
 				break;
 			// down
 			case 2:
-				clone.y += 20*speedModifier*dt;
+				clone.y += speed*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				y += 20*speedModifier*dt;
+				y += speed*speedModifier*dt;
 				break;
 			// left
 			case 3:
-				clone.x -= 20*speedModifier*dt;
+				clone.x -= speed*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				x -= 20*speedModifier*dt;
+				x -= speed*speedModifier*dt;
 				break;
 			// right
 			case 4:
-				clone.x += 20*speedModifier*dt;
+				clone.x += speed*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				x += 20*speedModifier*dt;
+				x += speed*speedModifier*dt;
 				break;
 		};
 	}

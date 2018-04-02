@@ -45,7 +45,6 @@ void GameState::update(float dt){
 		roundDelay-=dt;
 	}
 	if(roundDelay<=0){
-		core::audio::SoundManager::getInstance()->playSound("round_end", 1);
 		gameWave++;
 		world.nextWave();
 		world.getKillCount()=0;
@@ -82,17 +81,21 @@ void GameState::update(float dt){
 	}
 	if(inputManager.CheckForController()){
 		if( inputManager.GetJoystickState().left_vertical > 128 ){
-			player.move(0.1f, 1, world);
+			player.move(0.1f, 3, world);
 
 		}else if ( inputManager.GetJoystickState().left_vertical < 128 ){
-			player.move(0.1f, 2, world);
+			player.move(0.1f, 4, world);
 		}
 
 		if( inputManager.GetJoystickState().left_horizontal > 128 ){
-			player.move(0.1f, 3, world);
+			player.move(0.1f, 1, world);
 		}else if ( inputManager.GetJoystickState().left_horizontal < 128 ){
-			player.move(0.1f, 4, world);
+			player.move(0.1f, 2, world);
 		}
+		std::cout << "Joystick value (LEFT HORIZONTAL): ";
+		std::cout << inputManager.GetJoystickState().left_horizontal << std::endl;
+		std::cout << "Joystick value (LEFT VERTICAL): ";
+		std::cout << inputManager.GetJoystickState().left_vertical << std::endl;
 
 		if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_X ) ){
 			isPlayerReloading=true;
