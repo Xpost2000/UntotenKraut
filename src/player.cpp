@@ -48,43 +48,43 @@ namespace game{
 		switch(direction){
 			// up
 			case 1:
-				clone.y -= 4*speedModifier*dt;
+				clone.y -= 20*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				y -= 4*speedModifier*dt;
+				y -= 20*speedModifier*dt;
 				break;
 			// down
 			case 2:
-				clone.y += 4*speedModifier*dt;
+				clone.y += 20*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				y += 4*speedModifier*dt;
+				y += 20*speedModifier*dt;
 				break;
 			// left
 			case 3:
-				clone.x -= 4*speedModifier*dt;
+				clone.x -= 20*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				x -= 4*speedModifier*dt;
+				x -= 20*speedModifier*dt;
 				break;
 			// right
 			case 4:
-				clone.x += 4*speedModifier*dt;
+				clone.x += 20*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				x += 4*speedModifier*dt;
+				x += 20*speedModifier*dt;
 				break;
 		};
 	}

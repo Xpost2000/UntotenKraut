@@ -7,6 +7,7 @@
 
 class GUIText{
 	public:
+		GUIText(){}
 		GUIText( float x, float y, std::string text, float textSz );
 		~GUIText();
 		void setBoxColor(float r, float g, float b, float a);
@@ -16,6 +17,7 @@ class GUIText{
 
 		void draw(core::gfx::Renderer& renderer);
 	private:
+		friend class GUIButton;
 		float x,  y;
 		float w,  h;
 		float textSize=12;

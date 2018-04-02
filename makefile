@@ -22,6 +22,7 @@ FILES=src/main.cpp\
       src/texturemanager.cpp\
       src/gunmanager.cpp\
       src/gui_text.cpp\
+      src/gui_button.cpp\
       src/font-renderer.cpp
 OUTPUT=game.exe
 
