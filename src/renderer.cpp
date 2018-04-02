@@ -148,6 +148,12 @@ namespace core{
 			refreshCamera();
 		}
 
+		void Renderer::scaleCamera(float x, float y){
+			scaleX=x;
+			scaleY=y;
+			view = glm::scale(view, glm::vec3(x, y, 0.0f));
+		}
+
 		void Renderer::centerCameraOn(float x, float y){
 			camX = -x + (scrW/2.0f);
 			camY = -y + (scrH/2.0f);
