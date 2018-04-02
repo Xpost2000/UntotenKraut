@@ -20,6 +20,8 @@ class GameState : public State{
 		void update(float dt);
 		void draw(core::gfx::Renderer&);
 	private:
+		friend class DeathState;
+
 		float roundDelay=20;
 		int gameWave=0;
 		core::InputManager inputManager;

@@ -10,6 +10,7 @@ class DeathState : public State{
 		void update(float dt);
 		void draw(core::gfx::Renderer&);
 	private:
+		float countDown=100;
 };
 
 #endif
