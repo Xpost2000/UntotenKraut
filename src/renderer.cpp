@@ -118,9 +118,9 @@ namespace core{
 					data
 			);
 			glActiveTexture(GL_TEXTURE0);
-			spr.getTexture().use();
 			texture_shader.useProgram();
 			texture_shader.uniformi(texture_shader.getUniform("texture"), 0);
+			spr.getTexture()->use();
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
 	
@@ -136,6 +136,7 @@ namespace core{
 		void Renderer::drawText( std::string font_name, float x, float y, std::string text, float r, float g, float b, float a ){
 			text_shader.useProgram();
 			fontRenderer.renderText( x, y, text, font_name, r, g, b, a );
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}	
 	};
 };

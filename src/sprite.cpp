@@ -11,8 +11,13 @@ namespace core{
 		Sprite::~Sprite(){
 		}
 
+		// TODO: Change m_texture to a shared_ptr
+		/*
 		void Sprite::loadTexture( std::string path ){
-			m_texture.loadFile( path );
+			if(!m_texture)
+				m_texture = new Texture();
+			m_texture->loadFile( path );
 		}
+		*/
 	};
 };

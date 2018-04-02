@@ -17,20 +17,20 @@ namespace core{
 				float getW() { return m_w; }
 				float getH() { return m_h; }
 				float getAngle() { return m_angle; }
-				Texture& getTexture() { return m_texture; }
+				Texture* getTexture() { return m_texture; }
 
 				void setX( float nX ) { m_x = nX; }
 				void setY( float nY ) { m_y = nY; }
 				void setW( float nW ) { m_w = nW; }
 				void setH( float nH ) { m_h = nH; }
 				void setAngle( float nAngle ) { m_angle = nAngle; }
-				void loadTexture( std::string path );
-				void setTexture( Texture &tex ) { m_texture = tex; }
+//				void loadTexture( std::string path );
+				void setTexture( Texture *tex ) { m_texture = tex; }
 			private:
 				float m_x, m_y, m_w, m_h;
 				float m_angle;
 				// until I make a texture class use that.
-				Texture m_texture;
+				Texture* m_texture;
 		};
 	};
 };

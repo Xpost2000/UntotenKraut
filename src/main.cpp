@@ -45,8 +45,10 @@ int main( int argc, char** argv ){
 	core::gfx::Renderer renderer(1024, 768);
 	//Testing something here...
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_512_tset.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_512_tset.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_512_tset.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_barricade_test.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
 	game::Player player(0, 0, 30, 30, 15, 100);
 
 	glEnable(GL_BLEND);

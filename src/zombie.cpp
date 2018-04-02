@@ -1,8 +1,13 @@
 #include "zombie.h"
 #include "world.h"
 #include <algorithm>
+
+#include "texturemanager.h"
 namespace game{
 	Zombie::Zombie(float x, float y, float w, float h, float speed, float hp) : Entity(x, y, w, h), speed(speed), hp(hp){
+		sprite.setW(w); 
+		sprite.setH(h); 
+		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_zombie_test.png"));	
 	}
 	Zombie::Zombie(){
 
@@ -12,6 +17,8 @@ namespace game{
 	}
 
 	void Zombie::update(float dt, World& world){
+		sprite.setX(x);
+		sprite.setY(y);
 		if(hp > 0){
 			float targetX=world.getPlayer()->x, targetY=world.getPlayer()->y;
 			float angle = atan2(targetY - y, targetX - x);
@@ -44,6 +51,6 @@ namespace game{
 	}
 
 	void Zombie::draw(core::gfx::Renderer& renderer){
-		renderer.drawRect(x, y, w, h, 0, 1, 0, 1);
+		renderer.drawSprite( sprite );
 	}
 };

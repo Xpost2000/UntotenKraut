@@ -1,6 +1,8 @@
 #include "player.h"
 #include "world.h"
 
+#include "texturemanager.h"
+
 #include <iostream>
 
 namespace game{
@@ -8,7 +10,7 @@ namespace game{
 	: Entity(x,y,w,h), speed(speed), hp(hp){
 		sprite.setW(w);
 		sprite.setH(h);
-		sprite.loadTexture("assests\\textures\\dev_player_test.png");
+		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_player_test.png"));
 	}
 
 	Player::Player(){
@@ -33,11 +35,16 @@ namespace game{
 	}
 
 	void Player::draw(core::gfx::Renderer& renderer){
-		renderer.drawRect( x, y, w, h, 1, 0, 0, 1 );
+		//renderer.drawRect( x, y, w, h, 1, 0, 0, 1 );
+		renderer.drawSprite(sprite);
 	}
 
 	void Player::move( int direction, World& world ){
-		Player clone = *this;
+		Player clone = *this; // why is this causing a side effect?
+		/*
+		 * Wait I know why.....
+		 * These crashes are what happens when I don't decouple rendering and game logic, logic.
+		 */
 		switch(direction){
 			// up
 			case 1:

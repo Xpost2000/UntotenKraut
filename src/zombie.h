@@ -1,6 +1,7 @@
 #ifndef ZOMBIE_H
 #define ZOMBIE_H
 #include "entity.h"
+#include "sprite.h"
 namespace game{
 	class Zombie : public Entity{
 		public:
@@ -18,6 +19,7 @@ namespace game{
 
 			// zombies can't strafe. they move from an angle.
 		private:
+			core::gfx::Sprite sprite;
 			void move(float angle, World& world, float dt);
 			float hitDelay=0;
 			float speed=0, hp=0;
