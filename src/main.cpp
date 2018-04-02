@@ -93,16 +93,16 @@ int main( int argc, char** argv ){
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 		if(player.getHp() > 0){
 		if( inputManager.isKeyDown( SDL_SCANCODE_W ) ){
-			player.move(1, world);
+			player.move(0.1f, 1, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_S ) ){
-			player.move(2, world);
+			player.move(0.1f, 2, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_A ) ){
-			player.move(3, world);
+			player.move(0.1f, 3, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_D ) ){
-			player.move(4, world);
+			player.move(0.1f, 4, world);
 		}
 		if( inputManager.isKeyDown( SDL_SCANCODE_1 ) ){
 			player.getGun() = game::GunManager::getInstance()->get("M1911A1");
@@ -122,9 +122,25 @@ int main( int argc, char** argv ){
 			player.fire(inputManager.GetMouseX(), inputManager.GetMouseY());
 		}
 		if(inputManager.CheckForController()){
-			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_A ) ){
+			if( inputManager.GetJoystickState().left_vertical > 128 ){
+				player.move(0.1f, 1, world);
+
+			}else if ( inputManager.GetJoystickState().left_vertical < 128 ){
+				player.move(0.1f, 2, world);
 			}
-			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_B ) ){
+
+			if( inputManager.GetJoystickState().left_horizontal > 128 ){
+				player.move(0.1f, 3, world);
+			}else if ( inputManager.GetJoystickState().left_horizontal < 128 ){
+				player.move(0.1f, 4, world);
+			}
+
+			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_X ) ){
+				reloading=true;
+			}
+			if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_RIGHTSHOULDER ) ){
+				if(!reloading)
+				player.fire(inputManager.GetMouseX(), inputManager.GetMouseY());
 			}
 		}
 		renderer.refreshCamera();

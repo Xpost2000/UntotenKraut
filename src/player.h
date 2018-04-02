@@ -31,7 +31,7 @@ namespace game{
 
 			Gun &getGun() { return currentGun; }
 
-			void move(int direction, World& world);
+			void move(float dt, int direction, World& world, float speedModifier=1);
 		private:
 			core::gfx::Sprite sprite;
 			Gun currentGun;

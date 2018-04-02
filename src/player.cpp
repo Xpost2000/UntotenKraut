@@ -39,7 +39,7 @@ namespace game{
 		renderer.drawSprite(sprite);
 	}
 
-	void Player::move( int direction, World& world ){
+	void Player::move( float dt, int direction, World& world, float speedModifier ){
 		Player clone = *this; // why is this causing a side effect?
 		/*
 		 * Wait I know why.....
@@ -48,43 +48,43 @@ namespace game{
 		switch(direction){
 			// up
 			case 1:
-				clone.y -= 4;
+				clone.y -= 4*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				y -= 4;
+				y -= 4*speedModifier*dt;
 				break;
 			// down
 			case 2:
-				clone.y += 4;
+				clone.y += 4*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				y += 4;
+				y += 4*speedModifier*dt;
 				break;
 			// left
 			case 3:
-				clone.x -= 4;
+				clone.x -= 4*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				x -= 4;
+				x -= 4*speedModifier*dt;
 				break;
 			// right
 			case 4:
-				clone.x += 4;
+				clone.x += 4*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
 					if(clone.touching(wall)){
 						return;
 					}
 				}
-				x += 4;
+				x += 4*speedModifier*dt;
 				break;
 		};
 	}
