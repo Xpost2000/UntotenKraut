@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "sprite.h"
 #include "renderer.h"
 
 class GUIText{
@@ -15,7 +16,7 @@ class GUIText{
 		void setText(std::string text, float sz=12);
 		void setPosition(float x, float y);
 
-		void draw(core::gfx::Renderer& renderer);
+		void draw(core::gfx::Renderer& renderer, core::gfx::Sprite* useSprite=nullptr);
 	private:
 		friend class GUIButton;
 		float x,  y;

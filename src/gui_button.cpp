@@ -29,6 +29,6 @@ bool GUIButton::isClicked(core::InputManager& input){
 	return false;
 }
 
-void GUIButton::draw(core::gfx::Renderer& renderer){
-	text_gui.draw(renderer);
+void GUIButton::draw(core::gfx::Renderer& renderer, core::gfx::Sprite* useSprite){
+	text_gui.draw(renderer, useSprite);
 }

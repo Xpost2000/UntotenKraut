@@ -34,8 +34,16 @@ void GUIText::setPosition(float x, float y){
 	this->y=y;
 }
 
-void GUIText::draw(core::gfx::Renderer& renderer){
-	renderer.drawRect(x, y, w, h, r, g, b, a);
+void GUIText::draw(core::gfx::Renderer& renderer, core::gfx::Sprite* useSprite){
+	if(useSprite!=nullptr){
+		useSprite->setW(w);
+		useSprite->setH(h);
+		useSprite->setX(x);
+		useSprite->setY(y);
+		renderer.drawSprite(*useSprite, r, g, b, a);
+	}else{
+		renderer.drawRect(x, y, w, h, r, g, b, a);
+	}
 	renderer.setTextSize(textSize);
 	renderer.drawText("arial", x, y, text, tr, tg, tb, ta);
 }
