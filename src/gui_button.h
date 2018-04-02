@@ -17,7 +17,7 @@ class GUIButton{
 		GUIText text_gui;
 		
 		float hr=0,hg=0.5,hb=0.5,ha=1;
-		float r, g, b, a;
+		float r=1, g=1, b=1, a=1;
 };
 
 #endif

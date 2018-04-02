@@ -2,7 +2,7 @@
 #include <iostream>
 
 GUIButton::GUIButton( float x, float y, std::string text, float textSz, float r, float g, float b, float a )
-: text_gui( GUIText(x, y, text, textSz) ){
+: text_gui( GUIText(x, y, text, textSz) ), r(r), g(g), b(b), a(a){
 	text_gui.r=r;
 	text_gui.g=g;
 	text_gui.b=b;
@@ -30,6 +30,5 @@ bool GUIButton::isClicked(core::InputManager& input){
 }
 
 void GUIButton::draw(core::gfx::Renderer& renderer){
-	renderer.drawRect(text_gui.x, text_gui.y, text_gui.w, text_gui.h, 1, 1, 1, 1);
 	text_gui.draw(renderer);
 }

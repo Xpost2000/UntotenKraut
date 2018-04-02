@@ -75,7 +75,6 @@ int main( int argc, char** argv ){
 	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1.5, true, 200, 30, 3));
 
 	GUIText score_text(900, 700, "", 15), weapon_text(900, 720, "", 14);
-	GUIButton start( 100, 300, "Start", 20, 1, 1, 1, 1 );
 	weapon_text.setBoxColor(1, 1, 1, 1);
 	weapon_text.setTextColor(0, 0, 0, 1);
 	score_text.setBoxColor(1, 0, 0, 1);
@@ -123,9 +122,6 @@ int main( int argc, char** argv ){
 			if(!reloading)
 			player.fire(inputManager.GetMouseX(), inputManager.GetMouseY());
 		}
-		if( start.isClicked(inputManager) ){
-			printf("pressed start button\n");
-		}
 		if(inputManager.CheckForController()){
 			if( inputManager.GetJoystickState().left_vertical > 128 ){
 				player.move(0.1f, 1, world);
@@ -159,7 +155,6 @@ int main( int argc, char** argv ){
 		score_text.draw(renderer);
 		weapon_text.draw(renderer);
 
-		start.draw(renderer);
 		}else{
 			renderer.setTextSize(40);
 			renderer.drawText("arial", 0, 0, "Player has died...", 1, 0, 0, 1);
