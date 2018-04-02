@@ -5,6 +5,7 @@
 
 class GUIButton{
 	public:
+		GUIButton(){}
 		GUIButton( float x, float y, std::string text, float textSz, float r, float g, float b, float a );
 		GUIText& getText() {
 		       	return text_gui; 

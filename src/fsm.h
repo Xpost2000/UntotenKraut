@@ -15,6 +15,7 @@ class StateMachine{
 		void draw(core::gfx::Renderer&);
 
 		void setCurrentState(std::string name);
+		State* getCurrentState(){ return currentState; }
 	private:
 		friend class State;
 		State* currentState=nullptr;
