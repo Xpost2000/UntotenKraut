@@ -21,9 +21,8 @@ FILES=src/main.cpp\
       src/spawner.cpp\
       src/texturemanager.cpp\
       src/gunmanager.cpp\
+      src/gui_text.cpp\
       src/font-renderer.cpp
-## IMPLEMENT LEVELOADER.cpp
-## IMPLEMENT LEVEL.cpp
 OUTPUT=game.exe
 
 all:

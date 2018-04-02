@@ -20,6 +20,8 @@
 #include "texturemanager.h"
 #include "gunmanager.h"
 
+#include "gui_text.h"
+
 extern "C"{
 	void _atExit(void){
 		printf("Freeing sdl resources...\n");
@@ -36,7 +38,6 @@ int main( int argc, char** argv ){
 	IMG_Init(IMG_INIT_PNG);
 	Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
 	Mix_Init(MIX_INIT_MP3);
-	glewInit();
 	core::Window window;
 	core::InputManager inputManager;
 
@@ -53,7 +54,6 @@ int main( int argc, char** argv ){
 			}
 		    );
 	core::gfx::Renderer renderer(1024, 768);
-	//Testing something here...
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_512_tset.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_barricade_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
@@ -72,6 +72,12 @@ int main( int argc, char** argv ){
 	game::World world;
 	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 9, 30, 500, 3, false, 14, 7, 2));
 	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1.5, true, 200, 30, 3));
+
+	GUIText score_text(900, 700, "", 15), weapon_text(900, 720, "", 14);
+	weapon_text.setBoxColor(1, 1, 1, 1);
+	weapon_text.setTextColor(0, 0, 0, 1);
+	score_text.setBoxColor(1, 0, 0, 1);
+	score_text.setTextColor(1, 1, 1, 1);
 
 	player.getGun() = game::GunManager::getInstance()->get("M1911A1");
 
@@ -122,19 +128,15 @@ int main( int argc, char** argv ){
 			}
 		}
 		renderer.refreshCamera();
-		renderer.setTextSize(20);
-		renderer.drawText( "arial", 0, 0, "Current Gun : " + player.getGun().getName(), 1,1,1,1 );
-		renderer.drawText( "arial", 0, 20, std::to_string(player.getGun().getCurrentCapacity()) + "/"+ std::to_string(player.getGun().getMaxCapacity()), 1,1,1,1 );
-		renderer.setTextSize(15);
-		renderer.drawText( "arial", inputManager.GetMouseX(), inputManager.GetMouseY() , "mousePos", 1,1,1,1 );
 
 		world.draw(renderer);
 		world.update(0.1f);
 
 		// TODO: Make gui elements...
-		renderer.drawRect(1024-100, 768-100, 100, 20, 1, 0, 0, 1);
-		renderer.setTextSize(13);
-		renderer.drawText("arial", 1024-100, 768-97, "Score: " + std::to_string(world.getScore()), 1, 1, 1, 1);
+		score_text.setText("Score: "+ std::to_string(world.getScore()));
+		weapon_text.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()));
+		score_text.draw(renderer);
+		weapon_text.draw(renderer);
 		}else{
 			renderer.setTextSize(40);
 			renderer.drawText("arial", 0, 0, "Player has died...", 1, 0, 0, 1);

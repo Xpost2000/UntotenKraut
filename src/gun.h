@@ -2,7 +2,7 @@
 #define GAME_H
 #include <string>
 #include "bullet.h"
-	namespace game{
+namespace game{
 		/*
 		 * It handles stats for bullet types that can
 		 * be fired and a few other things
@@ -49,5 +49,5 @@
 				float reloadSpeed=0;
 				float reloadSpeedStart=0;
 		};
-	};
+};
 #endif
