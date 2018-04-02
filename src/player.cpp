@@ -21,9 +21,9 @@ namespace game{
 
 	void Player::fire(float mX, float mY){
 		float angle = atan2( mY - 360, mX - 360 );
-		if( currentGun.canFire() ){
-			if(currentGun.fire()){
-				bullets.push_back(Bullet(x, y, w/2, h/2, cos(angle)*currentGun.getBulletSpeed(), sin(angle)*currentGun.getBulletSpeed(), currentGun.getBulletLifetime(), currentGun.getDamage()));
+		if( currentGun->canFire() ){
+			if(currentGun->fire()){
+				bullets.push_back(Bullet(x, y, w/2, h/2, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
 			}
 		}
 	}
@@ -31,7 +31,7 @@ namespace game{
 	void Player::update( float dt, World& world ){
 		sprite.setX(x);
 		sprite.setY(y);
-		currentGun.update(dt);
+		currentGun->update(dt);
 	}
 
 	void Player::draw(core::gfx::Renderer& renderer){

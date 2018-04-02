@@ -27,14 +27,17 @@ namespace game{
 			
 			std::vector<Bullet>& getBullets() { return bullets; }
 
-			void setGun(Gun g){ currentGun = g; }
+			void setGuns(Gun gun1, Gun gun2){ guns[0]=gun1; guns[1]=gun2; }
+			// TODO: have checking.
+			void useGun(int index) { currentGun = &guns[index]; }
 
-			Gun &getGun() { return currentGun; }
+			Gun &getGun() { return *currentGun; }
 
 			void move(float dt, int direction, World& world, float speedModifier=1);
 		private:
 			core::gfx::Sprite sprite;
-			Gun currentGun;
+			Gun  guns[2];
+			Gun* currentGun;
 
 			std::vector<Bullet> bullets;
 

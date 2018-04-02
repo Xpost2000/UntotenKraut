@@ -5,7 +5,8 @@
 
 GameState::GameState(){
 	player = game::Player(0, 0, 30, 30, 15, 100);
-	player.getGun() = game::GunManager::getInstance()->get("M1911A1");
+	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("M4A1"));
+	player.useGun(0);
 	
 	world.setPlayer(&player);
 	world.addWall(game::Wall( 100, 200, 60, 60 ));
@@ -51,10 +52,10 @@ void GameState::update(float dt){
 		player.move(0.1f, 4, world);
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_1 ) ){
-		player.getGun() = game::GunManager::getInstance()->get("M1911A1");
+		player.useGun(0);
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_2 ) ){
-		player.getGun() = game::GunManager::getInstance()->get("M4A1");
+		player.useGun(1);
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_R ) ){
 		isPlayerReloading=true;
