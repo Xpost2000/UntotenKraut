@@ -23,6 +23,10 @@
 #include "gui_text.h"
 #include "gui_button.h"
 
+#include "gamestate.h"
+#include "menustate.h"
+#include "fsm.h"
+
 extern "C"{
 	void _atExit(void){
 		printf("Freeing sdl resources...\n");
@@ -33,6 +37,18 @@ extern "C"{
 }
 
 int main( int argc, char** argv ){
+	StateMachine stateMachine;
+	GameState gameState;
+	MenuState menuState;
+	stateMachine.addState(&gameState, "game");
+	stateMachine.addState(&menuState, "menu");
+	stateMachine.setCurrentState("menu");
+#ifdef TESTING_MACHINE
+	while(true){
+		stateMachine.update(10);
+	}
+#endif
+
 	bool runProgram=true;
 	atexit(_atExit);
 	SDL_Init(SDL_INIT_EVERYTHING);

@@ -8,6 +8,7 @@ StateMachine::~StateMachine(){
 }
 
 void StateMachine::addState(State* newState, std::string name){
+	newState->parent = this;
 	states.insert(std::make_pair(name, newState));
 }
 

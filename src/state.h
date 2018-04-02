@@ -3,6 +3,7 @@
 
 #include "renderer.h"
 
+class StateMachine;
 class State{
 	public:
 		State(){}
@@ -10,7 +11,9 @@ class State{
 
 		virtual void update(float dt)=0;
 		virtual void draw(core::gfx::Renderer&)=0;
-	private:
+	protected:
+		friend class StateMachine;
+		StateMachine* parent;
 };
 
 #endif
