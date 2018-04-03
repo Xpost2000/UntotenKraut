@@ -55,12 +55,22 @@ namespace game{
 						return;
 					}
 				}
+				for(auto &wall : world.getBarricades()){
+					if(clone.touching(wall)){
+						return;
+					}
+				}
 				y -= speed*speedModifier*dt;
 				break;
 			// down
 			case 2:
 				clone.y += speed*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
+					if(clone.touching(wall)){
+						return;
+					}
+				}
+				for(auto &wall : world.getBarricades()){
 					if(clone.touching(wall)){
 						return;
 					}
@@ -75,12 +85,22 @@ namespace game{
 						return;
 					}
 				}
+				for(auto &wall : world.getBarricades()){
+					if(clone.touching(wall)){
+						return;
+					}
+				}
 				x -= speed*speedModifier*dt;
 				break;
 			// right
 			case 4:
 				clone.x += speed*speedModifier*dt;
 				for(auto &wall : world.getWalls()){
+					if(clone.touching(wall)){
+						return;
+					}
+				}
+				for(auto &wall : world.getBarricades()){
 					if(clone.touching(wall)){
 						return;
 					}

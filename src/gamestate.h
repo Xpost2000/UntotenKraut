@@ -13,6 +13,8 @@
 
 #include "gunmanager.h"
 
+#include "levelloader.h"
+
 class GameState : public State{
 	public:
 		GameState();
@@ -24,6 +26,7 @@ class GameState : public State{
 		friend class DeathState;
 		core::gfx::Sprite uiBloodStain;
 		core::gfx::Sprite gunUi;
+		game::LevelLoader levelLoader;
 
 		float roundDelay=20;
 		int gameWave=0;

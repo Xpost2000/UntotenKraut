@@ -5,6 +5,9 @@ namespace game{
 		for(auto& wall : walls){
 			wall.draw(renderer);
 		}
+		for(auto& bar : barricades){
+			bar.draw(renderer);
+		}
 		for(auto& zombie : zombies){
 			zombie.draw(renderer);
 		}

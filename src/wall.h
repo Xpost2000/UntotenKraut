@@ -12,6 +12,7 @@ namespace game{
 			void draw(core::gfx::Renderer&);
 			int getType() { return type; }
 		private:	
+			core::gfx::Sprite sprite;
 			int type=0;
 	};
 };

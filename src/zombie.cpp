@@ -1,6 +1,7 @@
 #include "zombie.h"
 #include "world.h"
 #include <algorithm>
+#include <iostream>
 
 #include "texturemanager.h"
 namespace game{
@@ -20,9 +21,40 @@ namespace game{
 		sprite.setX(x);
 		sprite.setY(y);
 		if(hp > 0){
-			float targetX=world.getPlayer()->x, targetY=world.getPlayer()->y;
+			//float targetX=world.getPlayer()->x, targetY=world.getPlayer()->y;
+			float targetX=0;
+			float targetY=0;
+				
+			std::vector<Barricade> &barricades = world.getBarricades();
+			// I hope this is done correctly...
+			std::sort(barricades.begin(), barricades.end(), [&](Barricade& a, Barricade& b)->bool{
+				if((a.x - x)<(b.x - x) && (a.y - y)<(b.y - y)){
+					if(a.getHealth()){
+						std::cout << "A is closest" << std::endl;
+						return true;
+					}else{
+						std::cout << "B is closest because A is dead." << std::endl;
+						return false;
+					}
+				}else{
+					return false;
+				}
+			});
+			float dist = sqrt( pow(barricades.begin()->x-x,2)+pow(barricades.begin()->y-y,2) );
+			float dist1 = sqrt( pow(world.getPlayer()->x-x,2)+pow(world.getPlayer()->y-y,2) );
+			if( dist < dist1 ){
+				if(barricades.front().getHealth()){
+					targetX = barricades.begin()->x;
+					targetY = barricades.begin()->y;
+				}else{
+					targetX = world.getPlayer()->x;
+					targetY = world.getPlayer()->y;
+				}
+			}else{
+				targetX = world.getPlayer()->x;
+				targetY = world.getPlayer()->y;
+			}
 			float angle = atan2(targetY - y, targetX - x);
-
 			if(touching(*world.getPlayer())&& hitDelay<=0){
 				world.getPlayer()->setHp( world.getPlayer()->getHp() - 50 );
 				hitDelay=13;
@@ -40,7 +72,15 @@ namespace game{
 		Zombie clone= *this;
 		clone.x += speed* cos(angle)*dt;
 		clone.y += speed* sin(angle)*dt;
-		for(auto wall : world.getWalls()){
+		for(auto &barricade : world.getBarricades()){
+			if(clone.touching(barricade) && barricade.getHealth()){
+				barricade.setHealth(barricade.getHealth()-25);	
+				std::cout << "Hitting barricade: " << barricade.getHealth() << std::endl;
+				hitDelay=13;
+				return; break;
+			}
+		}
+		for(auto &wall : world.getWalls()){
 			if(clone.touching(wall)){
 				return;
 				break;

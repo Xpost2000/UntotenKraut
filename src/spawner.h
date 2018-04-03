@@ -35,6 +35,10 @@ namespace game{
 				spawn_delay-=dt;
 			}
 
+			void setVectorPtr(std::vector<T>* ptr){
+				vectorPtr = ptr;
+			}
+
 			bool isActive() { return active; }
 			void setActive(bool t) { active = t; }
 
