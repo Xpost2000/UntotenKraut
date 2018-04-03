@@ -12,6 +12,7 @@ class GUIButton{
 		}
 
 		bool isClicked(core::InputManager& input);
+		bool isMousedOver(core::InputManager& input);
 
 		void draw(core::gfx::Renderer& renderer, core::gfx::Sprite* useSprite=nullptr);
 	private:

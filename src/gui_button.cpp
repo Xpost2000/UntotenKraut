@@ -29,6 +29,15 @@ bool GUIButton::isClicked(core::InputManager& input){
 	return false;
 }
 
+bool GUIButton::isMousedOver(core::InputManager& input){
+	if( (input.GetMouseX() < text_gui.x + text_gui.w && input.GetMouseX()+1 > text_gui.x)
+	    && (input.GetMouseY() < text_gui.y + text_gui.h && input.GetMouseY()+1 > text_gui.y) ){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 void GUIButton::draw(core::gfx::Renderer& renderer, core::gfx::Sprite* useSprite){
 	text_gui.draw(renderer, useSprite);
 }

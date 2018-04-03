@@ -1,39 +1,30 @@
-#include "menustate.h"
+#include "mapselectionstate.h"
 #include "fsm.h"
 #include "texturemanager.h"
-#include <iostream>
 
-MenuState::MenuState(){
+MapSelectionState::MapSelectionState(){
 	blob = core::gfx::Sprite(0,0,0,0);
 	smog = core::gfx::Sprite(0, 0, 0, 0);
 	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
 	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
-	startButton = GUIButton( 15, 300, "Start Game", 20, 1, 1, 1, 1 );
-	editModeButton = GUIButton( 15, 330, "Editor Mode", 20, 1, 1, 1, 1 );
-	quitButton = GUIButton( 15, 360, "Quit Game", 20, 1, 1, 1, 1 );
-
 	inputManager.AddCallback(
 			SDL_QUIT,
 			[&](SDL_Event& evnt){
 				parent->setCurrentState("quit");
 			}
 	 );
+
+	backButton = GUIButton( 0, 728, "Return To Menu", 20, 1, 1, 1, 1 );
 }
 
-MenuState::~MenuState(){
+MapSelectionState::~MapSelectionState(){
 }
 
-void MenuState::update(float dt){
+void MapSelectionState::update(float dt){
 	SDL_SetRelativeMouseMode(SDL_FALSE);
-	if(startButton.isClicked(inputManager)){
-		// TODO: Add another menu sub state ( the map selection screen )
-		parent->setCurrentState("mapselect");
-	}
-	if(editModeButton.isClicked(inputManager)){
-		parent->setCurrentState("editor");
-	}
-	if(quitButton.isClicked(inputManager)){
-		parent->setCurrentState("quit");
+
+	if(backButton.isClicked(inputManager)){
+		parent->setCurrentState("menu");
 	}
 
 	x1+=15*dt;
@@ -43,7 +34,7 @@ void MenuState::update(float dt){
 	inputManager.Update();
 }
 
-void MenuState::draw(core::gfx::Renderer& renderer){
+void MapSelectionState::draw(core::gfx::Renderer& renderer){
 	screen = core::gfx::Sprite(0, 0, renderer.getScreenWidth(), renderer.getScreenHeight());
 	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\menu.png"));
 	renderer.identityCamera();
@@ -63,10 +54,8 @@ void MenuState::draw(core::gfx::Renderer& renderer){
 
 	renderer.drawRect(0,0,0,0);
 	renderer.drawSprite(screen);
-	renderer.setTextSize(60);
-	renderer.drawText("ocr", 0, 0, "Nazi Zombies Top Down");
-	renderer.setTextSize(15);
-	renderer.drawText("ocr", 0, 65, "Welcome to Version 0.1");
+	renderer.setTextSize(80);
+	renderer.drawText("ocr", 0, 0, "Map Selection");
 	smog.setX(0);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 	smog.setX(x1);
@@ -75,7 +64,6 @@ void MenuState::draw(core::gfx::Renderer& renderer){
 	renderer.drawSprite(smog, 0.5, 0.4, 0.5, 0.2);
 	smog.setX(x3);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
-	startButton.draw(renderer, &blob);
-	editModeButton.draw(renderer, &blob);
-	quitButton.draw(renderer, &blob);
+
+	backButton.draw(renderer, &blob);
 }

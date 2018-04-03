@@ -20,9 +20,11 @@ EditorState::~EditorState(){
 }
 
 void EditorState::update(float dt){
+	SDL_SetRelativeMouseMode(SDL_FALSE);
 	if(inputManager.isKeyDown(SDL_SCANCODE_ESCAPE)){
 		parent->setCurrentState("menu");
 	}
+	mouseInWorld = renderer->mouseToWorld(inputManager.GetMouseX(), inputManager.GetMouseY());
 	// I know I just broke a rule, but the way I "designed" the renderer forces me to do this. I could change it later though
 	if(inputManager.isKeyDown(SDL_SCANCODE_W)){
 		renderer->translateCamera(0, 20*dt);
@@ -44,7 +46,8 @@ void EditorState::update(float dt){
 	if(inputManager.isKeyDown(SDL_SCANCODE_T)){
 		testLevel();
 	}
-	mouseInWorld = renderer->mouseToWorld(inputManager.GetMouseX(), inputManager.GetMouseY());
+	if(inputManager.isMouseKeyDown(SDL_BUTTON_LEFT)){
+	}
 	inputManager.Update();
 }
 
@@ -57,7 +60,6 @@ void EditorState::draw(core::gfx::Renderer& renderer){
 
 	renderer.refreshCamera();
 
-	renderer.drawRect(0,0,50,50,1,0,0,1); // sanity rectangle
 	world.draw(renderer);
 }
 

@@ -18,6 +18,7 @@
 #include "deathstate.h"
 #include "editorstate.h"
 #include "quitstate.h"
+#include "mapselectionstate.h"
 #include "fsm.h"
 
 extern "C"{
@@ -70,6 +71,7 @@ int main( int argc, char** argv ){
 	DeathState deathState;
 	EditorState editorState;
 	MenuState menuState;
+	MapSelectionState mapSelectionState;
 	QuitState quitState;
 
 	stateMachine.addState(&gameState, "game");
@@ -77,6 +79,7 @@ int main( int argc, char** argv ){
 	stateMachine.addState(&quitState, "quit");
 	stateMachine.addState(&deathState, "death");
 	stateMachine.addState(&editorState, "editor");
+	stateMachine.addState(&mapSelectionState, "mapselect");
 	stateMachine.setCurrentState("menu");
 
 	inputManager.AddCallback(
