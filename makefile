@@ -31,6 +31,7 @@ FILES=src/main.cpp\
       src/quitstate.cpp\
       src/deathstate.cpp\
       src/barricade.cpp\
+      src/detail_ent.cpp\
       src/editorstate.cpp\
       src/font-renderer.cpp
 OUTPUT=game.exe

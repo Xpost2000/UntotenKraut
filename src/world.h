@@ -7,6 +7,7 @@
 #include "barricade.h"
 #include "zombie.h"
 #include "bullet.h"
+#include "detail_ent.h"
 
 #include "spawner.h"
 
@@ -29,6 +30,7 @@ namespace game{
 				barricades = lvl.barricades;
 				walls = lvl.walls;
 				zombieSpawners = lvl.zombieSpawners;
+				detail_ents = lvl.detail_ents;
 				for(auto& s : zombieSpawners){
 					s.setVectorPtr(&zombies);
 					s.setCloneOf(Zombie(0, 0, 30, 30, 5, 50));
@@ -52,6 +54,7 @@ namespace game{
 		       	}
 
 			std::vector<Wall>& getWalls() { return walls; }
+			std::vector<DetailEntity>& getDetailEntities() { return detail_ents; }
 			std::vector<Zombie>& getZombies() { return zombies; }
 			std::vector<Barricade>& getBarricades() { return barricades; }
 
@@ -79,6 +82,7 @@ namespace game{
 			std::vector<Wall> walls;
 			std::vector<Barricade> barricades;
 			std::vector<Zombie> zombies;
+			std::vector<DetailEntity> detail_ents;
 
 			std::vector<Spawner<Zombie>> zombieSpawners;
 

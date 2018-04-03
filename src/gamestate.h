@@ -26,7 +26,6 @@ class GameState : public State{
 		friend class DeathState;
 		core::gfx::Sprite uiBloodStain;
 		core::gfx::Sprite gunUi;
-		core::gfx::Sprite ground;
 		game::LevelLoader levelLoader;
 
 		float roundDelay=20;

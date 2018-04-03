@@ -90,6 +90,12 @@ namespace game{
 				break;
 			}
 		}
+		for(auto& zombie : world.getZombies()){
+			if(clone.touching(zombie) & &zombie != this){
+				return;
+				break;
+			}
+		}
 		x += speed* cos(angle)*dt;
 		y += speed* sin(angle)*dt;
 	}

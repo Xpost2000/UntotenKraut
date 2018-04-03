@@ -16,13 +16,16 @@ namespace game{
 				switch(lines[i][j]){
 					case 'B':
 						newLevel.barricades.push_back(Barricade(j*35,i*35,35,35));
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png")));
 						break;
 					case '@':
 						newLevel.pX=j*30;
 						newLevel.pY=i*30;
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\floor.png")));
 						break;
 					case 'Z':
 						newLevel.zombieSpawners.push_back(Spawner<Zombie>(nullptr, 15, j*30, i*30, 4));
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png")));
 						break;
 					case 'X':
 						newLevel.walls.push_back(Wall(j*35,i*35, 35, 35, core::TextureManager::getInstance()->getTexture("assests\\textures\\concrete.png")));
@@ -37,6 +40,12 @@ namespace game{
 							m4a1_wall.wallWeapon = game::GunManager::getInstance()->get("M4A1");
 							newLevel.walls.push_back(m4a1_wall);
 						}				
+						break;
+					case ',':
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png")));
+						break;
+					case '.':
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\floor.png")));
 						break;
 					default:
 						break;

@@ -7,8 +7,6 @@
 GameState::GameState(){
 	player = game::Player(0, 0, 30, 30, 15, 100);
 
-	ground = core::gfx::Sprite(-500, -500, 2000, 2000);
-	ground.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\test_ground.png"));
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
 	gunUi = core::gfx::Sprite(900, 650, 90, 45);
@@ -157,22 +155,22 @@ void GameState::update(float dt){
 void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.centerCameraOn(player.x, player.y);
 	renderer.refreshCamera();
-	renderer.drawSprite(ground);
 	world.draw(renderer);
+	renderer.identityCamera();
+	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.5);
+
+	//artificially "darken" the world without a postprocessor.
 
 	// Rendering the hud is down here.
 
 	renderer.identityCamera();
 	if(canRepairBarricade){
-		// cheap outlining
-		renderer.setTextSize(33);
-		renderer.drawText("ocr", 1024/2-3, 768/2-3, "Press F to Repair Barricade", 0, 0, 0, 1);
 		renderer.setTextSize(30);
-		renderer.drawText("ocr", 1024/2, 768/2, "Press F to Repair Barricade", 1, 0, 1, 1);
+		renderer.drawText("ocr", 1024/2-200, 768/2, "Press F to Repair Barricade", 0.8, 0.8, 0, 1);
 	}
 	if(canBuyWallGun){
 		renderer.setTextSize(30);
-		renderer.drawText("ocr", 1024/2, 768/2, "Press F to Buy Gun(" + std::to_string(currentGunPrice)+")", 0, 0, 1, 1);
+		renderer.drawText("ocr", 1024/2-200, 768/2, "Press F to Buy Gun(" + std::to_string(currentGunPrice)+")", 0.8, 0.8, 0, 1);
 	}
 
 	gunUi.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\"+player.getGun().getName()+"_hud.png"));
@@ -182,10 +180,10 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	scoreText.draw(renderer, &uiBloodStain);
 	weaponText.draw(renderer, &uiBloodStain);
 
-	renderer.setTextSize(45);
-	renderer.drawText("ocr",0,700, std::to_string(gameWave), 1, 0, 0, 1);	
+	renderer.setTextSize(100);
+	renderer.drawText("ocr",0,660, std::to_string(gameWave), 1, 0, 0, 1);	
 	if(world.getMaxZombies() == world.getKillCount()){
 		renderer.setTextSize(20);
-		renderer.drawText("ocr",0,680, "Preparation Time.", 1, 0, 0, 1);	
+		renderer.drawText("ocr",0,580, "Preparation Time.", 1, 0, 0, 1);	
 	}
 }

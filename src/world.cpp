@@ -2,6 +2,9 @@
 
 namespace game{
 	void World::draw(core::gfx::Renderer& renderer){
+		for(auto& detail : detail_ents){
+			detail.draw(renderer);
+		}
 		for(auto& wall : walls){
 			wall.draw(renderer);
 		}
