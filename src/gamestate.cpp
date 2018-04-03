@@ -30,11 +30,15 @@ GameState::GameState(){
 				parent->setCurrentState("quit");
 			}
 	 );
-	levelLoader.load("maps\\test.txt", "test");
-	world.loadLevel(levelLoader.getLevel("test"));
+	loadLevel("maps\\test.txt", "test");
 }
 
 GameState::~GameState(){
+}
+
+void GameState::loadLevel(std::string fileName, std::string name){
+	levelLoader.load(fileName, name);
+	world.loadLevel(levelLoader.getLevel(name));
 }
 
 void GameState::update(float dt){

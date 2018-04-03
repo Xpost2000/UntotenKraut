@@ -3,6 +3,7 @@
 namespace game{
 	//size is 30
 	void LevelLoader::load(std::string file, std::string levelName){
+		if(levels.count(levelName)) { return; }
 		std::fstream f(file);
 		std::vector<std::string> lines;
 		std::string temp;

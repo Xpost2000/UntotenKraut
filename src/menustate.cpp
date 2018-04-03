@@ -26,6 +26,7 @@ MenuState::~MenuState(){
 void MenuState::update(float dt){
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	if(startButton.isClicked(inputManager)){
+		// TODO: Add another menu sub state ( the map selection screen )
 		parent->setCurrentState("game");
 	}
 	if(editModeButton.isClicked(inputManager)){
