@@ -6,6 +6,7 @@
 namespace core{
 	namespace gfx{
 		Renderer::Renderer( int w, int h ){
+			std::cout << "setting projection matrix up." << std::endl;
 			projection = glm::ortho<float>(
 					0.f, (float)w,
 					(float)h, 0.f,
@@ -13,11 +14,13 @@ namespace core{
 				     );
 			scrW=w;
 			scrH=h;
+			std::cout << "Generating VBO and VAO" << std::endl;
 			glGenBuffers(1, &vbo);
 			glGenVertexArrays(1, &vao);
 
 			glBindVertexArray(vao);
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
+			std::cout << "Orphaning data" << std::endl;
 			// orphaning data.
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float)*8, NULL, GL_DYNAMIC_DRAW);
 

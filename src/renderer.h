@@ -3,9 +3,6 @@
 
 #include <unordered_map>
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 #include <GL/glew.h>
 #include <SDL2/SDL_image.h>
 

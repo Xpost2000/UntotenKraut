@@ -42,7 +42,6 @@ int main( int argc, char** argv ){
 		       1024    ,
 		       768 
 		     );
-
 	core::gfx::Renderer renderer(1024, 768);
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_512_tset.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_barricade_test.png");

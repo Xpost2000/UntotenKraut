@@ -1,7 +1,11 @@
 #ifndef FONT_RENDERER_H
 #define FONT_RENDERER_H
 
+#ifndef __linux__
 #include <ft2build.h>
+#else
+#include <freetype2/ft2build.h>
+#endif
 #include <vector>
 #include <map>
 #include FT_FREETYPE_H
