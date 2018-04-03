@@ -3,6 +3,11 @@
 
 #include "state.h"
 
+/*
+ * Dummy state
+ * just so I don't get complaints about an abstract class.
+ */
+
 class QuitState : public State{
 	public:
 		QuitState(){}

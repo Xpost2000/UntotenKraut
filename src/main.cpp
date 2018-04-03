@@ -38,7 +38,7 @@ int main( int argc, char** argv ){
 	core::InputManager inputManager;
 
 	window.Create( 
-		       "Test"  ,
+		       "Nazi Zombies Top Down"  ,
 		       1024    ,
 		       768 
 		     );
@@ -58,8 +58,8 @@ int main( int argc, char** argv ){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 9, 30, 500, 3, false, 80, 7, 2.25));
-	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1.5, true, 300, 30, 3.5));
+	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 9, 30, 500, 3, false, 80, 7, 6.25));
+	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1.5, true, 300, 30, 5.3));
 
 	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\round_end.wav", "round_end");
 
