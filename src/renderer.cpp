@@ -119,6 +119,7 @@ namespace core{
 	
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 			glBindVertexArray(vao);
+			// rechange to bufferdata. Orphaning doesn't work cause I did something wrong.
 			glBufferSubData(
 					GL_ARRAY_BUFFER,
 					0, sizeof(data),

@@ -3,6 +3,7 @@
 #include "state.h"
 #include "input.h"
 #include "gui_button.h"
+#include "sprite.h"
 
 class MenuState : public State{
 	public:
@@ -12,9 +13,14 @@ class MenuState : public State{
 		void update(float dt);
 		void draw(core::gfx::Renderer&);
 	private:
-		core::InputManager inputManager;
+		float x1=0,x2=0,x3=0;
 
-		GUIButton startButton;
+		core::InputManager inputManager;
+		core::gfx::Sprite blob;
+		core::gfx::Sprite smog;
+		core::gfx::Sprite screen; // the background.
+
+		GUIButton startButton, editModeButton, quitButton;
 };
 
 #endif

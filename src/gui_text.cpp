@@ -45,5 +45,5 @@ void GUIText::draw(core::gfx::Renderer& renderer, core::gfx::Sprite* useSprite){
 		renderer.drawRect(x, y, w, h, r, g, b, a);
 	}
 	renderer.setTextSize(textSize);
-	renderer.drawText("arial", x, y, text, tr, tg, tb, ta);
+	renderer.drawText("arial", x+2.3, y+1.3, text, tr, tg, tb, ta);
 }
