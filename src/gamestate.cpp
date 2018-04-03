@@ -49,6 +49,12 @@ GameState::~GameState(){
 }
 
 void GameState::update(float dt){
+	if(playerBuildDelay > 0){
+		playerBuildDelay-=dt;
+	}
+	if(playerBuyDelay > 0){
+		playerBuyDelay-=dt;
+	}
 	if(player.getHp()<=0){
 		parent->setCurrentState("death");
 	}
@@ -60,7 +66,7 @@ void GameState::update(float dt){
 		gameWave++;
 		world.nextWave();
 		world.getKillCount()=0;
-		roundDelay=20;
+		roundDelay=43;
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_W ) ){
 		player.move(0.1f, 1, world);
@@ -73,6 +79,39 @@ void GameState::update(float dt){
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_D ) ){
 		player.move(0.1f, 4, world);
+	}
+	canRepairBarricade=false;
+	for(auto& barricade : world.getBarricades()){
+		if(player.touching(barricade.getTrigger())&&barricade.getHealth() < 100){
+			canRepairBarricade=true;
+			if( inputManager.isKeyDown(SDL_SCANCODE_F) ){
+				if(playerBuildDelay <= 0){
+					barricade.setHealth(barricade.getHealth()+25);
+					world.getScore()+=25;
+					playerBuildDelay=5;
+				}
+			}
+			break;
+		}
+	}
+	canBuyWallGun=false;
+	currentGunPrice=0;
+	for(auto& wall : world.getWalls()){
+		if(wall.getHasGun()){
+			if(player.touching(wall.getTrigger())){
+				canBuyWallGun=true;
+				currentGunPrice=wall.getCost();
+			if( inputManager.isKeyDown(SDL_SCANCODE_F) ){
+				if(playerBuyDelay <= 0 && world.getScore()>=wall.getCost()){
+					world.getScore()-=currentGunPrice;
+					//TODO: do more advanced checking.
+					player.getGun() = wall.getWallWeapon();
+					playerBuyDelay=5;
+				}
+			}
+			break;
+			}
+		}
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_1 ) ){
 		player.useGun(0);
@@ -133,6 +172,17 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	// Rendering the hud is down here.
 
 	renderer.identityCamera();
+	if(canRepairBarricade){
+		// cheap outlining
+		renderer.setTextSize(33);
+		renderer.drawText("ocr", 1024/2-3, 768/2-3, "Press F to Repair Barricade", 0, 0, 0, 1);
+		renderer.setTextSize(30);
+		renderer.drawText("ocr", 1024/2, 768/2, "Press F to Repair Barricade", 1, 0, 1, 1);
+	}
+	if(canBuyWallGun){
+		renderer.setTextSize(30);
+		renderer.drawText("ocr", 1024/2, 768/2, "Press F to Buy Gun(" + std::to_string(currentGunPrice)+")", 0, 0, 1, 1);
+	}
 
 	gunUi.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\"+player.getGun().getName()+"_hud.png"));
 	scoreText.setText("Score: "+ std::to_string(world.getScore()), 14);

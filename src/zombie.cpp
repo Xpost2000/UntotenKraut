@@ -42,18 +42,20 @@ namespace game{
 			});
 			float dist = sqrt( pow(barricades.begin()->x-x,2)+pow(barricades.begin()->y-y,2) );
 			float dist1 = sqrt( pow(world.getPlayer()->x-x,2)+pow(world.getPlayer()->y-y,2) );
+			/*
+			This is much more buggier.
 			if( dist < dist1 ){
-				if(barricades.front().getHealth()){
+				if(barricades.begin()->getHealth()){
 					targetX = barricades.begin()->x;
 					targetY = barricades.begin()->y;
 				}else{
 					targetX = world.getPlayer()->x;
 					targetY = world.getPlayer()->y;
 				}
-			}else{
+			}else{*/
 				targetX = world.getPlayer()->x;
 				targetY = world.getPlayer()->y;
-			}
+			//}
 			float angle = atan2(targetY - y, targetX - x);
 			if(touching(*world.getPlayer())&& hitDelay<=0){
 				world.getPlayer()->setHp( world.getPlayer()->getHp() - 50 );
@@ -73,11 +75,13 @@ namespace game{
 		clone.x += speed* cos(angle)*dt;
 		clone.y += speed* sin(angle)*dt;
 		for(auto &barricade : world.getBarricades()){
-			if(clone.touching(barricade) && barricade.getHealth()){
-				barricade.setHealth(barricade.getHealth()-25);	
-				std::cout << "Hitting barricade: " << barricade.getHealth() << std::endl;
-				hitDelay=13;
-				return; break;
+			if(clone.touching(barricade) && barricade.getHealth()>0){
+				if(hitDelay <= 0){
+					barricade.setHealth(barricade.getHealth()-15);	
+					hitDelay=16;
+				}
+				return; 
+				break;
 			}
 		}
 		for(auto &wall : world.getWalls()){

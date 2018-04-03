@@ -31,7 +31,7 @@ namespace game{
 				zombieSpawners = lvl.zombieSpawners;
 				for(auto& s : zombieSpawners){
 					s.setVectorPtr(&zombies);
-					s.setCloneOf(Zombie(0, 0, 30, 30, 10, 50));
+					s.setCloneOf(Zombie(0, 0, 30, 30, 5, 50));
 				}
 				player->x=lvl.pX;
 				player->y=lvl.pY;
@@ -48,7 +48,7 @@ namespace game{
 			void addZombie(Zombie zombie) { zombies.push_back(zombie); }
 			void addSpawner(float x, float y, float delay, int limit=-1){ 
 				zombieSpawners.push_back(Spawner<Zombie>(&zombies, delay, x, y, limit));
-				zombieSpawners.back().setCloneOf(Zombie(0, 0, 30, 30, 10, 50));
+				zombieSpawners.back().setCloneOf(Zombie(0, 0, 26, 26, 10, 50));
 		       	}
 
 			std::vector<Wall>& getWalls() { return walls; }

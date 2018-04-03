@@ -46,6 +46,7 @@ int main( int argc, char** argv ){
 	core::gfx::Renderer renderer(1024, 768);
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_512_tset.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_barricade_test.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_wallbuy_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\ui\\ui_stain.png");

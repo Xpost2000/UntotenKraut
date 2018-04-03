@@ -35,6 +35,8 @@ namespace core{
 				void loadFont( std::string path, std::string name );
 				void drawText( std::string font_name, float x, float y, std::string text, float r=1, float g=1, float b=1, float a=1 );
 				void setTextSize( int sz ){ fontRenderer.setSize(sz); }
+				float getScreenWidth() { return scrW; }
+				float getScreenHeight() { return scrH; }
 				float camX=0, camY=0;
 				float scaleX=1, scaleY=1;
 			private:

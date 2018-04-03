@@ -12,7 +12,9 @@ namespace game{
 			void draw(core::gfx::Renderer&);
 			void setHealth(float hp){ health=hp; }
 			const float getHealth() { return health; }
+			Entity& getTrigger() { return trigger; }
 		private:
+			Entity trigger;
 			core::gfx::Sprite sprites[2];
 			float health=100;
 	};

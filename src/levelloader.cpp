@@ -26,6 +26,14 @@ namespace game{
 					case '#':
 						newLevel.walls.push_back(Wall(j*35,i*35, 35, 35));
 						break;
+					// m4a1
+					case 'm':
+						{
+							game::Wall m4a1_wall = Wall(j*35,i*35,35,35, 1500);
+							m4a1_wall.wallWeapon = game::GunManager::getInstance()->get("M4A1");
+							newLevel.walls.push_back(m4a1_wall);
+						}				
+						break;
 					default:
 						break;
 				}

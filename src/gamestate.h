@@ -34,6 +34,12 @@ class GameState : public State{
 		core::InputManager inputManager;
 
 		bool isPlayerReloading=false;
+		bool canRepairBarricade=false;
+		bool canBuyWallGun=false;
+		float playerBuildDelay=0;
+		float playerBuyDelay=0;
+		int currentGunPrice=0;
+
 		game::Player player;
 		game::World  world;
 
