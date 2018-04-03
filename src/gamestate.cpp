@@ -13,7 +13,7 @@ GameState::GameState(){
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
 	gunUi = core::gfx::Sprite(900, 650, 90, 45);
 
-	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("M4A1"));
+	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("KAR98"));
 	player.useGun(0);
 	
 	world.setPlayer(&player);
