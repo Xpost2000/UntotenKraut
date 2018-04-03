@@ -48,8 +48,9 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_barricade_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\ui\\ui_stain.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\test_ground.png");
 
 	renderer.loadFont("assests\\fonts\\ocr.ttf",   "ocr");
 	renderer.loadFont("assests\\fonts\\arial.ttf", "arial");

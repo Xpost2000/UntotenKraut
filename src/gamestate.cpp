@@ -7,6 +7,8 @@
 GameState::GameState(){
 	player = game::Player(0, 0, 30, 30, 15, 100);
 
+	ground = core::gfx::Sprite(-500, -500, 2000, 2000);
+	ground.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\test_ground.png"));
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
 	gunUi = core::gfx::Sprite(900, 650, 90, 45);
@@ -125,6 +127,7 @@ void GameState::update(float dt){
 void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.centerCameraOn(player.x, player.y);
 	renderer.refreshCamera();
+	renderer.drawSprite(ground);
 	world.draw(renderer);
 
 	// Rendering the hud is down here.
