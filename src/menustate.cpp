@@ -18,6 +18,12 @@ MenuState::MenuState(){
 				parent->setCurrentState("quit");
 			}
 	 );
+
+	inputManager.AddCallback(
+			SDL_MOUSEBUTTONDOWN,
+			[&](SDL_Event& evnt){
+			}
+	);
 }
 
 MenuState::~MenuState(){

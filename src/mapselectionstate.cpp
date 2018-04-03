@@ -14,6 +14,12 @@ MapSelectionState::MapSelectionState(){
 			}
 	 );
 
+	inputManager.AddCallback(
+			SDL_MOUSEBUTTONDOWN,
+			[&](SDL_Event& evnt){
+			}
+	);
+
 	backButton = GUIButton( 0, 728, "Return To Menu", 20, 1, 1, 1, 1 );
 }
 
