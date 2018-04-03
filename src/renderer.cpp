@@ -149,13 +149,25 @@ namespace core{
 
 		void Renderer::identityCamera(){
 			view = glm::mat4();
-			refreshCamera();
+		}
+
+		void Renderer::translateCamera(float x, float y){
+			identityCamera();
+			camX+=x;
+			camY+=y;
+			view = glm::translate(view, glm::vec3(camX, camY, 0.0f));
 		}
 
 		void Renderer::scaleCamera(float x, float y){
 			scaleX=x;
 			scaleY=y;
 			view = glm::scale(view, glm::vec3(x, y, 0.0f));
+		}
+
+		glm::vec2 Renderer::mouseToWorld(float x, float y){
+			// thank god for glm's convience functions
+			glm::vec2 result = glm::unProject(glm::vec3(glm::vec2(x,scrH-y), 0.0f), view, projection, glm::vec4(0, 0, scrW, scrH));
+			return result;
 		}
 
 		void Renderer::centerCameraOn(float x, float y){

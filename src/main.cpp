@@ -68,7 +68,7 @@ int main( int argc, char** argv ){
 	StateMachine stateMachine;
 	GameState gameState;
 	DeathState deathState;
-	//EditorState editorState;
+	EditorState editorState;
 	MenuState menuState;
 	QuitState quitState;
 
@@ -76,7 +76,7 @@ int main( int argc, char** argv ){
 	stateMachine.addState(&menuState, "menu");
 	stateMachine.addState(&quitState, "quit");
 	stateMachine.addState(&deathState, "death");
-	//stateMachine.addState(&editorState, "editor");
+	stateMachine.addState(&editorState, "editor");
 	stateMachine.setCurrentState("menu");
 
 	inputManager.AddCallback(

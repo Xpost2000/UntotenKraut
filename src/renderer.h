@@ -37,6 +37,8 @@ namespace core{
 				void setTextSize( int sz ){ fontRenderer.setSize(sz); }
 				float getScreenWidth() { return scrW; }
 				float getScreenHeight() { return scrH; }
+				void translateCamera(float x, float y);
+				glm::vec2 mouseToWorld(float x, float y);
 				float camX=0, camY=0;
 				float scaleX=1, scaleY=1;
 			private:

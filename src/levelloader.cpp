@@ -14,6 +14,18 @@ namespace game{
 		for(int i = 0; i < lines.size(); ++i){
 			for(int j = 0; j < lines[i].size(); ++j){
 				switch(lines[i][j]){
+					case '[':
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_cl.png")));
+						break;
+					case ']':
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_cr.png")));
+						break;
+					case '<':
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_clb.png")));
+						break;
+					case '>':
+						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_crb.png")));
+						break;
 					case 'B':
 						newLevel.barricades.push_back(Barricade(j*35,i*35,35,35));
 						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png")));

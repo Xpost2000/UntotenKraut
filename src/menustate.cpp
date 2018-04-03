@@ -29,6 +29,7 @@ void MenuState::update(float dt){
 		parent->setCurrentState("game");
 	}
 	if(editModeButton.isClicked(inputManager)){
+		parent->setCurrentState("editor");
 	}
 	if(quitButton.isClicked(inputManager)){
 		parent->setCurrentState("quit");
@@ -45,6 +46,7 @@ void MenuState::draw(core::gfx::Renderer& renderer){
 	screen = core::gfx::Sprite(0, 0, renderer.getScreenWidth(), renderer.getScreenHeight());
 	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\menu.png"));
 	renderer.identityCamera();
+	renderer.refreshCamera();
 	smog.setW(renderer.getScreenWidth());
 	smog.setH(renderer.getScreenHeight());
 

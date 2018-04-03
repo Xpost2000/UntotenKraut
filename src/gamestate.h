@@ -24,6 +24,7 @@ class GameState : public State{
 		void draw(core::gfx::Renderer&);
 	private:
 		friend class DeathState;
+		friend class EditorState;
 		core::gfx::Sprite uiBloodStain;
 		core::gfx::Sprite gunUi;
 		game::LevelLoader levelLoader;

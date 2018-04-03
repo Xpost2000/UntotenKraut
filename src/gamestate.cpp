@@ -157,6 +157,7 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.refreshCamera();
 	world.draw(renderer);
 	renderer.identityCamera();
+	renderer.refreshCamera();
 	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.5);
 
 	//artificially "darken" the world without a postprocessor.
@@ -164,6 +165,7 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	// Rendering the hud is down here.
 
 	renderer.identityCamera();
+	renderer.refreshCamera();
 	if(canRepairBarricade){
 		renderer.setTextSize(30);
 		renderer.drawText("ocr", 1024/2-200, 768/2, "Press F to Repair Barricade", 0.8, 0.8, 0, 1);

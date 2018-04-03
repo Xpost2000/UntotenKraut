@@ -1,4 +1,5 @@
 #include "world.h"
+#include <algorithm>
 
 namespace game{
 	void World::draw(core::gfx::Renderer& renderer){
