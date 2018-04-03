@@ -18,15 +18,6 @@ GameState::GameState(){
 	
 	world.setPlayer(&player);
 	// this is for the test world. In the future I will load maps from files instead.
-	world.addWall(game::Wall( 100, 200, 60, 60 ));
-	world.addWall(game::Wall( 100, 500, 60, 60 ));
-	world.addBarricade(game::Barricade(300, 300, 30, 30));
-	world.addBarricade(game::Barricade(300, 600, 30, 30));
-
-	world.addSpawner(300, 200, 10, 5);
-	world.addSpawner(600, 200, 10, 5);
-	world.addSpawner(800, 500, 10, 5);
-
 	weaponText = GUIText(900, 720, "", 15);
 	scoreText =  GUIText(900, 700, "", 15);
 

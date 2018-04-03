@@ -1,4 +1,5 @@
 #include "levelloader.h"
+#include "texturemanager.h"
 namespace game{
 	//size is 30
 	void LevelLoader::load(std::string file, std::string levelName){
@@ -23,13 +24,16 @@ namespace game{
 					case 'Z':
 						newLevel.zombieSpawners.push_back(Spawner<Zombie>(nullptr, 15, j*30, i*30, 4));
 						break;
+					case 'X':
+						newLevel.walls.push_back(Wall(j*35,i*35, 35, 35, core::TextureManager::getInstance()->getTexture("assests\\textures\\concrete.png")));
+						break;
 					case '#':
-						newLevel.walls.push_back(Wall(j*35,i*35, 35, 35));
+						newLevel.walls.push_back(Wall(j*35,i*35, 35, 35, core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_wall_test.png")));
 						break;
 					// m4a1
 					case 'm':
 						{
-							game::Wall m4a1_wall = Wall(j*35,i*35,35,35, 1500);
+							game::Wall m4a1_wall = Wall(j*35,i*35,35,35, core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_wallbuy_test.png"), 1500);
 							m4a1_wall.wallWeapon = game::GunManager::getInstance()->get("M4A1");
 							newLevel.walls.push_back(m4a1_wall);
 						}				

@@ -7,7 +7,7 @@
 namespace game{
 	class Barricade : public Entity{
 		public:
-			Barricade( float x, float y, float w, float h );
+			Barricade( float x, float y, float w, float h);
 			void update(float dt, World&){}
 			void draw(core::gfx::Renderer&);
 			void setHealth(float hp){ health=hp; }

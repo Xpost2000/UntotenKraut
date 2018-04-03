@@ -1,7 +1,7 @@
 GCC=g++
 LIBS=`pkg-config --libs --cflags sdl2` `pkg-config --libs --cflags glew` -Wl,-Bstatic -lfreetype -Wl,-Bdynamic -lSDL2_image -lSDL2_mixer
 LLIBS=`pkg-config --libs --cflags sdl2` `pkg-config --libs --cflags glew` `pkg-config --libs --cflags freetype2` -lSDL2_image -lSDL2_mixer
-CFLAGS=-std=gnu++11 -g
+CFLAGS=-std=gnu++11 -O2
 FILES=src/main.cpp\
       src/window.cpp\
       src/input.cpp\
