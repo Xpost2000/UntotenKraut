@@ -82,7 +82,6 @@ namespace game{
 			while(!notTested.empty() && notTested.front()->visited){
 				notTested.pop_front();
 			}
-			if(notTested.empty()) break;
 			current=notTested.front();
 			current->visited=true;
 			for(auto& n : current->neighbors){
@@ -91,21 +90,32 @@ namespace game{
 				}
 				float possible = current->localValue + distance(current, n);
 				if(possible < n->localValue){
-					std::cout << "Setting parent" << std::endl;
 					n->parent= current;
 					n->localValue= possible;
 					n->globalValue= n->localValue + distance(n, goal);
 				}
 			}
 		}
-		toFollow = goal;
 		sprite.setX(x);
 		sprite.setY(y);
+		std::list<Node*> path;
+		toFollow=goal;
+		while(toFollow->parent != nullptr){
+			path.push_back(toFollow);
+			toFollow = toFollow->parent;
+		}
+		path.reverse();
 		if(hp > 0){
 			float targetX=0;
 			float targetY=0;
 
 			float angle = atan2(targetY - y, targetX - x); 
+
+			if(path.front() != goal && path.front() != nullptr){
+				if(moveToPoint(path.front()->x*35, path.front()->y*35, world, dt)){
+					path.pop_front();
+				}
+			}
 			
 			if(touching(*world.getPlayer())&& hitDelay<=0){
 				world.getPlayer()->setHp( world.getPlayer()->getHp() - 50 );
@@ -113,7 +123,6 @@ namespace game{
 			}
 
 			hitDelay-=dt;
-			moveAngle(angle, world, dt);
 		}
 	}
 
@@ -197,13 +206,15 @@ namespace game{
 
 	void Zombie::draw(core::gfx::Renderer& renderer){
 		renderer.drawSprite( sprite );
-		toFollow=goal;
-		renderer.drawRect( toFollow->x*35, toFollow->y*35, 35, 35 );
-		renderer.drawRect( start->x*35, start->y*35, 35, 35 );
-		while(toFollow->parent != nullptr){
-			renderer.drawRect( toFollow->x*35, toFollow->y*35, 35, 35 );
-			toFollow=toFollow->parent;
+	}
+
+	bool Zombie::moveToPoint(int tx, int ty, World& world, float dt){
+		std::cout << "Target Position : " << tx << " , " << ty << std::endl;
+		std::cout << "Position : " << x << " , " << y << std::endl;
+		if(x!=tx || y!=ty){
+			moveAngle(atan2(ty-y, tx-x), world, dt);
+			return false;
 		}
-	
+		return true;
 	}
 };

@@ -28,10 +28,10 @@ namespace game{
 			Node* toFollow=nullptr;
 			core::gfx::Sprite sprite;
 			void moveAngle(float angle, World& world, float dt);
+			bool moveToPoint(int x, int y, World& world, float dt);
 			void moveDirection(int direction, World& world, float dt);
 			float hitDelay=0;
 			float speed=0, hp=0;
-			bool brokenBarricade=false;
 	};
 };
 #endif
