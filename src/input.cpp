@@ -51,6 +51,9 @@ namespace core{
 			if(m_callbacks.find(m_event.type) != m_callbacks.end()){
 				m_callbacks[m_event.type](m_event);
 			}
+			if(m_event.type == SDL_CONTROLLERDEVICEADDED){
+				RegisterController();
+			}
 		}
 		SDL_GetMouseState(&m_mX, &m_mY);
 		//m_keys = SDL_GetKeyboardState( NULL );
