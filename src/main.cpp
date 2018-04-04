@@ -88,11 +88,16 @@ int main( int argc, char** argv ){
 				stateMachine.setCurrentState("quit");
 			}
 	 );
-
+	Uint32 start = 0;
+	Uint32 end   = 0;
+	float dt = 0;
 	while( stateMachine.getCurrentState() != &quitState ){
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
-		stateMachine.update(0.1f);
+		start = SDL_GetTicks();
+		dt = (start-end)/1000.0f;
+		end = start;
+		stateMachine.update(dt);
 		stateMachine.draw(renderer);
 		inputManager.Update();
 		window.Refresh();
