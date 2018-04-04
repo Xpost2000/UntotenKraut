@@ -165,12 +165,17 @@ void EditorState::draw(core::gfx::Renderer& renderer){
 	renderer.drawRect(0, 0, w, h, 0.8, 0.1, 0.1, 0.4);
 	else
 	renderer.drawRect(0, 0, w, h, 0.3, 0.1, 0.1, 0.4);
-
 	// grammar error
 	for(auto &zsp : world.getSpawner()){
 		renderer.drawRect(zsp.x, zsp.y, 35, 35, 0.1, 0.9, 0.1, 1.0);
 	}
 	world.draw(renderer);
+// preview object
+	mouseInWorld = renderer.mouseToWorld(inputManager.GetMouseX(), inputManager.GetMouseY());
+	// snaps it to a grid of 35 which the game runs with
+	int mX=round(mouseInWorld.x/35)*35;
+	int mY=round(mouseInWorld.y/35)*35;
+	renderer.drawRect(mX, mY, 35, 35, 1, 1, 1, 1);
 }
 
 void EditorState::writeToDisk(std::string filename){

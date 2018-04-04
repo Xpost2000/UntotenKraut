@@ -169,7 +169,7 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.drawRect(inWorld.x, inWorld.y, 5, 5, 1, 0, 0, 1);
 	renderer.identityCamera();
 	renderer.refreshCamera();
-	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.5);
+	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.65);
 
 	//artificially "darken" the world without a postprocessor.
 
