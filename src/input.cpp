@@ -43,6 +43,7 @@ namespace core{
 
 	void InputManager::AddCallback( int event, std::function<void(SDL_Event& event)> function ){
 		m_callbacks[event] = function;
+		fprintf(stderr, "Added callback for EVENT: %d\n", event);
 	}
 
 	void InputManager::Update(){
@@ -65,8 +66,6 @@ namespace core{
 	}
 	const bool InputManager::isKeyDown( int key ){
 		return SDL_GetKeyboardState(NULL)[key];
-		//if(m_keys==nullptr){return false;}
-		//return m_keys[key];
 	}
 
 	const bool InputManager::isButtonDown( int button ){

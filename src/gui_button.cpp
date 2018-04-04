@@ -17,8 +17,24 @@ bool GUIButton::isClicked(core::InputManager& input){
 		text_gui.g = hg;	
 		text_gui.b = hb;	
 		text_gui.a = ha;	
-		if(input.isMouseKeyDown(SDL_BUTTON_LEFT)){
-			return true;
+		if(held==true){
+			text_gui.r = hr-0.3;	
+			text_gui.g = hg-0.3;	
+			text_gui.b = hb-0.3;	
+			text_gui.a = ha;
+		}
+		if(held==false){
+			if(input.isMouseKeyDown(SDL_BUTTON_LEFT)){
+				held=true;
+				return false;
+			}
+		}else{
+			if(!input.isMouseKeyDown(SDL_BUTTON_LEFT)
+			 && (input.GetMouseX() < text_gui.x + text_gui.w && input.GetMouseX()+1 > text_gui.x)
+	    && (input.GetMouseY() < text_gui.y + text_gui.h && input.GetMouseY()+1 > text_gui.y) ){
+				held=false;
+				return true;
+			}
 		}
 	}else{
 		text_gui.r = r;	

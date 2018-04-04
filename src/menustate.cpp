@@ -19,11 +19,6 @@ MenuState::MenuState(){
 			}
 	 );
 
-	inputManager.AddCallback(
-			SDL_MOUSEBUTTONDOWN,
-			[&](SDL_Event& evnt){
-			}
-	);
 }
 
 MenuState::~MenuState(){
@@ -31,6 +26,7 @@ MenuState::~MenuState(){
 
 void MenuState::update(float dt){
 	SDL_SetRelativeMouseMode(SDL_FALSE);
+
 	if(startButton.isClicked(inputManager)){
 		// TODO: Add another menu sub state ( the map selection screen )
 		parent->setCurrentState("mapselect");
@@ -41,6 +37,7 @@ void MenuState::update(float dt){
 	if(quitButton.isClicked(inputManager)){
 		parent->setCurrentState("quit");
 	}
+	
 
 	x1+=15*dt;
 	x2+=30*dt;

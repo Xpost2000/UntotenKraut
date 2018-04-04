@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <unordered_map>
+#include <map>
 #include <functional>
 
 #include <SDL2/SDL.h>
@@ -42,8 +42,10 @@ namespace core{
 			const int GetMouseY() { return m_mY; }
 
 			void AddCallback( int event, std::function<void(SDL_Event& evnt)> function );
+
+			SDL_Event& getCurrentEvent() { return m_event; }
 		private:
-			std::unordered_map< int, std::function<void(SDL_Event& evnt)> > m_callbacks;
+			std::map< int, std::function<void(SDL_Event& evnt)> > m_callbacks;
 			uint8_t m_buttons[SDL_CONTROLLER_BUTTON_MAX] = {0}; // for controllers.
 
 			int m_mX=0, m_mY=0;

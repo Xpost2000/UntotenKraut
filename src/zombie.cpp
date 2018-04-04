@@ -56,7 +56,7 @@ namespace game{
 				targetX = world.getPlayer()->x;
 				targetY = world.getPlayer()->y;
 			//}
-			float angle = atan2(targetY - y, targetX - x);
+			float angle = atan2(targetY - y, targetX - x); // TRIGONOMIC MAGIC THAT SAYS TO FOLLOW THE PLAYER BY BASICALLY A STRAIGHT LINE.
 			if(touching(*world.getPlayer())&& hitDelay<=0){
 				world.getPlayer()->setHp( world.getPlayer()->getHp() - 50 );
 				hitDelay=13;

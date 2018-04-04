@@ -16,6 +16,7 @@ class GUIButton{
 
 		void draw(core::gfx::Renderer& renderer, core::gfx::Sprite* useSprite=nullptr);
 	private:
+		bool held=false;
 		GUIText text_gui;
 		
 		float hr=0,hg=0.5,hb=0.5,ha=1;

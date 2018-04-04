@@ -30,7 +30,6 @@ GameState::GameState(){
 				parent->setCurrentState("quit");
 			}
 	 );
-	loadLevel("maps\\test.txt", "test");
 }
 
 GameState::~GameState(){
