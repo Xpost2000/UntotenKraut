@@ -51,6 +51,11 @@ namespace core{
 			if(m_callbacks.find(m_event.type) != m_callbacks.end()){
 				m_callbacks[m_event.type](m_event);
 			}
+			if(m_event.type == SDL_CONTROLLERDEVICEREMOVED){
+				if(SDL_IsGameController(0))
+					if(m_controller)
+						SDL_GameControllerClose( m_controller );
+			}
 			if(m_event.type == SDL_CONTROLLERDEVICEADDED){
 				RegisterController();
 			}
