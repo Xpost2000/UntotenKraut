@@ -66,7 +66,7 @@ namespace game{
 			void nextWave() { 
 				for(auto& spawner : zombieSpawners){
 					spawner.reset();
-					spawner.setMaxSpawned(spawner.getMax()+2);
+					spawner.setMaxSpawned(spawner.getMax()+1);
 				}
 		        }
 

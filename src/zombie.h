@@ -2,6 +2,7 @@
 #define ZOMBIE_H
 #include "entity.h"
 #include "sprite.h"
+#include "pathfindingnode.h"
 namespace game{
 	class Zombie : public Entity{
 		public:
@@ -19,6 +20,12 @@ namespace game{
 
 			// zombies can't strafe. they move from an angle.
 		private:
+			Node* gridWorld=nullptr;
+			Node* current=nullptr;
+			Node* goal=nullptr;
+			Node* start=nullptr;
+
+			Node* toFollow=nullptr;
 			core::gfx::Sprite sprite;
 			void moveAngle(float angle, World& world, float dt);
 			void moveDirection(int direction, World& world, float dt);
