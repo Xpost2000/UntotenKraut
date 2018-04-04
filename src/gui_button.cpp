@@ -42,6 +42,7 @@ bool GUIButton::isClicked(core::InputManager& input){
 		text_gui.b = b;	
 		text_gui.a = a;	
 	}
+	//held=false;
 	return false;
 }
 

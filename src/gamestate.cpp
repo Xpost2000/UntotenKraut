@@ -119,13 +119,14 @@ void GameState::update(float dt){
 	if( inputManager.isKeyDown( SDL_SCANCODE_R ) ){
 		isPlayerReloading=true;
 	}
+
 	if(isPlayerReloading){
 		isPlayerReloading=!player.getGun().reload(0.1f);
 	}
 
 	if( inputManager.isMouseKeyDown( SDL_BUTTON_LEFT ) ){
 		if(!isPlayerReloading)
-		player.fire(inputManager.GetMouseX(), inputManager.GetMouseY());
+		player.fire(inWorld.x, inWorld.y);
 	}
 	if(inputManager.CheckForController()){
 		if( inputManager.GetJoystickState().left_vertical > 128 ){
@@ -150,7 +151,7 @@ void GameState::update(float dt){
 		}
 		if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_RIGHTSHOULDER ) ){
 			if(!isPlayerReloading)
-			player.fire(inputManager.GetMouseX(), inputManager.GetMouseY());
+			player.fire(inWorld.x, inWorld.y);
 		}
 	}
 	if( inputManager.isKeyDown(SDL_SCANCODE_ESCAPE) )
@@ -164,6 +165,8 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.centerCameraOn(player.x, player.y);
 	renderer.refreshCamera();
 	world.draw(renderer);
+	inWorld = renderer.mouseToWorld(inputManager.GetMouseX(), inputManager.GetMouseY());
+	renderer.drawRect(inWorld.x, inWorld.y, 5, 5, 1, 0, 0, 1);
 	renderer.identityCamera();
 	renderer.refreshCamera();
 	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.5);
