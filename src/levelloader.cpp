@@ -39,7 +39,7 @@ namespace game{
 						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\floor.png")));
 						break;
 					case 'Z':
-						newLevel.zombieSpawners.push_back(Spawner<Zombie>(nullptr, 15, j*35, i*35, 0));
+						newLevel.zombieSpawners.push_back(Spawner<Zombie>(nullptr, 1.5, j*35, i*35, 0));
 						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png")));
 						break;
 					case 'X':

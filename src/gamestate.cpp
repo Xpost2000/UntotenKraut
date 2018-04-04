@@ -5,7 +5,7 @@
 #include <iostream>
 
 GameState::GameState(){
-	player = game::Player(0, 0, 30, 30, 15, 100);
+	player = game::Player(0, 0, 30, 30, 45, 100);
 
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
@@ -39,7 +39,7 @@ void GameState::loadLevel(std::string fileName, std::string name){
 	levelLoader.load(fileName, name);
 	world.loadLevel(levelLoader.getLevel(name));
 	player.setHp(100);
-	roundDelay=43;
+	roundDelay=10;
 	gameWave=0;
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("KAR98"));
 	player.useGun(0);
@@ -63,19 +63,19 @@ void GameState::update(float dt){
 		gameWave++;
 		world.nextWave();
 		world.getKillCount()=0;
-		roundDelay=43;
+		roundDelay=10;
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_W ) ){
-		player.move(0.1f, 1, world);
+		player.move(dt, 1, world);
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_S ) ){
-		player.move(0.1f, 2, world);
+		player.move(dt, 2, world);
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_A ) ){
-		player.move(0.1f, 3, world);
+		player.move(dt, 3, world);
 	}
 	if( inputManager.isKeyDown( SDL_SCANCODE_D ) ){
-		player.move(0.1f, 4, world);
+		player.move(dt, 4, world);
 	}
 	canRepairBarricade=false;
 	for(auto& barricade : world.getBarricades()){
@@ -85,7 +85,7 @@ void GameState::update(float dt){
 				if(playerBuildDelay <= 0){
 					barricade.setHealth(barricade.getHealth()+25);
 					world.getScore()+=25;
-					playerBuildDelay=5;
+					playerBuildDelay=2;
 				}
 			}
 			break;
@@ -103,7 +103,7 @@ void GameState::update(float dt){
 					world.getScore()-=currentGunPrice;
 					//TODO: do more advanced checking.
 					player.getGun() = wall.getWallWeapon();
-					playerBuyDelay=5;
+					playerBuyDelay=2;
 				}
 			}
 			break;
@@ -130,16 +130,16 @@ void GameState::update(float dt){
 	}
 	if(inputManager.CheckForController()){
 		if( inputManager.GetJoystickState().left_vertical > 128 ){
-			player.move(0.1f, 3, world);
+//			player.move(0.1f, 3, world);
 
 		}else if ( inputManager.GetJoystickState().left_vertical < 128 ){
-			player.move(0.1f, 4, world);
+//			player.move(0.1f, 4, world);
 		}
 
 		if( inputManager.GetJoystickState().left_horizontal > 128 ){
-			player.move(0.1f, 1, world);
+	//		player.move(0.1f, 1, world);
 		}else if ( inputManager.GetJoystickState().left_horizontal < 128 ){
-			player.move(0.1f, 2, world);
+	//		player.move(0.1f, 2, world);
 		}
 		std::cout << "Joystick value (LEFT HORIZONTAL): ";
 		std::cout << inputManager.GetJoystickState().left_horizontal << std::endl;

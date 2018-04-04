@@ -28,7 +28,7 @@ namespace game{
 		}
 		for(int i = 0; i < zombies.size(); ++i){
 			auto& zombie = zombies[i];
-			zombie.update(0.1f, *this);
+			zombie.update(dt, *this);
 			if(zombie.getHp() <= 0){
 				zombies.erase(zombies.begin()+i);
 				killCount++;
@@ -36,12 +36,12 @@ namespace game{
 			}
 		}
 		for(int i = 0; i < player->getBullets().size(); ++i){
-			player->getBullets()[i].update( 0.1f, *this );
+			player->getBullets()[i].update( dt, *this );
 			if(!player->getBullets()[i].isAlive()){
 				player->getBullets().erase(player->getBullets().begin()+i);
 			}
 
 		}
-		player->update(0.1f, *this);
+		player->update(dt, *this);
 	}
 };
