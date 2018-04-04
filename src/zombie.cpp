@@ -163,6 +163,16 @@ namespace game{
 							return;
 						}
 					}
+					for(auto &barricade : world.getBarricades()){
+						if(clone.touching(barricade) && barricade.getHealth()>0){
+							if(hitDelay <= 0){
+								barricade.setHealth(barricade.getHealth()-25);	
+								hitDelay=15;
+							}
+							return; 
+							break;
+							}
+					}
 					y -= speed*dt;
 					break;
 				// down
@@ -171,6 +181,16 @@ namespace game{
 					for(auto &wall : world.getWalls()){
 						if(clone.touching(wall)){
 							return;
+						}
+					}
+					for(auto &barricade : world.getBarricades()){
+						if(clone.touching(barricade) && barricade.getHealth()>0){
+							if(hitDelay <= 0){
+								barricade.setHealth(barricade.getHealth()-25);	
+								hitDelay=15;
+							}
+							return; 
+							break;
 						}
 					}
 					y += speed*speedModifier*dt;
@@ -183,9 +203,14 @@ namespace game{
 							return;
 						}
 					}
-					for(auto &wall : world.getBarricades()){
-						if(clone.touching(wall)){
-							return;
+					for(auto &barricade : world.getBarricades()){
+						if(clone.touching(barricade) && barricade.getHealth()>0){
+							if(hitDelay <= 0){
+								barricade.setHealth(barricade.getHealth()-25);	
+								hitDelay=15;
+							}
+							return; 
+							break;
 						}
 					}
 					x -= speed*speedModifier*dt;
@@ -198,7 +223,17 @@ namespace game{
 							return;
 						}
 					}
-				x += speed*speedModifier*dt;
+					for(auto &barricade : world.getBarricades()){
+						if(clone.touching(barricade) && barricade.getHealth()>0){
+							if(hitDelay <= 0){
+								barricade.setHealth(barricade.getHealth()-25);	
+								hitDelay=15;
+							}
+							return; 
+							break;
+						}
+					}
+					x += speed*speedModifier*dt;
 				break;
 		};
 
@@ -206,13 +241,23 @@ namespace game{
 
 	void Zombie::draw(core::gfx::Renderer& renderer){
 		renderer.drawSprite( sprite );
+	
 	}
 
 	bool Zombie::moveToPoint(int tx, int ty, World& world, float dt){
-		std::cout << "Target Position : " << tx << " , " << ty << std::endl;
-		std::cout << "Position : " << x << " , " << y << std::endl;
 		if(x!=tx || y!=ty){
-			moveAngle(atan2(ty-y, tx-x), world, dt);
+			if( tx > x ){
+				moveDirection(4, world, dt);
+			}
+			if( tx < x ){
+				moveDirection(3, world, dt);
+			}
+			if( ty > y ){
+				moveDirection(2, world, dt);
+			}
+			if( ty < y ){
+				moveDirection(1, world, dt);
+			}
 			return false;
 		}
 		return true;

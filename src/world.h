@@ -52,7 +52,7 @@ namespace game{
 			void addZombie(Zombie zombie) { zombies.push_back(zombie); }
 			void addSpawner(float x, float y, float delay, int limit=-1){ 
 				zombieSpawners.push_back(Spawner<Zombie>(&zombies, delay, x, y, limit));
-				zombieSpawners.back().setCloneOf(Zombie(0, 0, 26, 26, 10, 50));
+				zombieSpawners.back().setCloneOf(Zombie(0, 0, 26, 26, 18, 50));
 		       	}
 
 			std::vector<Wall>& getWalls() { return walls; }
@@ -66,7 +66,7 @@ namespace game{
 			void nextWave() { 
 				for(auto& spawner : zombieSpawners){
 					spawner.reset();
-					spawner.setMaxSpawned(spawner.getMax()+1);
+					spawner.setMaxSpawned(spawner.getMax()+2);
 				}
 		        }
 
