@@ -20,9 +20,11 @@ namespace game{
 			// zombies can't strafe. they move from an angle.
 		private:
 			core::gfx::Sprite sprite;
-			void move(float angle, World& world, float dt);
+			void moveAngle(float angle, World& world, float dt);
+			void moveDirection(int direction, World& world, float dt);
 			float hitDelay=0;
 			float speed=0, hp=0;
+			bool brokenBarricade=false;
 	};
 };
 #endif

@@ -15,6 +15,7 @@ namespace game{
 		private:
 			friend class World;
 			friend class LevelLoader;
+			int w=0,h=0;
 			float pX=0, pY=0;
 			std::vector<DetailEntity> detail_ents;
 			std::vector<Wall> walls;

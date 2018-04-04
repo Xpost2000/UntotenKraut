@@ -37,6 +37,8 @@ namespace game{
 				}
 				player->x=lvl.pX;
 				player->y=lvl.pY;
+				w = lvl.w;
+				h = lvl.h;
 			}
 
 			void setPlayer(Player* nplayer) { player=nplayer;}
@@ -77,7 +79,10 @@ namespace game{
 				}
 				return sum;
 			}
+			int getWidth(){ return w; }
+			int getHeight() { return h; }
 		private:
+			int w=0,h=0;
 			Player *player;
 			std::vector<Wall> walls;
 			std::vector<Barricade> barricades;

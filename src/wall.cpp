@@ -8,6 +8,7 @@ namespace game{
 		sprite = core::gfx::Sprite(x,y,w,h);
 		sprite.setTexture(tex);
 		gunTrigger = Entity(x-5,y-5,w+10,h+10);
+		setType(BLOCK);
 	}
 
 	void Wall::update(float dt, World& world){

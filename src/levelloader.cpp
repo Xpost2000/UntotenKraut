@@ -12,6 +12,8 @@ namespace game{
 
 		Level newLevel;
 
+		newLevel.h = lines.size();
+		newLevel.w = lines[0].size(); // A proper level should appear to be a convex shape so this is acceptable.
 		for(int i = 0; i < lines.size(); ++i){
 			for(int j = 0; j < lines[i].size(); ++j){
 				switch(lines[i][j]){
@@ -37,7 +39,7 @@ namespace game{
 						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\floor.png")));
 						break;
 					case 'Z':
-						newLevel.zombieSpawners.push_back(Spawner<Zombie>(nullptr, 15, j*30, i*30, 4));
+						newLevel.zombieSpawners.push_back(Spawner<Zombie>(nullptr, 15, j*30, i*30, 1));
 						newLevel.detail_ents.push_back(DetailEntity(j*35,i*35,35,35,core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png")));
 						break;
 					case 'X':

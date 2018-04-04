@@ -3,6 +3,7 @@
 #include "renderer.h"
 namespace game{
 	const int GENERIC_ENTITY=0;
+	const int BLOCK=1;
 	class World;
 	class Entity{
 		public:
