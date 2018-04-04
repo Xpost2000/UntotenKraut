@@ -77,8 +77,8 @@ namespace game{
 		for(auto &barricade : world.getBarricades()){
 			if(clone.touching(barricade) && barricade.getHealth()>0){
 				if(hitDelay <= 0){
-					barricade.setHealth(barricade.getHealth()-15);	
-					hitDelay=16;
+					barricade.setHealth(barricade.getHealth()-25);	
+					hitDelay=15;
 				}
 				return; 
 				break;
