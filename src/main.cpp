@@ -53,6 +53,13 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\ui\\ui_stain.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\test_ground.png");
+	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_cl.png");
+	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_cr.png");
+	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_clb.png");
+	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_crb.png");
+	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png");
+	core::TextureManager::getInstance()->getTexture("assests\\textures\\floor.png");
+	core::TextureManager::getInstance()->getTexture("assests\\textures\\concrete.png");
 
 	renderer.loadFont("assests\\fonts\\ocr.ttf",   "ocr");
 	renderer.loadFont("assests\\fonts\\arial.ttf", "arial");
