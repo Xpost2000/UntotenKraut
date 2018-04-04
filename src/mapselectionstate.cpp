@@ -1,4 +1,5 @@
 #include "mapselectionstate.h"
+#include "gamestate.h"
 #include "fsm.h"
 #include "texturemanager.h"
 
@@ -21,6 +22,10 @@ MapSelectionState::MapSelectionState(){
 	);
 
 	backButton = GUIButton( 0, 728, "Return To Menu", 20, 1, 1, 1, 1 );
+// handy dandy macro
+#define MapButton( x, y, name, path, internalName ) std::make_pair<std::string, std::pair<std::string, GUIButton>>(std::string(internalName), std::make_pair<std::string, GUIButton>( std::string(path), GUIButton(x,y, name, 20, 1, 1, 1, 1) ))
+	// amazing! It works!
+	mapButtons.insert(MapButton(0, 150, "Small Bunker", "maps\\test.txt", "test"));
 }
 
 MapSelectionState::~MapSelectionState(){
@@ -36,6 +41,14 @@ void MapSelectionState::update(float dt){
 	x1+=15*dt;
 	x2+=30*dt;
 	x3+=7*dt;
+
+	for(auto& button : mapButtons){
+		if(button.second.second.isClicked(inputManager)){
+			GameState* ptr = (GameState*)parent->getState("game");
+			ptr->loadLevel(button.second.first, button.first);
+			parent->setCurrentState("game");
+		}
+	}
 
 	inputManager.Update();
 }
@@ -70,6 +83,10 @@ void MapSelectionState::draw(core::gfx::Renderer& renderer){
 	renderer.drawSprite(smog, 0.5, 0.4, 0.5, 0.2);
 	smog.setX(x3);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
+
+	for(auto& button : mapButtons){
+		button.second.second.draw(renderer, &blob);
+	}
 
 	backButton.draw(renderer, &blob);
 }

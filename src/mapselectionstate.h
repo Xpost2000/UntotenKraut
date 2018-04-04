@@ -5,6 +5,8 @@
 #include "sprite.h"
 #include "gui_button.h"
 
+#include <unordered_map>
+
 class MapSelectionState : public State{
 	public:
 		MapSelectionState();
@@ -18,6 +20,8 @@ class MapSelectionState : public State{
 		core::gfx::Sprite blob;
 		core::gfx::Sprite smog;
 		core::gfx::Sprite screen; // the background.
+
+		std::unordered_map<std::string, std::pair<std::string,GUIButton>> mapButtons;	
 
 		GUIButton backButton;
 };
