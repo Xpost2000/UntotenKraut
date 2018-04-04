@@ -67,9 +67,9 @@ void MenuState::draw(core::gfx::Renderer& renderer){
 	renderer.drawRect(0,0,0,0);
 	renderer.drawSprite(screen);
 	renderer.setTextSize(60);
-	renderer.drawText("ocr", 0, 0, "Nazi Zombies Top Down");
+	renderer.drawText("ocr", 0, 0, "Untoten Kraut");
 	renderer.setTextSize(15);
-	renderer.drawText("ocr", 0, 65, "Welcome to Version 0.1");
+	renderer.drawText("ocr", 0, 65, "Welcome to Version 0.2");
 	smog.setX(0);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 	smog.setX(x1);

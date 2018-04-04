@@ -40,7 +40,7 @@ int main( int argc, char** argv ){
 	core::InputManager inputManager;
 
 	window.Create( 
-		       "Nazi Zombies Top Down"  ,
+		       "Untoten Kraut"  ,
 		       1024    ,
 		       768 
 		     );
