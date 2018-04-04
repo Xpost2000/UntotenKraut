@@ -33,7 +33,7 @@ namespace game{
 				detail_ents = lvl.detail_ents;
 				for(auto& s : zombieSpawners){
 					s.setVectorPtr(&zombies);
-					s.setCloneOf(Zombie(0, 0, 30, 30, 700, 50));
+					s.setCloneOf(Zombie(0, 0, 30, 30, 5, 50));
 				}
 				player->x=lvl.pX;
 				player->y=lvl.pY;
@@ -43,6 +43,8 @@ namespace game{
 
 			void setPlayer(Player* nplayer) { player=nplayer;}
 
+			void addDetail(DetailEntity de) { detail_ents.push_back(de); }
+			void addDetail(DetailEntity &de) { detail_ents.push_back(de); }
 			void addWall(Wall& wall) { walls.push_back(wall); }
 			void addWall(Wall wall) { walls.push_back(wall); }
 			void addBarricade(Barricade& bar) { barricades.push_back(bar); }
@@ -52,21 +54,38 @@ namespace game{
 			void addZombie(Zombie zombie) { zombies.push_back(zombie); }
 			void addSpawner(float x, float y, float delay, int limit=-1){ 
 				zombieSpawners.push_back(Spawner<Zombie>(&zombies, delay, x, y, limit));
-				zombieSpawners.back().setCloneOf(Zombie(0, 0, 26, 26, 18, 50));
+				zombieSpawners.back().setCloneOf(Zombie(0, 0, 30, 30, 5, 50));
 		       	}
+
+			void reinitSpawners(){
+				for(auto &s : zombieSpawners){
+					s.setVectorPtr(&zombies);
+					s.setCloneOf(Zombie(0, 0, 30, 30, 5, 50));
+				}
+			}
 
 			std::vector<Wall>& getWalls() { return walls; }
 			std::vector<DetailEntity>& getDetailEntities() { return detail_ents; }
 			std::vector<Zombie>& getZombies() { return zombies; }
+			std::vector<Spawner<Zombie>> getSpawner() { return zombieSpawners; }
 			std::vector<Barricade>& getBarricades() { return barricades; }
 
 			void draw(core::gfx::Renderer&);
 			void update(float dt);
 
 			void nextWave() { 
+				int sum=0;
+				zombieSpawnHp+=10;
 				for(auto& spawner : zombieSpawners){
+					spawner.getClone().setHp(zombieSpawnHp);
+					sum+=spawner.getMax()+1;
+				}
+				// so the game doesn't crap itself.
+				if(sum <= 32)
+				for(auto& spawner : zombieSpawners){
+					sum+=spawner.getMax()+1;
 					spawner.reset();
-					spawner.setMaxSpawned(spawner.getMax()+3);
+					spawner.setMaxSpawned(spawner.getMax()+1);
 				}
 		        }
 
@@ -79,9 +98,10 @@ namespace game{
 				}
 				return sum;
 			}
-			int getWidth(){ return w; }
-			int getHeight() { return h; }
+			int& getWidth(){ return w; }
+			int& getHeight() { return h; }
 		private:
+			float zombieSpawnHp=50;
 			int w=0,h=0;
 			Player *player;
 			std::vector<Wall> walls;

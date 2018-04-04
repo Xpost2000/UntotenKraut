@@ -1,5 +1,7 @@
 Because this format is really easy to parse. it'll be like the platformer game
 
 Unlike the platformer, Objects will not have arbituary positions and it's basically strictly tile locked.
+Also because A* is now a thing. To avoid killing my memory and muh framerate. Each level needs to have an explicitly set size for the A* grid map.
 
+*amap *w *h (IN ABSOLUTE SIZES. THE EDITOR STILL SNAPS IT IN PLACE.)
 *block_type* *x* *y* *texture_location*

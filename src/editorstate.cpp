@@ -1,6 +1,8 @@
 #include "fsm.h"
+#include "texturemanager.h"
 #include "editorstate.h"
 #include "gamestate.h"
+#include <iostream>
 
 EditorState::EditorState(){
 	inputManager.AddCallback(
@@ -13,6 +15,8 @@ EditorState::EditorState(){
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("KAR98"));
 	player.useGun(0);
 	world.setPlayer(&player);
+	textures = core::TextureManager::getInstance()->getTextures().size();
+	std::cout << "I report " << textures << " Textures loaded" << std::endl;
 }
 
 EditorState::~EditorState(){
@@ -46,20 +50,126 @@ void EditorState::update(float dt){
 	if(inputManager.isKeyDown(SDL_SCANCODE_T)){
 		testLevel();
 	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_X)){
+		editingAGrid=!editingAGrid;
+		SDL_Delay(10);
+	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_1)){
+		blockType=1;
+	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_2)){
+		blockType=2;
+	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_3)){
+		blockType=3;
+	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_4)){
+		blockType=4;
+	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_B)){
+		isBlockBarricade=!isBlockBarricade;
+		SDL_Delay(120);
+	}
+	if(editingAGrid){
+		if(inputManager.isKeyDown(SDL_SCANCODE_LEFT)){
+			if(w >= 0)
+			w-=35;
+		}
+		if(inputManager.isKeyDown(SDL_SCANCODE_RIGHT)){
+			w+=35;
+		}
+		if(inputManager.isKeyDown(SDL_SCANCODE_DOWN)){
+			h+=35;
+		}
+		if(inputManager.isKeyDown(SDL_SCANCODE_UP)){
+			if(h >= 0)
+			h-=35;
+		}
+		h= std::max<float>(h, 0);
+		w= std::max<float>(w, 0);
+	}else{
+		if(inputManager.isKeyDown(SDL_SCANCODE_LEFT)){
+			if(textureIndex >= 0 && textureIndex!=-1)
+			textureIndex--;
+			SDL_Delay(100);
+		}
+		if(inputManager.isKeyDown(SDL_SCANCODE_RIGHT)){
+			if(textureIndex <= textures)
+			textureIndex++;
+			SDL_Delay(100); // this is an artifical fix.
+		}
+	}
 	if(inputManager.isMouseKeyDown(SDL_BUTTON_LEFT)){
+		// this is basically where most of it comes down to.
+		mouseInWorld = renderer->mouseToWorld(inputManager.GetMouseX(), inputManager.GetMouseY());
+		// snaps it to a grid of 35 which the game runs with
+		int mX=round(mouseInWorld.x/35)*35;
+		int mY=round(mouseInWorld.y/35)*35;
+		switch(blockType){
+			case 1:
+				if(!isBlockBarricade)
+				world.addWall(game::Wall(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
+				else
+				world.addBarricade(game::Barricade(mX,mY,35,35));//, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
+				break;
+			case 2:
+				world.addDetail(game::DetailEntity(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
+				break;
+			case 3:
+				world.addSpawner(mX, mY, 15, 2);
+				break;
+			case 4:
+				player.x=mX;
+				player.y=mY;
+				break;
+		}
+		SDL_Delay(100);
 	}
 	inputManager.Update();
 }
 
+// easy convenience function.
+std::string EditorState::genNameFromType(){
+	switch(blockType){
+		case 1:
+			return "Solid";
+			break;
+		case 2:
+			return "Detail";
+			break;
+		case 3:
+			return "ZombieSpawner";
+			break;
+		case 4:
+			return "PlayerLocation";
+			break;
+	}
+}
+
 void EditorState::draw(core::gfx::Renderer& renderer){
 	if(this->renderer==nullptr)
-	this->renderer=&renderer;
+	this->renderer=&renderer; // this line was to hack something together lol
+
 	renderer.setTextSize(15);
 	renderer.drawText("ocr", 0, 0, "Editor Mode: CameraPos( " + std::to_string(renderer.camX) + " , " + std::to_string(renderer.camY) + " )");
-	renderer.drawText("ocr", 0, 15, "(Use R to reset camera, Use T to test level)**INSTRUCTIONS HERE**");
+	renderer.drawText("ocr", 0, 15, "(Use R to reset camera, Use T to test level, X set A* world dimensions)(Number Keys 1 - 4 for block type, arrow keys select texture.)");
+	renderer.drawText("ocr", 0, 30, "Current Block Type : " + genNameFromType() );
+	// hope it works.
+	renderer.drawText("ocr", 0, 45, "Texture Path : " + core::TextureManager::getInstance()->getTextures()[textureIndex].first + "("+std::to_string(textureIndex)+")" );
+	if(editingAGrid)
+	renderer.drawText("ocr", 0, 60, "A* Grid Editing Mode On(press X again to leave)");
 
 	renderer.refreshCamera();
 
+	if(editingAGrid)
+	renderer.drawRect(0, 0, w, h, 0.8, 0.1, 0.1, 0.4);
+	else
+	renderer.drawRect(0, 0, w, h, 0.3, 0.1, 0.1, 0.4);
+
+	// grammar error
+	for(auto &zsp : world.getSpawner()){
+		renderer.drawRect(zsp.x, zsp.y, 35, 35, 0.1, 0.9, 0.1, 1.0);
+	}
 	world.draw(renderer);
 }
 
@@ -68,8 +178,11 @@ void EditorState::writeToDisk(std::string filename){
 }
 
 void EditorState::testLevel(){
+	world.getWidth() = w;
+	world.getHeight() = h;
 	GameState *state = (GameState*)parent->getState("game");
 	state->world = world;
+	state->world.reinitSpawners();
 	state->player.x=player.x;
 	state->player.y=player.y;
 	state->world.setPlayer(&state->player);

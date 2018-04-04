@@ -1,3 +1,0 @@
-SDL2 and some plugins of sdl
-glew - for opengl function pointer initialization
-freetype for font rendering

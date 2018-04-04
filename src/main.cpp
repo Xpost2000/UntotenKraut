@@ -1,10 +1,8 @@
 #include <GL/glew.h>
-#include <algorithm>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
-#include <fstream>
 #include <iostream>
 
 #include "window.h"
@@ -22,7 +20,6 @@
 #include "quitstate.h"
 #include "mapselectionstate.h"
 #include "fsm.h"
-
 
 extern "C"{
 	void _atExit(void){
@@ -63,9 +60,9 @@ int main( int argc, char** argv ){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	game::GunManager::getInstance()->addGun("KAR98", game::Gun("KAR98", 30, 50, 800, 3, false, 70, 5, 3 ));
-	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 9, 30, 500, 1.4, false, 80, 7, 2.25));
-	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1, true, 300, 30, 1.3));
+	game::GunManager::getInstance()->addGun("KAR98", game::Gun("KAR98", 30, 50, 800, 5, false, 70, 5, 7 ));
+	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 9, 30, 500, 3, false, 80, 7, 6.25));
+	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1.5, true, 300, 30, 5.3));
 
 	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\round_end.wav", "round_end");
 
@@ -91,20 +88,24 @@ int main( int argc, char** argv ){
 				stateMachine.setCurrentState("quit");
 			}
 	 );
+
 	Uint32 start = 0;
-	Uint32 end   = 0;
-	float dt = 0;
+	Uint32 last  = 0;
+	Uint32 difference=0;
+	const float preferredDt=0.1f;
+	float actualDt=0.1f;
 	while( stateMachine.getCurrentState() != &quitState ){
+		start = SDL_GetTicks();
+		difference = start - last;
+		last = start;
+		actualDt= std::min(difference/100.0f, preferredDt);
+		stateMachine.update(actualDt);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
-		start = SDL_GetTicks();
-		dt = (start-end)/1000.0f;
-		end = start;
-
-		stateMachine.update(dt);
 		stateMachine.draw(renderer);
 		inputManager.Update();
 		window.Refresh();
+		
 	}
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	core::audio::SoundManager::getInstance()->free();	

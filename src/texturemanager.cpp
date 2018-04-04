@@ -21,6 +21,7 @@ namespace core{
 	       	}else{
 			gfx::Texture* newTexture = new gfx::Texture( path );
 			textures.insert(std::make_pair(path, newTexture));
+			textureVecMap.push_back(std::make_pair(path, newTexture));
 			return newTexture;
 		}
 	}

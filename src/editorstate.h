@@ -18,6 +18,19 @@ class EditorState : public State{
 
 		bool saveFileMode=false;
 
+		// for the A* world.
+		float w=1;
+		float h=1;
+
+		bool isBlockBarricade=false;
+		bool editingAGrid=false;
+
+		int textureIndex=0;
+		int textures=0;
+
+		int blockType=1;
+		std::string genNameFromType();
+
 		game::World world;
 		game::Player player;
 		glm::vec2 mouseInWorld;
