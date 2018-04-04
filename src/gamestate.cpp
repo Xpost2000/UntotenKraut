@@ -38,6 +38,11 @@ GameState::~GameState(){
 void GameState::loadLevel(std::string fileName, std::string name){
 	levelLoader.load(fileName, name);
 	world.loadLevel(levelLoader.getLevel(name));
+	player.setHp(100);
+	roundDelay=43;
+	gameWave=0;
+	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("KAR98"));
+	player.useGun(0);
 }
 
 void GameState::update(float dt){

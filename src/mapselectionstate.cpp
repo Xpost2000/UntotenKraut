@@ -6,6 +6,7 @@
 MapSelectionState::MapSelectionState(){
 	blob = core::gfx::Sprite(0,0,0,0);
 	smog = core::gfx::Sprite(0, 0, 0, 0);
+	preview = core::gfx::Sprite(470, 150, 530, 400);
 	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
 	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
 	inputManager.AddCallback(
@@ -44,6 +45,9 @@ void MapSelectionState::update(float dt){
 	x3+=7*dt;
 
 	for(auto& button : mapButtons){
+		if(button.second.second.isMousedOver(inputManager)){
+			preview.setTexture(core::TextureManager::getInstance()->getTexture("assests\\map_preview\\"+button.first));
+		}
 		if(button.second.second.isClicked(inputManager)){
 			GameState* ptr = (GameState*)parent->getState("game");
 			ptr->loadLevel(button.second.first, button.first);
@@ -74,7 +78,7 @@ void MapSelectionState::draw(core::gfx::Renderer& renderer){
 
 	renderer.drawRect(0,0,0,0);
 	renderer.drawSprite(screen);
-	renderer.setTextSize(80);
+	renderer.setTextSize(120);
 	renderer.drawText("ocr", 0, 0, "Map Selection");
 	smog.setX(0);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
@@ -83,6 +87,9 @@ void MapSelectionState::draw(core::gfx::Renderer& renderer){
 	smog.setX(x2);
 	renderer.drawSprite(smog, 0.5, 0.4, 0.5, 0.2);
 	smog.setX(x3);
+	renderer.drawSprite(preview);
+	renderer.setTextSize(15);
+	renderer.drawText("ocr", 470, 130, "Currently Selected.");
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 
 	for(auto& button : mapButtons){

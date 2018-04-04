@@ -20,6 +20,7 @@ class MapSelectionState : public State{
 		core::gfx::Sprite blob;
 		core::gfx::Sprite smog;
 		core::gfx::Sprite screen; // the background.
+		core::gfx::Sprite preview;
 
 		std::unordered_map<std::string, std::pair<std::string,GUIButton>> mapButtons;	
 
