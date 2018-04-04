@@ -5,7 +5,7 @@
 #include <iostream>
 
 GameState::GameState(){
-	player = game::Player(0, 0, 30, 30, 45, 100);
+	player = game::Player(0, 0, 30, 30, 0, 100);
 
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
@@ -121,7 +121,7 @@ void GameState::update(float dt){
 	}
 
 	if(isPlayerReloading){
-		isPlayerReloading=!player.getGun().reload(0.1f);
+		isPlayerReloading=!player.getGun().reload(dt);
 	}
 
 	if( inputManager.isMouseKeyDown( SDL_BUTTON_LEFT ) ){

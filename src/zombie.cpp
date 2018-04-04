@@ -77,6 +77,7 @@ namespace game{
 		start->globalValue=distance(start, goal);
 		std::list<Node*> notTested;
 		notTested.push_back(start);
+		// haphazardly thrown on A* implementation.
 		while(!notTested.empty() && current != goal){
 			notTested.sort([](const Node* lhs, const Node* rhs){ return lhs->globalValue < rhs->globalValue; });
 			while(!notTested.empty() && notTested.front()->visited){
@@ -106,11 +107,6 @@ namespace game{
 		}
 		path.reverse();
 		if(hp > 0){
-			float targetX=0;
-			float targetY=0;
-
-			float angle = atan2(targetY - y, targetX - x); 
-
 			if(path.front() != goal && path.front() != nullptr){
 				if(moveToPoint(path.front()->x*35, path.front()->y*35, world, dt)){
 					path.pop_front();
