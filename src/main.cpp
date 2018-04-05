@@ -67,9 +67,9 @@ int main( int argc, char** argv ){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	game::GunManager::getInstance()->addGun("KAR98", game::Gun("KAR98", 30, 50, 800, 5, false, 70, 5, 7 ));
-	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 9, 30, 500, 3, false, 80, 7, 6.25));
-	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 12, 30, 600, 1.5, true, 300, 30, 5.3));
+	game::GunManager::getInstance()->addGun("KAR98", game::Gun("KAR98", 45, 50, 800, 5, false, 70, 5, 7 ));
+	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 11, 30, 500, 3, false, 80, 7, 6.25));
+	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 20, 30, 600, 1.5, true, 300, 30, 5.3));
 
 	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\round_end.wav", "round_end");
 

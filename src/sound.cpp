@@ -38,10 +38,7 @@ namespace core{
 
 		void SoundManager::playSound( std::string sound , int channel , int volume, int loops ){
 			Mix_Volume(channel, volume);
-			if(!Mix_Playing(channel))
-				Mix_PlayChannel(channel, m_chunks[sound], loops);
-			else
-				Mix_PlayChannel(-1, m_chunks[sound], loops);
+			Mix_PlayChannel(channel, m_chunks[sound], loops);
 		}
 
 		void SoundManager::playMusic( std::string music , int volume, int loop ){

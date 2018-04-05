@@ -20,6 +20,9 @@ namespace core{
 				~SoundManager();
 				void addSound ( std::string path , std::string sound );
 				void addMusic ( std::string path , std::string music );
+				bool isChannelPlaying(int channel){
+					return Mix_Playing(channel);
+				}
 				void playSound( std::string sound , int channel , int volume=100, int loops=0);
 				void playMusic( std::string music , int volume=100, int loop=false);
 				void stopMusic();

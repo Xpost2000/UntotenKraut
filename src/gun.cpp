@@ -21,7 +21,7 @@ namespace game{
 		if(currentMagSize > 0){
 			delay = delayStart;
 			currentMagSize--;
-			core::audio::SoundManager::getInstance()->playSound(name+"_fire", 0);
+			core::audio::SoundManager::getInstance()->playSound(name+"_fire", -1);
 			return true;
 		}else{
 			return false;
@@ -32,6 +32,8 @@ namespace game{
 		if(magSize <= 0){ return false; }
 		if(reloadSpeed > 0){
 			reloadSpeed-=dt;
+			if(!core::audio::SoundManager::getInstance()->isChannelPlaying(0))
+				core::audio::SoundManager::getInstance()->playSound(name+"_reload", 0);
 			return false;
 		}else{
 			magSize -= maxMagSize-currentMagSize;
@@ -43,7 +45,6 @@ namespace game{
 			reloadSpeed=reloadSpeedStart;
 			currentMagSize = std::max(0, currentMagSize);
 			magSize = std::max(0, magSize);
-			core::audio::SoundManager::getInstance()->playSound(name+"_reload", 0);
 			return true;
 		}
 	}
