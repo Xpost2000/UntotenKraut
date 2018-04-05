@@ -107,20 +107,26 @@ void EditorState::update(float dt){
 		int mY=round(mouseInWorld.y/35)*35;
 		switch(blockType){
 			case 1:
+				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
 				if(!isBlockBarricade)
 				world.addWall(game::Wall(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
 				else
 				world.addBarricade(game::Barricade(mX,mY,35,35));//, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
 				break;
-			case 2:
-				world.addDetail(game::DetailEntity(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
-				break;
+				}
 			case 3:
+				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
 				world.addSpawner(mX, mY, 15, 2);
+				}
 				break;
 			case 4:
+				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
 				player.x=mX;
 				player.y=mY;
+				}
+				break;
+			case 2:
+				world.addDetail(game::DetailEntity(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
 				break;
 		}
 		SDL_Delay(100);
