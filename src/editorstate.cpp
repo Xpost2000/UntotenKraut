@@ -156,7 +156,7 @@ void EditorState::draw(core::gfx::Renderer& renderer){
 	if(this->renderer==nullptr)
 	this->renderer=&renderer; // this line was to hack something together lol
 
-	renderer.setTextSize(15);
+	renderer.setTextSize(11);
 	renderer.drawText("ocr", 0, 0, "Editor Mode: CameraPos( " + std::to_string(renderer.camX) + " , " + std::to_string(renderer.camY) + " )");
 	renderer.drawText("ocr", 0, 15, "(Use R to reset camera, Use T to test level, X set A* world dimensions)(Number Keys 1 - 4 for block type, arrow keys select texture.)");
 	renderer.drawText("ocr", 0, 30, "Current Block Type : " + genNameFromType() );
