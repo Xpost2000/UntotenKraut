@@ -11,6 +11,6 @@ namespace game{
 	}
 
 	void DetailEntity::draw(core::gfx::Renderer& renderer){
-		renderer.drawSprite(spr);
+		renderer.drawSprite(spr, 0.8, 0.8, 0.8);
 	}
 };

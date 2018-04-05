@@ -26,8 +26,7 @@ MapSelectionState::MapSelectionState(){
 // handy dandy macro
 #define MapButton( x, y, name, path, internalName ) std::make_pair<std::string, std::pair<std::string, GUIButton>>(std::string(internalName), std::make_pair<std::string, GUIButton>( std::string(path), GUIButton(x,y, name, 20, 1, 1, 1, 1) ))
 	// amazing! It works!
-	mapButtons.insert(MapButton(0, 150, "Small Bunker", "maps\\test.txt", "test"));
-	mapButtons.insert(MapButton(0, 180, "Bigger Bunker", "maps\\test1.txt", "test1"));
+	mapButtons.insert(MapButton(0, 150, "Little Little Bunker,", "maps\\test.txt", "test"));
 }
 
 MapSelectionState::~MapSelectionState(){
