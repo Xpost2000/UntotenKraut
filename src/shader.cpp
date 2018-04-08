@@ -18,8 +18,6 @@ namespace core{
 		}
 
 		Shader::~Shader(){
-			glDeleteShader(vertex_shader);
-			glDeleteShader(fragment_shader);
 			glDeleteProgram(shader_program);
 		}
 
@@ -46,6 +44,12 @@ namespace core{
 			glAttachShader(shader_program, vertex_shader);
 
 			glLinkProgram(shader_program);
+
+			glDetachShader(shader_program, fragment_shader);
+			glDetachShader(shader_program, vertex_shader);
+			glDeleteShader(vertex_shader);
+			glDeleteShader(fragment_shader);
+
 			glGetProgramInfoLog(shader_program, 2048, 0, log);
 			std::cout << log << std::endl;
 			std::cout << "Program log" << std::endl;

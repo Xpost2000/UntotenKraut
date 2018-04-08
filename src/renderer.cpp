@@ -6,7 +6,6 @@
 namespace core{
 	namespace gfx{
 		Renderer::Renderer( int w, int h ){
-			std::cout << "setting projection matrix up." << std::endl;
 			projection = glm::ortho<float>(
 					0.f, (float)w,
 					(float)h, 0.f,
@@ -14,14 +13,11 @@ namespace core{
 				     );
 			scrW=w;
 			scrH=h;
-			std::cout << "Generating VBO and VAO" << std::endl;
 			glGenBuffers(1, &vbo);
 			glGenVertexArrays(1, &vao);
 
 			glBindVertexArray(vao);
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
-			std::cout << "Orphaning data" << std::endl;
-			// orphaning data.
 			glBufferData(GL_ARRAY_BUFFER, sizeof(float)*8, NULL, GL_DYNAMIC_DRAW);
 
 			glEnableVertexAttribArray(0);
@@ -32,6 +28,11 @@ namespace core{
 			glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(float)*8, (void*)(sizeof(float)*2));
 			glVertexAttribPointer(2, 4, GL_FLOAT, false, sizeof(float)*8, (void*)(sizeof(float)*4));
 
+			/*
+			 * If I had taken more time to write an optimized renderer.
+			 * I'm certainly OpenGL allows this I could just make a shader manager
+			 * and cache the files loaded and reuse the objects instead of generating new objects.
+			 */
 			texture_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\textured.fs");
 			default_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\default.fs");
 			text_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\text.fs");
