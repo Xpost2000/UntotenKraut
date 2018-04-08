@@ -27,6 +27,7 @@ MapSelectionState::MapSelectionState(){
 #define MapButton( x, y, name, path, internalName ) std::make_pair<std::string, std::pair<std::string, GUIButton>>(std::string(internalName), std::make_pair<std::string, GUIButton>( std::string(path), GUIButton(x,y, name, 20, 1, 1, 1, 1) ))
 	// amazing! It works!
 	mapButtons.insert(MapButton(0, 150, "Little Little Bunker,", "maps\\test.txt", "test"));
+	preview.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
 }
 
 MapSelectionState::~MapSelectionState(){

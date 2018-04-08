@@ -43,27 +43,6 @@ int main( int argc, char** argv ){
 	core::Window window;
 	core::InputManager inputManager;
 
-	rapidxml::xml_document<> gunDocument;
-	rapidxml::xml_node<>* rootGunNode;
-
-	std::ifstream gunsFile("assests\\guns.xml");
-	std::vector<char> buffer((std::istreambuf_iterator<char>(gunsFile)), std::istreambuf_iterator<char>());
-	buffer.push_back('\0');
-	gunDocument.parse<0>(&buffer[0]);
-	rootGunNode = gunDocument.first_node("GunsDocument");
-	for(auto* node = rootGunNode->first_node("Gun"); node; node=node->next_sibling("Gun")){
-		std::cout << "Gun Name: " << node->first_attribute("name")->value() << std::endl;	
-		std::cout << "Damage: " << node->first_attribute("dmg")->value() << std::endl;
-		std::cout << "Bullet Speed: " << node->first_attribute("bulletSpeed")->value() << std::endl;
-		std::cout << "Bullet Life Time: " << node->first_attribute("bulletLifeTime")->value() << std::endl;
-		std::cout << "Fire Delay: " << node->first_attribute("delay")->value() << std::endl;
-		std::cout << "Max Ammo: " << node->first_attribute("maxAmmo")->value() << std::endl;
-		std::cout << "Ammo in a Clip: " << node->first_attribute("clipAmmo")->value() << std::endl;
-		std::cout << "Reload Speed: " << node->first_attribute("reloadSpeed")->value() << std::endl;
-		std::cout << "Description:\n\n" << node->value() << std::endl;
-		std::cout << "\n\n\n" << std::endl;
-	}
-
 	window.Create( 
 		       "Untoten Kraut"  ,
 		       1024    ,
@@ -86,15 +65,32 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->getTexture("assests\\textures\\floor.png");
 	core::TextureManager::getInstance()->getTexture("assests\\textures\\concrete.png");
 
+	rapidxml::xml_document<> gunDocument;
+	rapidxml::xml_node<>* rootGunNode;
+
+	std::ifstream gunsFile("assests\\guns.xml");
+	std::vector<char> buffer((std::istreambuf_iterator<char>(gunsFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
+	gunDocument.parse<0>(&buffer[0]);
+	rootGunNode = gunDocument.first_node("GunsDocument");
+	for(auto* node = rootGunNode->first_node("Gun"); node; node=node->next_sibling("Gun")){
+		std::string name = node->first_attribute("name")->value();
+		int dmg = std::atoi(node->first_attribute("dmg")->value());
+		int bulletSpeed = std::atoi(node->first_attribute("bulletSpeed")->value());
+		int bulletLifeTime = std::atoi(node->first_attribute("bulletLifeTime")->value());
+		float delay = std::stof(node->first_attribute("delay")->value());
+		int maxAmmo = std::atoi(node->first_attribute("maxAmmo")->value());
+		int clipAmmo = std::atoi(node->first_attribute("clipAmmo")->value());
+		float reloadSpeed = std::stof(node->first_attribute("reloadSpeed")->value());
+
+		game::GunManager::getInstance()->addGun(name, game::Gun(name, dmg, bulletSpeed, bulletLifeTime, delay, false, maxAmmo, clipAmmo, reloadSpeed ));
+	}
+
 	renderer.loadFont("assests\\fonts\\ocr.ttf",   "ocr");
 	renderer.loadFont("assests\\fonts\\arial.ttf", "arial");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	game::GunManager::getInstance()->addGun("KAR98", game::Gun("KAR98", 45, 50, 800, 5, false, 70, 5, 7 ));
-	game::GunManager::getInstance()->addGun("M1911A1", game::Gun("M1911A1", 11, 30, 500, 3, false, 80, 7, 6.25));
-	game::GunManager::getInstance()->addGun("M4A1", game::Gun("M4A1", 20, 30, 600, 1.5, true, 300, 30, 5.3));
 
 	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\round_end.wav", "round_end");
 
