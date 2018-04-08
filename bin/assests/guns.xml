@@ -1,0 +1,11 @@
+<GunsDocument>
+	<Gun name="M1911A1" dmg="11" bulletSpeed="30" bulletLifeTime="500" delay="3" maxAmmo="80" clipAmmo="7" reloadSpeed="6.25">
+Old American classic. Basically crap in here though.
+	</Gun>
+	<Gun name="KAR98" dmg="45" bulletSpeed="50" bulletLifeTime="800" delay="5" maxAmmo="70" clipAmmo="5" reloadSpeed="7">
+Germans make some good stuff.
+	</Gun>
+	<Gun name="M4A1" dmg="20" bulletSpeed="30" bulletLifeTime="600" delay="1.5" maxAmmo="300" clipAmmo="30" reloadSpeed="5.3">
+An anachronistic gun.
+	</Gun>
+</GunsDocument>

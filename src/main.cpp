@@ -3,6 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
+#include <fstream>
+#include <vector>
 #include <iostream>
 
 #include "window.h"
@@ -21,6 +23,8 @@
 #include "mapselectionstate.h"
 #include "fsm.h"
 
+#include "dep/rapidxml.hpp"
+
 extern "C"{
 	void _atExit(void){
 		printf("Freeing sdl resources...\n");
@@ -38,6 +42,27 @@ int main( int argc, char** argv ){
 	Mix_Init(MIX_INIT_MP3);
 	core::Window window;
 	core::InputManager inputManager;
+
+	rapidxml::xml_document<> gunDocument;
+	rapidxml::xml_node<>* rootGunNode;
+
+	std::ifstream gunsFile("assests\\guns.xml");
+	std::vector<char> buffer((std::istreambuf_iterator<char>(gunsFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
+	gunDocument.parse<0>(&buffer[0]);
+	rootGunNode = gunDocument.first_node("GunsDocument");
+	for(auto* node = rootGunNode->first_node("Gun"); node; node=node->next_sibling("Gun")){
+		std::cout << "Gun Name: " << node->first_attribute("name")->value() << std::endl;	
+		std::cout << "Damage: " << node->first_attribute("dmg")->value() << std::endl;
+		std::cout << "Bullet Speed: " << node->first_attribute("bulletSpeed")->value() << std::endl;
+		std::cout << "Bullet Life Time: " << node->first_attribute("bulletLifeTime")->value() << std::endl;
+		std::cout << "Fire Delay: " << node->first_attribute("delay")->value() << std::endl;
+		std::cout << "Max Ammo: " << node->first_attribute("maxAmmo")->value() << std::endl;
+		std::cout << "Ammo in a Clip: " << node->first_attribute("clipAmmo")->value() << std::endl;
+		std::cout << "Reload Speed: " << node->first_attribute("reloadSpeed")->value() << std::endl;
+		std::cout << "Description:\n\n" << node->value() << std::endl;
+		std::cout << "\n\n\n" << std::endl;
+	}
 
 	window.Create( 
 		       "Untoten Kraut"  ,
