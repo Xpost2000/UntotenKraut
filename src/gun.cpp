@@ -3,8 +3,8 @@
 
 namespace game{
 	Gun::Gun(){}
-	Gun::Gun( std::string name, float damage, float bulletSpeed, float bulletLifetime, float delay, bool fullAuto, int maxAmmo, int magAmmo, float reloadSpeed )
-	: name(name), fullAuto(fullAuto), damage(damage), bulletSpeed(bulletSpeed), bulletLifetime(bulletLifetime), delayStart(delay), currentMagSize(magAmmo), magSize(maxAmmo), reloadSpeed(reloadSpeed), reloadSpeedStart(reloadSpeed){
+	Gun::Gun( std::string name, float damage, float bulletSpeed, float bulletLifetime, float delay, bool fullAuto, int maxAmmo, int magAmmo, float reloadSpeed, int gunCost )
+	: name(name), fullAuto(fullAuto), damage(damage), bulletSpeed(bulletSpeed), bulletLifetime(bulletLifetime), delayStart(delay), currentMagSize(magAmmo), magSize(maxAmmo), reloadSpeed(reloadSpeed), reloadSpeedStart(reloadSpeed), gunCost(gunCost){
 		maxMagSize = magAmmo;
 	}
 

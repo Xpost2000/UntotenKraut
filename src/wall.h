@@ -10,6 +10,7 @@ namespace game{
 	class Wall : public Entity{
 		public:
 			Wall( float x, float y, float w, float h, core::gfx::Texture* tex, int gunCost=0 );
+			Wall( float x, float y, float w, float h, core::gfx::Texture* tex, Gun gun );
 			void update(float dt, World&);
 			void draw(core::gfx::Renderer&);
 			int getType() { return type; }
