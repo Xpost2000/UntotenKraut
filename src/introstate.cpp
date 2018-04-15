@@ -22,6 +22,10 @@ void IntroState::update(float dt){
 			parent->setCurrentState("menu");
 		}
 	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_RETURN)){
+			parent->setCurrentState("menu");
+	}
+	inputManager.Update();
 }
 
 void IntroState::draw(core::gfx::Renderer& renderer){

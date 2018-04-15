@@ -1,6 +1,7 @@
 #ifndef INTRO_STATE_H
 #define INTRO_STATE_H
 #include "state.h"
+#include "input.h"
 class IntroState : public State{
 	public:
 		IntroState();
@@ -18,5 +19,7 @@ class IntroState : public State{
 		float typeTimer=2;
 		float blackInTimer=0;
 		float blackOutTimer=20;
+
+		core::InputManager inputManager;
 };
 #endif

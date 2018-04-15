@@ -109,6 +109,7 @@ namespace core{
 			float y = spr.getY();
 			float w = spr.getW();
 			float h = spr.getH();
+
 			float data[]= {
 				x, y,       0, 0,  r, g, b, a,
 				x, y+h,     0, 1,  r, g, b, a,
