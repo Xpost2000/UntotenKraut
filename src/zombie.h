@@ -2,6 +2,7 @@
 #define ZOMBIE_H
 #include "entity.h"
 #include "sprite.h"
+#include "particlesystem.h"
 #include "pathfindingnode.h"
 namespace game{
 	class Zombie : public Entity{
@@ -18,8 +19,11 @@ namespace game{
 			void setSpeed( float nspeed ) { speed = nspeed; }
 			float getSpeed() { return speed; }
 
+			void bleed(float sX, float sY, float dt){ps.speedX = sX; ps.speedY = sY; ps.active=true; bloodTimer=30; ps.x = x; ps.y = y; ps.resetPositions(); ps.update(dt);}
+
 			// zombies can't strafe. they move from an angle.
 		private:
+			float bloodTimer=30;
 			Node* gridWorld=nullptr;
 			Node* current=nullptr;
 			Node* goal=nullptr;
@@ -27,6 +31,7 @@ namespace game{
 
 			Node* toFollow=nullptr;
 			core::gfx::Sprite sprite;
+			core::gfx::ParticleSystem ps;
 			void moveAngle(float angle, World& world, float dt);
 			bool moveToPoint(int x, int y, World& world, float dt);
 			void moveDirection(int direction, World& world, float dt);

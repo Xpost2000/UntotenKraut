@@ -24,7 +24,7 @@ namespace game{
 
 		if( currentGun->canFire() ){
 			if(currentGun->fire()){
-				bullets.push_back(Bullet(x, y, w/2, h/2, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
+				bullets.push_back(Bullet(x, y, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
 			}
 		}
 	}

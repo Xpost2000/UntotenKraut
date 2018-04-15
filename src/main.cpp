@@ -3,6 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
+#include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <vector>
 #include <iostream>
@@ -43,6 +45,7 @@ int main( int argc, char** argv ){
 	Mix_Init(MIX_INIT_MP3);
 	core::Window window;
 	core::InputManager inputManager;
+	srand(time(NULL));
 
 	window.Create( 
 		       "Untoten Kraut"  ,

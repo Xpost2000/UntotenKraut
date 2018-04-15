@@ -96,8 +96,6 @@ namespace game{
 				}
 			}
 		}
-		sprite.setX(x);
-		sprite.setY(y);
 		std::list<Node*> path;
 		toFollow=goal;
 		while(toFollow->parent != nullptr){
@@ -125,6 +123,14 @@ namespace game{
 			}
 
 			hitDelay-=dt;
+		}
+		sprite.setX(x);
+		sprite.setY(y);
+		ps.update(dt);
+		if(bloodTimer <= 0){
+			ps.active=false;
+		}else{
+			bloodTimer--;
 		}
 	}
 
@@ -254,8 +260,9 @@ namespace game{
 	}
 
 	void Zombie::draw(core::gfx::Renderer& renderer){
-		renderer.drawSprite( sprite );
-	
+		renderer.drawSprite( sprite );	
+		if(ps.active)
+		ps.draw(renderer);
 	}
 
 	bool Zombie::moveToPoint(int tx, int ty, World& world, float dt){
