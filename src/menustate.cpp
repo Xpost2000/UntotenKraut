@@ -1,6 +1,8 @@
 #include "menustate.h"
+
 #include "fsm.h"
 #include "texturemanager.h"
+#include "sound.h"
 #include <iostream>
 
 MenuState::MenuState(){
@@ -11,6 +13,8 @@ MenuState::MenuState(){
 	startButton = GUIButton( 15, 300, "Start Game", 20, 1, 1, 1, 1 );
 	editModeButton = GUIButton( 15, 330, "Editor Mode", 20, 1, 1, 1, 1 );
 	quitButton = GUIButton( 15, 360, "Quit Game", 20, 1, 1, 1, 1 );
+
+	core::audio::SoundManager::getInstance()->addMusic( "assests\\sounds\\packupyourtroubles.mp3", "menu" );
 
 	inputManager.AddCallback(
 			SDL_QUIT,
@@ -26,15 +30,18 @@ MenuState::~MenuState(){
 
 void MenuState::update(float dt){
 	SDL_SetRelativeMouseMode(SDL_FALSE);
+	core::audio::SoundManager::getInstance()->playMusic( "menu", 100, true );
 
 	if(startButton.isClicked(inputManager)){
 		// TODO: Add another menu sub state ( the map selection screen )
 		parent->setCurrentState("mapselect");
 	}
 	if(editModeButton.isClicked(inputManager)){
+		core::audio::SoundManager::getInstance()->stopMusic();
 		parent->setCurrentState("editor");
 	}
 	if(quitButton.isClicked(inputManager)){
+		core::audio::SoundManager::getInstance()->stopMusic();
 		parent->setCurrentState("quit");
 	}
 	

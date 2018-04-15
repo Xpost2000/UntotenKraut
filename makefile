@@ -27,6 +27,7 @@ FILES=src/main.cpp\
       src/gui_button.cpp\
       src/fsm.cpp\
       src/state.cpp\
+      src/introstate.cpp\
       src/gamestate.cpp\
       src/menustate.cpp\
       src/quitstate.cpp\

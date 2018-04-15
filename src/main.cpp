@@ -15,6 +15,7 @@
 #include "texturemanager.h"
 #include "gunmanager.h"
 
+#include "introstate.h"
 #include "gamestate.h"
 #include "menustate.h"
 #include "deathstate.h"
@@ -100,6 +101,7 @@ int main( int argc, char** argv ){
 
 	renderer.loadFont("assests\\fonts\\ocr.ttf",   "ocr");
 	renderer.loadFont("assests\\fonts\\arial.ttf", "arial");
+	renderer.loadFont("assests\\fonts\\tw.ttf", "typewriter");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -111,16 +113,18 @@ int main( int argc, char** argv ){
 	DeathState deathState;
 	EditorState editorState;
 	MenuState menuState;
+	IntroState introState;
 	MapSelectionState mapSelectionState;
 	QuitState quitState;
 
 	stateMachine.addState(&gameState, "game");
+	stateMachine.addState(&introState, "intro");
 	stateMachine.addState(&menuState, "menu");
 	stateMachine.addState(&quitState, "quit");
 	stateMachine.addState(&deathState, "death");
 	stateMachine.addState(&editorState, "editor");
 	stateMachine.addState(&mapSelectionState, "mapselect");
-	stateMachine.setCurrentState("menu");
+	stateMachine.setCurrentState("intro");
 
 	inputManager.AddCallback(
 			SDL_QUIT,

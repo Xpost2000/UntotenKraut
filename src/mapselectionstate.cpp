@@ -1,4 +1,5 @@
 #include <iostream>
+#include "sound.h"
 #include "mapselectionstate.h"
 #include "gamestate.h"
 #include "fsm.h"
@@ -73,6 +74,7 @@ void MapSelectionState::update(float dt){
 		if(button.second.second.isClicked(inputManager)){
 			GameState* ptr = (GameState*)parent->getState("game");
 			ptr->loadLevel(button.second.first, button.first);
+			core::audio::SoundManager::getInstance()->stopMusic();
 			parent->setCurrentState("game");
 		}
 	}
