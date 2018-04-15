@@ -49,21 +49,32 @@ int main( int argc, char** argv ){
 		       768 
 		     );
 	core::gfx::Renderer renderer(1024, 768);
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_512_tset.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_barricade_test.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_wallbuy_test.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_projectile.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_player_test.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\ui\\ui_stain.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\dev_zombie_test.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\test_ground.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_cl.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_cr.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_clb.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud_crb.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\mud.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\floor.png");
-	core::TextureManager::getInstance()->getTexture("assests\\textures\\concrete.png");
+
+
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_center.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_bottom_left.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_bottom_right.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_top_left.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_top_right.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_gun_buy.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_bars.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_center_blood.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_floor.png");
+
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_bottom.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_bottom_ripped.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_center.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_left.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_right.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_top.png");
+
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\nature\\grass.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\nature\\mud.png");
+
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\crate.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk_paper.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\oil_drum.png");
 
 	rapidxml::xml_document<> gunDocument;
 	rapidxml::xml_node<>* rootGunNode;

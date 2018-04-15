@@ -36,7 +36,7 @@ GameState::~GameState(){
 }
 
 void GameState::loadLevel(std::string fileName, std::string name){
-	levelLoader.load(fileName, name);
+	levelLoader.loadNew(fileName, name);
 	world.loadLevel(levelLoader.getLevel(name));
 	player.setHp(100);
 	roundDelay=43;

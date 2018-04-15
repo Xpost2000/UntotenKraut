@@ -6,22 +6,53 @@ namespace game{
 		if(levels.count(levelName)) { return; }
 		std::fstream f(file);
 		std::string processStr;
+		Level newLevel;
+		float x=0;
+		float y=0;
+		std::string path;
+		std::string gunName;
 		while(f >> processStr){
 			if(processStr == "agrid"){
+				f >> newLevel.w;
+				f >> newLevel.h;
+				newLevel.w/=35;
+				newLevel.h/=35;
 			}
 			if(processStr == "playerPos"){
+				f>>newLevel.pX;
+				f>>newLevel.pY;
 			}
-			if(processStr == "bar"){
+			if(processStr == "barricade"){
+				f>>x;
+				f>>y;
+				newLevel.barricades.push_back(Barricade(x,y,35,35));
 			}
 			if(processStr == "detail"){
+				f>>x;
+				f>>y;
+				f>>path;
+				newLevel.detail_ents.push_back(DetailEntity(x,y,35,35,core::TextureManager::getInstance()->getTexture(path)));
 			}
 			if(processStr == "gunwall"){
+				f>>x;
+				f>>y;
+				f>>path;
+				f>>gunName;
+				newLevel.walls.push_back(Wall(x, y, 35, 35, core::TextureManager::getInstance()->getTexture(path), game::GunManager::getInstance()->get(gunName)));
 			}
 			if(processStr == "wall"){
+				f>>x;
+				f>>y;
+				f>>path;
+				newLevel.walls.push_back(Wall(x, y, 35, 35, core::TextureManager::getInstance()->getTexture(path)));
 			}
 			if(processStr == "zspawner"){
+				f>>x;
+				f>>y;
+				newLevel.zombieSpawners.push_back(Spawner<Zombie>(nullptr, 15, x, y, 1));
 			}
 		}
+		levels.insert(std::make_pair(levelName, newLevel));
 	}
 	void LevelLoader::load(std::string file, std::string levelName){
 		if(levels.count(levelName)) { return; }

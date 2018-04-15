@@ -224,7 +224,7 @@ void EditorState::writeToDisk(std::string filename){
 	levelFile << "playerPos " << world.getPlayer()->x << " " << world.getPlayer()->y << std::endl;
 	for(auto& wall : world.getWalls()){
 		if(wall.getHasGun()){
-			levelFile << "gunwall " << wall.x << " " << wall.y << " " << wall.getTex()->path << " " << wall.getCost() << " " << wall.getWallWeapon().getName() << std::endl;
+			levelFile << "gunwall " << wall.x << " " << wall.y << " " << wall.getTex()->path << " " << wall.getWallWeapon().getName() << std::endl;
 		}else{
 			levelFile << "wall " << wall.x << " " << wall.y << " " << wall.getTex()->path << std::endl;
 		}
@@ -233,7 +233,7 @@ void EditorState::writeToDisk(std::string filename){
 			levelFile << "detail " << detail.x << " " << detail.y << " " << detail.getTex()->path << std::endl;
 	}
 	for(auto& spawner : world.getSpawner()){
-			levelFile << "zspawner " << spawner.x << " " << spawner.y << " " << spawner.getMax() << std::endl; 
+			levelFile << "zspawner " << spawner.x << " " << spawner.y << std::endl; 
 	}
 	for(auto& bar : world.getBarricades()){
 			levelFile << "barricade " << bar.x << " " << bar.y << std::endl;

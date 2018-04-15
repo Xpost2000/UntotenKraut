@@ -1,4 +1,3 @@
 <MapDocument>
-	<Map name="Little Little Bunker" path="maps\\test.txt" id="test"/>
-	<Map name="Bunker" path="maps\\test.txt" id="example"/>
+	<Map name="Little Little Bunker" path="maps\\test.lvl" id="test"/>
 </MapDocument>
