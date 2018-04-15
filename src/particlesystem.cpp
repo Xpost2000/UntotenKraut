@@ -25,7 +25,7 @@ namespace core{
 		void ParticleSystem::resetPositions(){
 			for(int i = 0 ; i < size; ++i){
 				Particle& p = pool[i];
-				p.x=x+(rand()%15);
+				p.x=x+(rand()%5);
 				p.y=y+(rand()%13);
 			}
 		}
@@ -39,8 +39,8 @@ namespace core{
 				p.b=0;
 				p.a=p.lifeTime/50;
 
-				p.x+=speedX*cos(angle)-(rand()%6);
-				p.y+=speedY*sin(angle)-(rand()%6);
+				p.x+=speedX*cos(angle)-(rand()%20);
+				p.y+=speedY*sin(angle)-(rand()%20);
 				p.lifeTime--;
 				}else{
 					p.a=1;
