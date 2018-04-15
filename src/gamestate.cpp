@@ -11,7 +11,7 @@ GameState::GameState(){
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
 	gunUi = core::gfx::Sprite(900, 650, 90, 45);
 
-	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("KAR98"));
+	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::Gun());
 	player.useGun(0);
 	
 	world.setPlayer(&player);
@@ -41,7 +41,7 @@ void GameState::loadLevel(std::string fileName, std::string name){
 	player.setHp(100);
 	roundDelay=43;
 	gameWave=0;
-	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::GunManager::getInstance()->get("KAR98"));
+	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::Gun());
 	player.useGun(0);
 }
 
@@ -102,7 +102,12 @@ void GameState::update(float dt){
 				if(playerBuyDelay <= 0 && world.getScore()>=wall.getCost()){
 					world.getScore()-=currentGunPrice;
 					//TODO: do more advanced checking.
-					player.getGun() = wall.getWallWeapon();
+					if(player.getGuns()[1].getName() == "Nothing"){
+						player.getGuns()[1] = wall.getWallWeapon();
+						player.useGun(1);
+					}else{
+						player.getGun() = wall.getWallWeapon();
+					}
 					playerBuyDelay=5;
 				}
 			}

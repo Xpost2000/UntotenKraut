@@ -33,7 +33,7 @@ namespace game{
 				bool reload(float dt);
 				int gunCost=0;
 			private:
-				std::string name="DefaultGun";
+				std::string name="Nothing";
 
 				bool fullAuto=false;
 

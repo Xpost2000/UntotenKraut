@@ -30,9 +30,16 @@ namespace game{
 
 			void setGuns(Gun gun1, Gun gun2){ guns[0]=gun1; guns[1]=gun2; }
 			// TODO: have checking.
-			void useGun(int index) { currentGun = &guns[index]; }
+			void useGun(int index){
+				if(guns[index].getName() == "Nothing"){
+					return;
+				}else{
+					currentGun = &guns[index];
+				}
+			}
 
 			Gun &getGun() { return *currentGun; }
+			Gun* getGuns() { return guns; }
 
 			void move(float dt, int direction, World& world, float speedModifier=1);
 		private:
