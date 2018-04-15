@@ -2,6 +2,7 @@
 #define GUNMANAGER_H
 
 #include <unordered_map>
+#include <vector>
 #include <memory>
 
 #include "gun.h"
@@ -19,10 +20,14 @@ namespace game{
 				return instance;
 			}
 			void addGun(std::string name, Gun gun);
+			std::vector<std::pair<std::string, Gun>> getGuns(){
+				return gunVecMap;
+			}
 
 			Gun get(std::string name);
 		private:
 			static std::shared_ptr<GunManager> instance;
+			std::vector<std::pair<std::string, Gun>> gunVecMap;
 			std::unordered_map<std::string, Gun> guns;
 	};
 };

@@ -11,6 +11,7 @@ namespace game{
 	class LevelLoader{
 		public:
 			void load(std::string file, std::string levelName);
+			void loadNew(std::string file, std::string levelName);
 			Level getLevel(std::string name) { return levels[name]; }
 		private:
 			std::map<std::string, Level> levels;

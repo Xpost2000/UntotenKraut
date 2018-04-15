@@ -1,6 +1,8 @@
+#include <iostream>
 #include "mapselectionstate.h"
 #include "gamestate.h"
 #include "fsm.h"
+#include "dep/rapidxml.hpp"
 #include "texturemanager.h"
 
 MapSelectionState::MapSelectionState(){
@@ -26,7 +28,24 @@ MapSelectionState::MapSelectionState(){
 // handy dandy macro
 #define MapButton( x, y, name, path, internalName ) std::make_pair<std::string, std::pair<std::string, GUIButton>>(std::string(internalName), std::make_pair<std::string, GUIButton>( std::string(path), GUIButton(x,y, name, 20, 1, 1, 1, 1) ))
 	// amazing! It works!
-	mapButtons.insert(MapButton(0, 150, "Little Little Bunker,", "maps\\test.txt", "test"));
+	std::ifstream mapsFile("assests\\maps.xml");
+	std::vector<char> buffer((std::istreambuf_iterator<char>(mapsFile)), std::istreambuf_iterator<char>());
+	buffer.push_back('\0');
+	rapidxml::xml_document<> mapDocument;
+	rapidxml::xml_node<>* rootMapNode;
+	mapDocument.parse<0>(&buffer[0]);
+	rootMapNode = mapDocument.first_node("MapDocument");
+	int height=0;
+	std::string name;
+	std::string path;
+	std::string internalName;
+	for(auto* node = rootMapNode->first_node("Map"); node; node=node->next_sibling("Map")){
+		name = node->first_attribute("name")->value();
+		path = node->first_attribute("path")->value();
+		internalName = node->first_attribute("id")->value();
+		mapButtons.insert(MapButton(0, 150+height, name, path, internalName));
+		height+=45;
+	}	
 	preview.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
 }
 
@@ -46,7 +65,10 @@ void MapSelectionState::update(float dt){
 
 	for(auto& button : mapButtons){
 		if(button.second.second.isMousedOver(inputManager)){
+			if(core::TextureManager::getInstance()->getTexture("assests\\map_preview\\" + button.first))
 			preview.setTexture(core::TextureManager::getInstance()->getTexture("assests\\map_preview\\"+button.first));
+		}else{
+			preview.setTexture(smog.getTex());
 		}
 		if(button.second.second.isClicked(inputManager)){
 			GameState* ptr = (GameState*)parent->getState("game");

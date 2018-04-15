@@ -19,6 +19,8 @@ namespace game{
 			bool getHasGun() { return hasGun; }
 			Gun getWallWeapon() { return wallWeapon; }
 			Entity &getTrigger() { return gunTrigger; }
+
+			core::gfx::Texture* getTex() { return sprite.getTex(); }
 		private:	
 			friend class LevelLoader;
 			friend class World;

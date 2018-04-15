@@ -82,8 +82,9 @@ int main( int argc, char** argv ){
 		int maxAmmo = std::atoi(node->first_attribute("maxAmmo")->value());
 		int clipAmmo = std::atoi(node->first_attribute("clipAmmo")->value());
 		float reloadSpeed = std::stof(node->first_attribute("reloadSpeed")->value());
+		int cost = std::atoi(node->first_attribute("wallCost")->value());
 
-		game::GunManager::getInstance()->addGun(name, game::Gun(name, dmg, bulletSpeed, bulletLifeTime, delay, false, maxAmmo, clipAmmo, reloadSpeed ));
+		game::GunManager::getInstance()->addGun(name, game::Gun(name, dmg, bulletSpeed, bulletLifeTime, delay, false, maxAmmo, clipAmmo, reloadSpeed, cost));
 	}
 
 	renderer.loadFont("assests\\fonts\\ocr.ttf",   "ocr");

@@ -20,6 +20,7 @@ namespace core{
 				void unuse();
 
 				unsigned int getId();
+				std::string path;
 			private:
 				unsigned int id;
 		};

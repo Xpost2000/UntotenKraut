@@ -16,6 +16,8 @@ EditorState::EditorState(){
 	player.useGun(0);
 	world.setPlayer(&player);
 	textures = core::TextureManager::getInstance()->getTextures().size();
+	guns = game::GunManager::getInstance()->getGuns().size();
+
 	std::cout << "I report " << textures << " Textures loaded" << std::endl;
 }
 
@@ -42,6 +44,10 @@ void EditorState::update(float dt){
 	if(inputManager.isKeyDown(SDL_SCANCODE_D)){
 		renderer->translateCamera(-20*dt, 0);
 	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_P)){
+		SDL_Delay(1500);
+		writeToDisk("editor\\level.lvl");
+	}
 	if(inputManager.isKeyDown(SDL_SCANCODE_R)){
 		renderer->camX=0;
 		renderer->camY=0;
@@ -66,8 +72,12 @@ void EditorState::update(float dt){
 	if(inputManager.isKeyDown(SDL_SCANCODE_4)){
 		blockType=4;
 	}
+	if(inputManager.isKeyDown(SDL_SCANCODE_G)){
+		blockType=6;
+		SDL_Delay(120);
+	}
 	if(inputManager.isKeyDown(SDL_SCANCODE_B)){
-		isBlockBarricade=!isBlockBarricade;
+		blockType=5;
 		SDL_Delay(120);
 	}
 	if(editingAGrid){
@@ -98,6 +108,16 @@ void EditorState::update(float dt){
 			textureIndex++;
 			SDL_Delay(100); // this is an artifical fix.
 		}
+		if(inputManager.isKeyDown(SDL_SCANCODE_UP)){
+			if(gunIndex <= guns)
+			gunIndex++;
+			SDL_Delay(100);
+		}
+		if(inputManager.isKeyDown(SDL_SCANCODE_DOWN)){
+			if(gunIndex >= 0 && gunIndex!=-1)
+			gunIndex--;	
+			SDL_Delay(100); // this is an artifical fix.
+		}
 	}
 	if(inputManager.isMouseKeyDown(SDL_BUTTON_LEFT)){
 		// this is basically where most of it comes down to.
@@ -108,12 +128,9 @@ void EditorState::update(float dt){
 		switch(blockType){
 			case 1:
 				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
-				if(!isBlockBarricade)
-				world.addWall(game::Wall(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
-				else
-				world.addBarricade(game::Barricade(mX,mY,35,35));//, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
-				break;
+					world.addWall(game::Wall(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
 				}
+				break;
 			case 3:
 				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
 				world.addSpawner(mX, mY, 15, 2);
@@ -127,6 +144,16 @@ void EditorState::update(float dt){
 				break;
 			case 2:
 				world.addDetail(game::DetailEntity(mX,mY,35,35, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
+				break;
+			case 5:
+				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
+					world.addBarricade(game::Barricade(mX,mY,35,35));//, core::TextureManager::getInstance()->getTextures()[textureIndex].second));
+				}
+				break;
+			case 6:
+				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
+					world.addWall(game::Wall(mX, mY, 35, 35, core::TextureManager::getInstance()->getTextures()[textureIndex].second, game::GunManager::getInstance()->getGuns()[gunIndex].second));
+				}
 				break;
 		}
 		SDL_Delay(100);
@@ -149,6 +176,12 @@ std::string EditorState::genNameFromType(){
 		case 4:
 			return "PlayerLocation";
 			break;
+		case 5:
+			return "Barricade";
+			break;
+		case 6:
+			return "Gun Wall";
+			break;
 	}
 }
 
@@ -157,11 +190,12 @@ void EditorState::draw(core::gfx::Renderer& renderer){
 	this->renderer=&renderer; // this line was to hack something together lol
 
 	renderer.setTextSize(11);
-	renderer.drawText("ocr", 0, 0, "Editor Mode: CameraPos( " + std::to_string(renderer.camX) + " , " + std::to_string(renderer.camY) + " )");
-	renderer.drawText("ocr", 0, 15, "(Use R to reset camera, Use T to test level, X set A* world dimensions)(Number Keys 1 - 4 for block type, arrow keys select texture.)");
+	renderer.drawText("ocr", 0, 0, "Editor Mode (P saves the level as level.lvl(TODO: IMPLEMENT NAMING))");
+	renderer.drawText("ocr", 0, 15, "(Use R to reset camera, Use T to test level, X set A* world dimensions, B set to barricade, G set gun wall)(Number Keys 1 - 4 for block type, arrow keys select texture.)");
 	renderer.drawText("ocr", 0, 30, "Current Block Type : " + genNameFromType() );
 	// hope it works.
 	renderer.drawText("ocr", 0, 45, "Texture Path : " + core::TextureManager::getInstance()->getTextures()[textureIndex].first + "("+std::to_string(textureIndex)+")" );
+	renderer.drawText("ocr", 0, 60, "Current Gun : " + game::GunManager::getInstance()->getGuns()[gunIndex].first + "("+std::to_string(gunIndex)+")" );
 	if(editingAGrid)
 	renderer.drawText("ocr", 0, 60, "A* Grid Editing Mode On(press X again to leave)");
 
@@ -185,7 +219,25 @@ void EditorState::draw(core::gfx::Renderer& renderer){
 }
 
 void EditorState::writeToDisk(std::string filename){
-	// need to think of a format to write as.
+	std::ofstream levelFile(filename);
+	levelFile << "agrid " << w << " " << h << std::endl;
+	levelFile << "playerPos " << world.getPlayer()->x << " " << world.getPlayer()->y << std::endl;
+	for(auto& wall : world.getWalls()){
+		if(wall.getHasGun()){
+			levelFile << "gunwall " << wall.x << " " << wall.y << " " << wall.getTex()->path << " " << wall.getCost() << " " << wall.getWallWeapon().getName() << std::endl;
+		}else{
+			levelFile << "wall " << wall.x << " " << wall.y << " " << wall.getTex()->path << std::endl;
+		}
+	}
+	for(auto& detail : world.getDetailEntities()){
+			levelFile << "detail " << detail.x << " " << detail.y << " " << detail.getTex()->path << std::endl;
+	}
+	for(auto& spawner : world.getSpawner()){
+			levelFile << "zspawner " << spawner.x << " " << spawner.y << " " << spawner.getMax() << std::endl; 
+	}
+	for(auto& bar : world.getBarricades()){
+			levelFile << "barricade " << bar.x << " " << bar.y << std::endl;
+	}
 }
 
 void EditorState::testLevel(){

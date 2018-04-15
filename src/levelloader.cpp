@@ -2,6 +2,27 @@
 #include "texturemanager.h"
 namespace game{
 	//size is 30
+	void LevelLoader::loadNew(std::string file, std::string levelName){
+		if(levels.count(levelName)) { return; }
+		std::fstream f(file);
+		std::string processStr;
+		while(f >> processStr){
+			if(processStr == "agrid"){
+			}
+			if(processStr == "playerPos"){
+			}
+			if(processStr == "bar"){
+			}
+			if(processStr == "detail"){
+			}
+			if(processStr == "gunwall"){
+			}
+			if(processStr == "wall"){
+			}
+			if(processStr == "zspawner"){
+			}
+		}
+	}
 	void LevelLoader::load(std::string file, std::string levelName){
 		if(levels.count(levelName)) { return; }
 		std::fstream f(file);

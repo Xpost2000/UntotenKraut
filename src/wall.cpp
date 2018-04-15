@@ -4,6 +4,7 @@
 namespace game{
 	Wall::Wall( float x, float y, float w, float h, core::gfx::Texture* tex, Gun gun )
 	: Wall(x, y, w, h, tex, gun.gunCost){
+		wallWeapon = gun;
 	}
 	Wall::Wall( float x, float y, float w, float h, core::gfx::Texture* tex, int gunCost)
 	: Entity(x, y, w, h),

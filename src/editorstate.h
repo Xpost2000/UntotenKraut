@@ -22,10 +22,11 @@ class EditorState : public State{
 		float w=1;
 		float h=1;
 
-		bool isBlockBarricade=false;
 		bool editingAGrid=false;
 
 		int textureIndex=0;
+		int gunIndex=0;
+		int guns=0;
 		int textures=0;
 
 		int blockType=1;
