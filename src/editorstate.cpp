@@ -249,5 +249,6 @@ void EditorState::testLevel(){
 	state->player.x=player.x;
 	state->player.y=player.y;
 	state->world.setPlayer(&state->player);
+	state->prepareGame();
 	parent->setCurrentState("game");
 }

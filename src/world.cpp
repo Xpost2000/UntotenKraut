@@ -29,7 +29,7 @@ namespace game{
 		for(int i = 0; i < zombies.size(); ++i){
 			auto& zombie = zombies[i];
 			zombie.update(0.1f, *this);
-			if(zombie.getHp() <= 0){
+			if(zombie.getHp() <= 0 && zombie.doneBleeding()){
 				zombies.erase(zombies.begin()+i);
 				killCount++;
 				score+=150;

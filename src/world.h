@@ -106,6 +106,7 @@ namespace game{
 			}
 			int& getWidth(){ return w; }
 			int& getHeight() { return h; }
+
 		private:
 			float zombieSpawnHp=50;
 			int w=0,h=0;

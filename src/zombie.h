@@ -19,11 +19,12 @@ namespace game{
 			void setSpeed( float nspeed ) { speed = nspeed; }
 			float getSpeed() { return speed; }
 
-			void bleed(float sX, float sY, float dt){ps.speedX = sX; ps.speedY = sY; ps.active=true; bloodTimer=30; ps.x = x; ps.y = y; ps.resetPositions(); ps.update(dt);}
+			void bleed(float sX, float sY, float dt){ps.speedX = sX; ps.speedY = sY; ps.active=true; bloodTimer=50; ps.x = x; ps.y = y; ps.resetPositions(); ps.update(dt);}
+			bool doneBleeding() { return bloodTimer<=0; }
 
 			// zombies can't strafe. they move from an angle.
 		private:
-			float bloodTimer=30;
+			float bloodTimer=60;
 			Node* gridWorld=nullptr;
 			Node* current=nullptr;
 			Node* goal=nullptr;

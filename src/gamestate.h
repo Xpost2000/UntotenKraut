@@ -24,6 +24,7 @@ class GameState : public State{
 		void draw(core::gfx::Renderer&);
 
 		void loadLevel(std::string levelFile, std::string name);
+		void prepareGame();
 	private:
 		friend class DeathState;
 		friend class EditorState;

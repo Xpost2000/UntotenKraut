@@ -3,12 +3,13 @@
 #include "sprite.h"
 #include <iostream>
 #include <cstdlib>
+
+#define BLOOD_SPEED 50
 namespace core{
 	namespace gfx{
-		ParticleSystem::ParticleSystem() : ParticleSystem(0, 0, 200){
+		ParticleSystem::ParticleSystem() : ParticleSystem(0, 0, 300){
 		}
 		ParticleSystem::ParticleSystem(float x, float y, int size) : size(size), x(x), y(y){
-			std::cout << "Particle System of Size : " << size << std::endl;
 			for(int i = 0 ; i < size; ++i){
 				pool.push_back(Particle());
 				Particle& p = pool[i];
@@ -17,7 +18,7 @@ namespace core{
 				p.b=0;
 				p.x=x;
 				p.y=y;
-				p.lifeTime=50;
+				p.lifeTime=-1;
 			}
 		}
 		ParticleSystem::~ParticleSystem(){
@@ -25,8 +26,8 @@ namespace core{
 		void ParticleSystem::resetPositions(){
 			for(int i = 0 ; i < size; ++i){
 				Particle& p = pool[i];
-				p.x=x+(rand()%5);
-				p.y=y+(rand()%13);
+				p.x=x+(rand()%60);
+				p.y=y+(rand()%40);
 			}
 		}
 		void ParticleSystem::update(float dt){
@@ -37,21 +38,21 @@ namespace core{
 				p.r=1;
 				p.g=0;
 				p.b=0;
-				p.a=p.lifeTime/50;
+				p.a=p.lifeTime/BLOOD_SPEED;
 
-				p.x+=speedX-(rand()%20);
-				p.y+=speedY-(rand()%20);
+				p.x+=speedX*((rand()%30)/11);
+				p.y+=speedY*((rand()%20)/13);
 				p.lifeTime--;
 				}else{
 					p.a=1;
-					p.lifeTime=50;
+					p.lifeTime=BLOOD_SPEED-(rand()%5);
 					p.x=x;
 					p.y=y;
 				}
 			}
 		}
 		void ParticleSystem::draw(Renderer& renderer){
-			Sprite spr(0, 0, 15, 15);
+			Sprite spr(0, 0, 12, 12);
 			spr.setTexture(TextureManager::getInstance()->getTexture("assests\\textures\\particle_blob.png"));
 			if(active)
 			for(int i = 0; i < size; ++i){

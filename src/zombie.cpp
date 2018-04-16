@@ -260,6 +260,7 @@ namespace game{
 	}
 
 	void Zombie::draw(core::gfx::Renderer& renderer){
+		if(hp>0)
 		renderer.drawSprite( sprite );	
 		if(ps.active)
 		ps.draw(renderer);

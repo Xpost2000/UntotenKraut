@@ -35,14 +35,19 @@ GameState::GameState(){
 GameState::~GameState(){
 }
 
-void GameState::loadLevel(std::string fileName, std::string name){
-	levelLoader.loadNew(fileName, name);
-	world.loadLevel(levelLoader.getLevel(name));
+void GameState::prepareGame(){
 	player.setHp(100);
 	roundDelay=43;
 	gameWave=0;
+	world.getZombies().clear();
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::Gun());
 	player.useGun(0);
+}
+
+void GameState::loadLevel(std::string fileName, std::string name){
+	levelLoader.loadNew(fileName, name);
+	world.loadLevel(levelLoader.getLevel(name));
+	prepareGame();
 }
 
 void GameState::update(float dt){
