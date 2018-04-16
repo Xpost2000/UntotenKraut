@@ -37,6 +37,7 @@ GameState::~GameState(){
 
 void GameState::prepareGame(){
 	player.setHp(100);
+	introDelay=25;
 	roundDelay=43;
 	gameWave=0;
 	world.getZombies().clear();
@@ -51,6 +52,7 @@ void GameState::loadLevel(std::string fileName, std::string name){
 }
 
 void GameState::update(float dt){
+	if(introDelay <= 0){
 	if(playerBuildDelay > 0){
 		playerBuildDelay-=dt;
 	}
@@ -166,9 +168,13 @@ void GameState::update(float dt){
 	}
 	if( inputManager.isKeyDown(SDL_SCANCODE_ESCAPE) )
 		parent->setCurrentState("menu");
+		world.update(dt);
+	}else{
+		// play ominious starting music.
+		introDelay-=dt*0.8;
+	}
 
 	inputManager.Update();
-	world.update(dt);
 }
 
 void GameState::draw(core::gfx::Renderer& renderer){
@@ -179,7 +185,12 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.drawRect(inWorld.x, inWorld.y, 5, 5, 1, 0, 0, 1);
 	renderer.identityCamera();
 	renderer.refreshCamera();
-	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.65);
+	if(introDelay > 0){
+	renderer.drawRect(0,0, renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, introDelay/25);
+	renderer.setTextSize(45);
+	renderer.drawText("typewriter", 300, renderer.getScreenHeight()/2, "Let's see how long we'll make it...", 1, 1, 1, introDelay/25);
+	}
+	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.55);
 
 	//artificially "darken" the world without a postprocessor.
 
