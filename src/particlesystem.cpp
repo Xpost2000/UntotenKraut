@@ -39,8 +39,8 @@ namespace core{
 				p.b=0;
 				p.a=p.lifeTime/50;
 
-				p.x+=speedX*cos(angle)-(rand()%20);
-				p.y+=speedY*sin(angle)-(rand()%20);
+				p.x+=speedX-(rand()%20);
+				p.y+=speedY-(rand()%20);
 				p.lifeTime--;
 				}else{
 					p.a=1;
