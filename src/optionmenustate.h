@@ -21,7 +21,7 @@ class OptionMenuState : public State{
 		core::gfx::Sprite smog;
 		core::gfx::Sprite screen; // the background.
 
-		GUIButton fullscreenButton, backButton;
+		GUIButton fullscreenButton, vsyncButton, backButton;
 };
 
 #endif

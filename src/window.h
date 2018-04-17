@@ -19,11 +19,14 @@ namespace core{
 			void Refresh();
 
 			SDL_Window* GetHandle(){ return m_windowHandle; }
+			int& getSwapInterval(){ return m_swapInterval; }
 		private:
 			std::string name="";
 			
 			SDL_Window* m_windowHandle = nullptr;
 			SDL_GLContext m_context;
+
+			int m_swapInterval=1;
 	};
 };
 

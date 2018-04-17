@@ -12,6 +12,7 @@ OptionMenuState::OptionMenuState(){
 	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
 	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
 	fullscreenButton = GUIButton( 15, 300, "Toggle Fullscreen", 20, 1, 1, 1, 1 );
+	vsyncButton = GUIButton( 15, 325, "Toggle VSync", 20, 1, 1, 1, 1 );
 	backButton = GUIButton( 15, 700, "Return to Menu", 20, 1, 1, 1, 1 );
 
 	core::audio::SoundManager::getInstance()->addMusic( "assests\\sounds\\packupyourtroubles.mp3", "menu" );
@@ -32,8 +33,8 @@ void OptionMenuState::update(float dt){
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	core::audio::SoundManager::getInstance()->playMusic( "menu", 100, true );
 
+	core::Window* ptr = (core::Window*)parent->data;
 	if(fullscreenButton.isClicked(inputManager)){
-		core::Window* ptr = (core::Window*)parent->data;
 		if(!fs){
 			SDL_SetWindowFullscreen(ptr->GetHandle(), SDL_WINDOW_FULLSCREEN);
 		}else{
@@ -42,6 +43,10 @@ void OptionMenuState::update(float dt){
 			SDL_SetWindowSize(ptr->GetHandle(), 1024, 768);
 		}
 		fs = !fs;
+	}
+	if(vsyncButton.isClicked(inputManager)){
+		ptr->getSwapInterval() ^= 1;
+		SDL_GL_SetSwapInterval(ptr->getSwapInterval());
 	}
 	if(backButton.isClicked(inputManager)){
 		core::audio::SoundManager::getInstance()->stopMusic();
@@ -79,7 +84,7 @@ void OptionMenuState::draw(core::gfx::Renderer& renderer){
 	renderer.setTextSize(60);
 	renderer.drawText("ocr", 0, 0, "Options Menu");
 	renderer.setTextSize(15);
-	renderer.drawText("ocr", 0, 65, "DEV TODO: Add more options");
+	renderer.drawText("ocr", 0, 65, "TODO: Add Resolution Selection. (While I'm at it, add uniform scaling that doesn't break the gui)");
 	smog.setX(0);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 	smog.setX(x1);
@@ -88,6 +93,10 @@ void OptionMenuState::draw(core::gfx::Renderer& renderer){
 	renderer.drawSprite(smog, 0.5, 0.4, 0.5, 0.2);
 	smog.setX(x3);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
+	core::Window* ptr = (core::Window*)parent->data;
+	fullscreenButton.getText().setText("Toggle Fullscreen : " + std::string(((fs) ? "ON" : "OFF")), 20);
+	vsyncButton.getText().setText("Toggle VSync : " + std::string(((ptr->getSwapInterval() == 1) ? "ON" : "OFF")), 20);
 	fullscreenButton.draw(renderer, &blob);
+	vsyncButton.draw(renderer, &blob);
 	backButton.draw(renderer, &blob);
 }

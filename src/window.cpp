@@ -37,7 +37,7 @@ namespace core{
 			return;	
 		}
 
-		SDL_GL_SetSwapInterval(1);
+		SDL_GL_SetSwapInterval(m_swapInterval);
 		SDL_GL_MakeCurrent(m_windowHandle, m_context);
 	}
 
