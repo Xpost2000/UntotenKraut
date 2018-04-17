@@ -1,19 +1,18 @@
-#include "menustate.h"
+#include "optionmenustate.h"
+#include "window.h"
 
 #include "fsm.h"
 #include "texturemanager.h"
 #include "sound.h"
 #include <iostream>
 
-MenuState::MenuState(){
+OptionMenuState::OptionMenuState(){
 	blob = core::gfx::Sprite(0,0,0,0);
 	smog = core::gfx::Sprite(0, 0, 0, 0);
 	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
 	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
-	startButton = GUIButton( 15, 300, "Start Game", 20, 1, 1, 1, 1 );
-	optionButton = GUIButton( 15, 330, "Options", 20, 1, 1, 1, 1 );
-	editModeButton = GUIButton( 15, 360, "Editor Mode", 20, 1, 1, 1, 1 );
-	quitButton = GUIButton( 15, 390, "Quit Game", 20, 1, 1, 1, 1 );
+	fullscreenButton = GUIButton( 15, 300, "Toggle Fullscreen", 20, 1, 1, 1, 1 );
+	backButton = GUIButton( 15, 700, "Return to Menu", 20, 1, 1, 1, 1 );
 
 	core::audio::SoundManager::getInstance()->addMusic( "assests\\sounds\\packupyourtroubles.mp3", "menu" );
 
@@ -26,27 +25,27 @@ MenuState::MenuState(){
 
 }
 
-MenuState::~MenuState(){
+OptionMenuState::~OptionMenuState(){
 }
 
-void MenuState::update(float dt){
+void OptionMenuState::update(float dt){
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 	core::audio::SoundManager::getInstance()->playMusic( "menu", 100, true );
 
-	if(startButton.isClicked(inputManager)){
-		// TODO: Add another menu sub state ( the map selection screen )
-		parent->setCurrentState("mapselect");
+	if(fullscreenButton.isClicked(inputManager)){
+		core::Window* ptr = (core::Window*)parent->data;
+		if(!fs){
+			SDL_SetWindowFullscreen(ptr->GetHandle(), SDL_WINDOW_FULLSCREEN);
+		}else{
+			SDL_SetWindowFullscreen(ptr->GetHandle(), 0);
+			SDL_SetWindowPosition(ptr->GetHandle(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+			SDL_SetWindowSize(ptr->GetHandle(), 1024, 768);
+		}
+		fs = !fs;
 	}
-	if(optionButton.isClicked(inputManager)){
-		parent->setCurrentState("options");
-	}
-	if(editModeButton.isClicked(inputManager)){
+	if(backButton.isClicked(inputManager)){
 		core::audio::SoundManager::getInstance()->stopMusic();
-		parent->setCurrentState("editor");
-	}
-	if(quitButton.isClicked(inputManager)){
-		core::audio::SoundManager::getInstance()->stopMusic();
-		parent->setCurrentState("quit");
+		parent->setCurrentState("menu");
 	}
 	
 
@@ -57,7 +56,7 @@ void MenuState::update(float dt){
 	inputManager.Update();
 }
 
-void MenuState::draw(core::gfx::Renderer& renderer){
+void OptionMenuState::draw(core::gfx::Renderer& renderer){
 	screen = core::gfx::Sprite(0, 0, renderer.getScreenWidth(), renderer.getScreenHeight());
 	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\menu.png"));
 	renderer.identityCamera();
@@ -78,9 +77,9 @@ void MenuState::draw(core::gfx::Renderer& renderer){
 	renderer.drawRect(0,0,0,0);
 	renderer.drawSprite(screen);
 	renderer.setTextSize(60);
-	renderer.drawText("ocr", 0, 0, "Untoten Kraut");
+	renderer.drawText("ocr", 0, 0, "Options Menu");
 	renderer.setTextSize(15);
-	renderer.drawText("ocr", 0, 65, "Welcome to Version 0.6");
+	renderer.drawText("ocr", 0, 65, "DEV TODO: Add more options");
 	smog.setX(0);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 	smog.setX(x1);
@@ -89,8 +88,6 @@ void MenuState::draw(core::gfx::Renderer& renderer){
 	renderer.drawSprite(smog, 0.5, 0.4, 0.5, 0.2);
 	smog.setX(x3);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
-	startButton.draw(renderer, &blob);
-	optionButton.draw(renderer, &blob);
-	editModeButton.draw(renderer, &blob);
-	quitButton.draw(renderer, &blob);
+	fullscreenButton.draw(renderer, &blob);
+	backButton.draw(renderer, &blob);
 }

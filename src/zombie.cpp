@@ -1,7 +1,10 @@
 #include "zombie.h"
+#include "sound.h"
+
 #include "math.h"
-#include <list>
 #include "world.h"
+
+#include <list>
 #include <algorithm>
 #include <iostream>
 
@@ -118,7 +121,7 @@ namespace game{
 			}
 			
 			if(touching(*world.getPlayer())&& hitDelay<=0){
-				world.getPlayer()->setHp( world.getPlayer()->getHp() - 50 );
+				world.getPlayer()->setHp( world.getPlayer()->getHp() - 14 );
 				hitDelay=13;
 			}
 

@@ -17,6 +17,7 @@ class StateMachine{
 		void setCurrentState(std::string name);
 		State* getState( std::string name ) { return states[name]; }
 		State* getCurrentState(){ return currentState; }
+		void* data=nullptr; // special data.
 	private:
 		friend class State;
 		State* currentState=nullptr;

@@ -192,7 +192,7 @@ void GameState::draw(core::gfx::Renderer& renderer){
 		renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, introDelay/15);
 	}
 
-	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.55);
+	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), -((player.getHp()/100)-1), 0, 0, 0.55);
 	//artificially "darken" the world without a postprocessor.
 
 	// Rendering the hud is down here.

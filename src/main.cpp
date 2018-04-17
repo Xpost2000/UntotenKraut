@@ -21,6 +21,7 @@
 #include "gamestate.h"
 #include "menustate.h"
 #include "deathstate.h"
+#include "optionmenustate.h"
 #include "editorstate.h"
 #include "quitstate.h"
 #include "mapselectionstate.h"
@@ -119,6 +120,7 @@ int main( int argc, char** argv ){
 	GameState gameState;
 	DeathState deathState;
 	EditorState editorState;
+	OptionMenuState optionState;
 	MenuState menuState;
 	IntroState introState;
 	MapSelectionState mapSelectionState;
@@ -130,6 +132,7 @@ int main( int argc, char** argv ){
 	stateMachine.addState(&quitState, "quit");
 	stateMachine.addState(&deathState, "death");
 	stateMachine.addState(&editorState, "editor");
+	stateMachine.addState(&optionState, "options");
 	stateMachine.addState(&mapSelectionState, "mapselect");
 	stateMachine.setCurrentState("intro");
 
@@ -145,6 +148,7 @@ int main( int argc, char** argv ){
 	Uint32 difference=0;
 	const float preferredDt=0.1f;
 	float actualDt=0.1f;
+	stateMachine.data = &window;
 	while( stateMachine.getCurrentState() != &quitState ){
 		start = SDL_GetTicks();
 		difference = start - last;

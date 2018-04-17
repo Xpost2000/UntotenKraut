@@ -37,6 +37,7 @@ FILES=src/main.cpp\
       src/editorstate.cpp\
       src/mapselectionstate.cpp\
       src/particlesystem.cpp\
+      src/optionmenustate.cpp\
       src/font-renderer.cpp
 OUTPUT=game.exe
 LOUTPUT=game_linux
