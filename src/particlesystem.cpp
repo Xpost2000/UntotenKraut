@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 
-#define BLOOD_SPEED 50
+#define BLOOD_SPEED 50.004
 namespace core{
 	namespace gfx{
 		ParticleSystem::ParticleSystem() : ParticleSystem(0, 0, 300){
@@ -45,7 +45,7 @@ namespace core{
 				p.lifeTime--;
 				}else{
 					p.a=1;
-					p.lifeTime=BLOOD_SPEED-(rand()%5);
+					p.lifeTime=BLOOD_SPEED;
 					p.x=x;
 					p.y=y;
 				}
