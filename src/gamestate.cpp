@@ -190,10 +190,6 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.identityCamera();
 	renderer.refreshCamera();
 
-	if(introDelay > 0){
-		renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, introDelay/15);
-	}
-
 	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), -((player.getHp()/100)-1), 0, 0, 0.55);
 	//artificially "darken" the world without a postprocessor.
 
@@ -222,5 +218,8 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	if(world.getMaxZombies() == world.getKillCount()){
 		renderer.setTextSize(20);
 		renderer.drawText("ocr",0,580, "Preparation Time.", 1, 0, 0, 1);	
+	}
+	if(introDelay > 0){
+		renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, introDelay/15);
 	}
 }

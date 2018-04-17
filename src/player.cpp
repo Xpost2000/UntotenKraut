@@ -7,7 +7,7 @@
 
 namespace game{
 	Player::Player(float x, float y, float w, float h, float speed, float hp)
-	: Entity(x,y,w,h), speed(speed), hp(hp){
+	: Entity(x,y,w,h), speed(speed), hp(hp), maxHp(hp){
 		sprite.setW(w);
 		sprite.setH(h);
 		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_player_test.png"));
@@ -30,6 +30,9 @@ namespace game{
 	}
 
 	void Player::update( float dt, World& world ){
+		if(hp < maxHp){
+			hp+=dt*0.65;
+		}
 		sprite.setX(x);
 		sprite.setY(y);
 		currentGun->update(dt);

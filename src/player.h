@@ -20,9 +20,11 @@ namespace game{
 
 			void setSpeed( float s ) { speed=s; }
 			void setHp( float h ) { hp=h; }
+			void setMaxHp( float h ) { maxHp=h; }
 
 			float getSpeed() { return speed; }
 			float getHp() { return hp; }
+			float getMaxHp() { return maxHp; }
 
 			void fire(float mX, float mY);
 			
@@ -52,6 +54,7 @@ namespace game{
 			bool fired=false;
 			float speed=0;
 			float hp=0;
+			float maxHp=0;
 	};
 };
 #endif
