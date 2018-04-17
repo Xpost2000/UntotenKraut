@@ -65,6 +65,7 @@ void MapSelectionState::update(float dt){
 	x3+=7*dt;
 
 	for(auto& button : mapButtons){
+		if(!readyGame){
 		if(button.second.second.isMousedOver(inputManager)){
 			if(core::TextureManager::getInstance()->getTexture("assests\\map_preview\\" + button.first))
 			preview.setTexture(core::TextureManager::getInstance()->getTexture("assests\\map_preview\\"+button.first));
@@ -75,7 +76,18 @@ void MapSelectionState::update(float dt){
 			GameState* ptr = (GameState*)parent->getState("game");
 			ptr->loadLevel(button.second.first, button.first);
 			core::audio::SoundManager::getInstance()->stopMusic();
+			readyGame=true;
+		}
+		}
+	}
+	if(readyGame){
+		if(screenDelay >= 25){
+			screenDelay=0;
+			readyGame=false;
 			parent->setCurrentState("game");
+		}
+		else{
+			screenDelay+=dt;
 		}
 	}
 
@@ -121,4 +133,5 @@ void MapSelectionState::draw(core::gfx::Renderer& renderer){
 	}
 
 	backButton.draw(renderer, &blob);
+	renderer.drawRect(0, 0, renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, screenDelay/25);
 }

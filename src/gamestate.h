@@ -33,6 +33,7 @@ class GameState : public State{
 		game::LevelLoader levelLoader;
 
 		float introDelay=15;
+
 		float roundDelay=20;
 		int gameWave=0;
 		core::InputManager inputManager;

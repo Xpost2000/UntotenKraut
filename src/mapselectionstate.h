@@ -16,6 +16,8 @@ class MapSelectionState : public State{
 		void draw(core::gfx::Renderer&);
 	private:
 		float x1=0,x2=0,x3=0;
+		float screenDelay=0;
+		bool readyGame=false;
 		core::InputManager inputManager;
 		core::gfx::Sprite blob;
 		core::gfx::Sprite smog;

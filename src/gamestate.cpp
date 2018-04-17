@@ -37,7 +37,7 @@ GameState::~GameState(){
 
 void GameState::prepareGame(){
 	player.setHp(100);
-	introDelay=25;
+	introDelay=15;
 	roundDelay=43;
 	gameWave=0;
 	world.getZombies().clear();
@@ -171,7 +171,7 @@ void GameState::update(float dt){
 		world.update(dt);
 	}else{
 		// play ominious starting music.
-		introDelay-=dt*0.8;
+		introDelay-=dt*0.4;
 	}
 
 	inputManager.Update();
@@ -185,13 +185,12 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.drawRect(inWorld.x, inWorld.y, 5, 5, 1, 0, 0, 1);
 	renderer.identityCamera();
 	renderer.refreshCamera();
-	if(introDelay > 0){
-	renderer.drawRect(0,0, renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, introDelay/25);
-	renderer.setTextSize(45);
-	renderer.drawText("typewriter", 300, renderer.getScreenHeight()/2, "Let's see how long we'll make it...", 1, 1, 1, introDelay/25);
-	}
-	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.55);
 
+	if(introDelay > 0){
+		renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, introDelay/15);
+	}
+
+	renderer.drawRect(0,0,renderer.getScreenWidth(), renderer.getScreenHeight(), 0, 0, 0, 0.55);
 	//artificially "darken" the world without a postprocessor.
 
 	// Rendering the hud is down here.

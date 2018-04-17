@@ -11,7 +11,6 @@ IntroState::~IntroState(){
 void IntroState::update(float dt){
 	if(timer>0){
 		timer-=dt;
-		std::cout << timer << std::endl;
 	}else{
 		if(blackOutTimer>0){
 			blackOutTimer-=dt;
