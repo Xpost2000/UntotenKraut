@@ -78,6 +78,7 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\crate.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk_paper.png");
+	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk_typewriter.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\oil_drum.png");
 
 	rapidxml::xml_document<> gunDocument;

@@ -44,6 +44,7 @@ class GameState : public State{
 		float playerBuildDelay=0;
 		float playerBuyDelay=0;
 		int currentGunPrice=0;
+		game::Gun currentGun;
 
 		glm::vec2 inWorld;
 

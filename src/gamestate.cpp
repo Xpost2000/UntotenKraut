@@ -104,6 +104,7 @@ void GameState::update(float dt){
 		if(wall.getHasGun()){
 			if(player.touching(wall.getTrigger())){
 				canBuyWallGun=true;
+				currentGun = wall.getWallWeapon();
 				currentGunPrice=wall.getCost();
 			if( inputManager.isKeyDown(SDL_SCANCODE_F) ){
 				if(playerBuyDelay <= 0 && world.getScore()>=wall.getCost()){
@@ -203,7 +204,7 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	}
 	if(canBuyWallGun){
 		renderer.setTextSize(30);
-		renderer.drawText("ocr", 1024/2-200, 768/2, "Press F to Buy Gun(" + std::to_string(currentGunPrice)+")", 0.8, 0.8, 0, 1);
+		renderer.drawText("ocr", 1024/2-200, 768/2, "Press F to Buy " + currentGun.getName() + "(" + std::to_string(currentGunPrice)+")", 0.8, 0.8, 0, 1);
 	}
 
 	gunUi.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\"+player.getGun().getName()+"_hud.png"));
