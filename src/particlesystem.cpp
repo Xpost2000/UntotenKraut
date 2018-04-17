@@ -7,7 +7,7 @@
 #define BLOOD_SPEED 50.004
 namespace core{
 	namespace gfx{
-		ParticleSystem::ParticleSystem() : ParticleSystem(0, 0, 300){
+		ParticleSystem::ParticleSystem() : ParticleSystem(0, 0, 100){
 		}
 		ParticleSystem::ParticleSystem(float x, float y, int size) : size(size), x(x), y(y){
 			for(int i = 0 ; i < size; ++i){
@@ -26,8 +26,8 @@ namespace core{
 		void ParticleSystem::resetPositions(){
 			for(int i = 0 ; i < size; ++i){
 				Particle& p = pool[i];
-				p.x=x+(rand()%60);
-				p.y=y+(rand()%40);
+				p.x=x+(rand()%80);
+				p.y=y+(rand()%60);
 			}
 		}
 		void ParticleSystem::update(float dt){
@@ -40,8 +40,8 @@ namespace core{
 				p.b=0;
 				p.a=p.lifeTime/BLOOD_SPEED;
 
-				p.x+=speedX*((rand()%30)/11);
-				p.y+=speedY*((rand()%20)/13);
+				p.x+=speedX*((rand()%30)/11) + (rand()%3);
+				p.y+=speedY*((rand()%20)/13) + (rand()%6);
 				p.lifeTime--;
 				}else{
 					p.a=1;
