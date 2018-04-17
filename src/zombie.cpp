@@ -122,6 +122,8 @@ namespace game{
 			
 			if(touching(*world.getPlayer())&& hitDelay<=0){
 				world.getPlayer()->setHp( world.getPlayer()->getHp() - 14 );
+
+				core::audio::SoundManager::getInstance()->playSound("hurt", 5);
 				hitDelay=13;
 			}
 

@@ -1,9 +1,10 @@
 #include "bullet.h"
 #include "world.h"
+#include "sound.h"
+#include "texturemanager.h"
 
 #include <iostream>
 
-#include "texturemanager.h"
 
 namespace game{
 	Bullet::Bullet( float x, float y, float w, float h, float sX, float sY, float lifeTime, float damage ): Entity(x, y, w, h), speedX(sX), speedY(sY), lifeTime(lifeTime), damage(damage){
@@ -23,6 +24,7 @@ namespace game{
 	void Bullet::update(float dt, World& world){
 		for(auto& wall : world.getWalls()){
 			if(touching(wall)){
+				core::audio::SoundManager::getInstance()->playSound("hit", 4);
 				lifeTime=0;
 				break;
 			}
