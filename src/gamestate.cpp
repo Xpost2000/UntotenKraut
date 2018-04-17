@@ -43,6 +43,7 @@ void GameState::prepareGame(){
 	world.getZombies().clear();
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::Gun());
 	player.useGun(0);
+	gameHasBegun=true;
 }
 
 void GameState::loadLevel(std::string fileName, std::string name){
@@ -60,6 +61,7 @@ void GameState::update(float dt){
 		playerBuyDelay-=dt;
 	}
 	if(player.getHp()<=0){
+		gameHasBegun=false;
 		parent->setCurrentState("death");
 	}
 	SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -168,13 +170,13 @@ void GameState::update(float dt){
 			player.fire(inWorld.x, inWorld.y);
 		}
 	}
-	if( inputManager.isKeyDown(SDL_SCANCODE_ESCAPE) )
-		parent->setCurrentState("menu");
 		world.update(dt);
 	}else{
 		// play ominious starting music.
 		introDelay-=dt*0.4;
 	}
+	if( inputManager.isKeyDown(SDL_SCANCODE_ESCAPE) )
+		parent->setCurrentState("pause");
 
 	inputManager.Update();
 }

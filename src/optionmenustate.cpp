@@ -2,6 +2,7 @@
 #include "window.h"
 
 #include "fsm.h"
+#include "gamestate.h"
 #include "texturemanager.h"
 #include "sound.h"
 #include <iostream>
@@ -50,7 +51,12 @@ void OptionMenuState::update(float dt){
 	}
 	if(backButton.isClicked(inputManager)){
 		core::audio::SoundManager::getInstance()->stopMusic();
-		parent->setCurrentState("menu");
+		GameState* ptr = (GameState*)parent->getState("game");	
+		if(ptr->gameHasBegun){
+			parent->setCurrentState("pause");
+		}else{
+			parent->setCurrentState("menu");
+		}
 	}
 	
 
@@ -95,7 +101,7 @@ void OptionMenuState::draw(core::gfx::Renderer& renderer){
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 	core::Window* ptr = (core::Window*)parent->data;
 	fullscreenButton.getText().setText("Toggle Fullscreen : " + std::string(((fs) ? "ON" : "OFF")), 20);
-	vsyncButton.getText().setText("Toggle VSync : " + std::string(((ptr->getSwapInterval() == 1) ? "ON" : "OFF")), 20);
+	vsyncButton.getText().setText("Toggle VSync(Toggle at own risk): " + std::string(((ptr->getSwapInterval() == 1) ? "ON" : "OFF")), 20);
 	fullscreenButton.draw(renderer, &blob);
 	vsyncButton.draw(renderer, &blob);
 	backButton.draw(renderer, &blob);

@@ -20,6 +20,7 @@
 #include "introstate.h"
 #include "gamestate.h"
 #include "menustate.h"
+#include "pausestate.h"
 #include "deathstate.h"
 #include "optionmenustate.h"
 #include "editorstate.h"
@@ -124,6 +125,7 @@ int main( int argc, char** argv ){
 	MenuState menuState;
 	IntroState introState;
 	MapSelectionState mapSelectionState;
+	PauseState pauseState;
 	QuitState quitState;
 
 	stateMachine.addState(&gameState, "game");
@@ -133,6 +135,7 @@ int main( int argc, char** argv ){
 	stateMachine.addState(&deathState, "death");
 	stateMachine.addState(&editorState, "editor");
 	stateMachine.addState(&optionState, "options");
+	stateMachine.addState(&pauseState, "pause");
 	stateMachine.addState(&mapSelectionState, "mapselect");
 	stateMachine.setCurrentState("intro");
 

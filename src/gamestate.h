@@ -25,7 +25,9 @@ class GameState : public State{
 
 		void loadLevel(std::string levelFile, std::string name);
 		void prepareGame();
+		bool gameHasBegun=false;
 	private:
+		friend class PauseState;
 		friend class DeathState;
 		friend class EditorState;
 		core::gfx::Sprite uiBloodStain;
