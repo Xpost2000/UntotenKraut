@@ -1,4 +1,5 @@
 #include "gui_button.h"
+#include "sound.h"
 #include <iostream>
 
 GUIButton::GUIButton( float x, float y, std::string text, float textSz, float r, float g, float b, float a )
@@ -26,6 +27,7 @@ bool GUIButton::isClicked(core::InputManager& input){
 		if(held==false){
 			if(input.isMouseKeyDown(SDL_BUTTON_LEFT)){
 				held=true;
+				// should probably separate into two sounds.
 				return false;
 			}
 		}else{
@@ -33,6 +35,7 @@ bool GUIButton::isClicked(core::InputManager& input){
 			 && (input.GetMouseX() < text_gui.x + text_gui.w && input.GetMouseX()+1 > text_gui.x)
 	    && (input.GetMouseY() < text_gui.y + text_gui.h && input.GetMouseY()+1 > text_gui.y) ){
 				held=false;
+				core::audio::SoundManager::getInstance()->playSound("uiclick", 3);
 				return true;
 			}
 		}

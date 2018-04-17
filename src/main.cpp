@@ -81,6 +81,9 @@ int main( int argc, char** argv ){
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk_typewriter.png");
 	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\oil_drum.png");
 
+	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\uiclick.wav", "uiclick");
+	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\bang.wav", "bang");
+
 	rapidxml::xml_document<> gunDocument;
 	rapidxml::xml_node<>* rootGunNode;
 

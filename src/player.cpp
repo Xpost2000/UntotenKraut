@@ -21,9 +21,9 @@ namespace game{
 
 	void Player::fire(float mX, float mY){
 		float angle = atan2( mY-y , mX-x );
-
 		if( currentGun->canFire() ){
 			if(currentGun->fire()){
+				// check gun types to determine how to fire.
 				bullets.push_back(Bullet(x, y, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
 			}
 		}
@@ -43,10 +43,6 @@ namespace game{
 	void Player::move( float dt, int direction, World& world, float speedModifier ){
 		Player clone = *this; // why is this causing a side effect?
 		const float speed=35;
-		/*
-		 * Wait I know why.....
-		 * These crashes are what happens when I don't decouple rendering and game logic, logic.
-		 */
 		switch(direction){
 			// up
 			case 1:

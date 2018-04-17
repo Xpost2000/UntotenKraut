@@ -93,6 +93,7 @@ void GameState::update(float dt){
 					barricade.setHealth(barricade.getHealth()+25);
 					world.getScore()+=25;
 					playerBuildDelay=5;
+					core::audio::SoundManager::getInstance()->playSound("bang", 2);
 				}
 			}
 			break;
