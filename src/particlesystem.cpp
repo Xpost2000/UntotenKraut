@@ -53,7 +53,7 @@ namespace core{
 		}
 		void ParticleSystem::draw(Renderer& renderer){
 			Sprite spr(0, 0, 12, 12);
-			spr.setTexture(TextureManager::getInstance()->getTexture("assests\\textures\\particle_blob.png"));
+			spr.setTexture(TextureManager::getInstance()->getTexture("assests//textures//particle_blob.png"));
 			if(active)
 			for(int i = 0; i < size; ++i){
 				Particle& p = pool[i];

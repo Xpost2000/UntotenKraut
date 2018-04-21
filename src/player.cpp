@@ -10,7 +10,7 @@ namespace game{
 	: Entity(x,y,w,h), speed(speed), hp(hp), maxHp(hp){
 		sprite.setW(w);
 		sprite.setH(h);
-		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_player_test.png"));
+		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//dev_player_test.png"));
 	}
 
 	Player::Player(){

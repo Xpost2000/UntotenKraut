@@ -10,8 +10,8 @@ MapSelectionState::MapSelectionState(){
 	blob = core::gfx::Sprite(0,0,0,0);
 	smog = core::gfx::Sprite(0, 0, 0, 0);
 	preview = core::gfx::Sprite(470, 150, 530, 400);
-	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
-	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
+	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//smog.png"));
+	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//ui_blob.png"));
 	inputManager.AddCallback(
 			SDL_QUIT,
 			[&](SDL_Event& evnt){
@@ -29,7 +29,7 @@ MapSelectionState::MapSelectionState(){
 // handy dandy macro
 #define MapButton( x, y, name, path, internalName ) std::make_pair<std::string, std::pair<std::string, GUIButton>>(std::string(internalName), std::make_pair<std::string, GUIButton>( std::string(path), GUIButton(x,y, name, 20, 1, 1, 1, 1) ))
 	// amazing! It works!
-	std::ifstream mapsFile("assests\\maps.xml");
+	std::ifstream mapsFile("assests//maps.xml");
 	std::vector<char> buffer((std::istreambuf_iterator<char>(mapsFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 	rapidxml::xml_document<> mapDocument;
@@ -47,7 +47,7 @@ MapSelectionState::MapSelectionState(){
 		mapButtons.insert(MapButton(0, 150+height, name, path, internalName));
 		height+=45;
 	}	
-	preview.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
+	preview.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//smog.png"));
 }
 
 MapSelectionState::~MapSelectionState(){
@@ -67,8 +67,8 @@ void MapSelectionState::update(float dt){
 	for(auto& button : mapButtons){
 		if(!readyGame){
 		if(button.second.second.isMousedOver(inputManager)){
-			if(core::TextureManager::getInstance()->getTexture("assests\\map_preview\\" + button.first))
-			preview.setTexture(core::TextureManager::getInstance()->getTexture("assests\\map_preview\\"+button.first));
+			if(core::TextureManager::getInstance()->getTexture("assests//map_preview//" + button.first))
+			preview.setTexture(core::TextureManager::getInstance()->getTexture("assests//map_preview//"+button.first));
 		}else{
 			preview.setTexture(smog.getTex());
 		}
@@ -96,7 +96,7 @@ void MapSelectionState::update(float dt){
 
 void MapSelectionState::draw(core::gfx::Renderer& renderer){
 	screen = core::gfx::Sprite(0, 0, renderer.getScreenWidth(), renderer.getScreenHeight());
-	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\menu.png"));
+	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//menu.png"));
 	renderer.identityCamera();
 	renderer.refreshCamera();
 	smog.setW(renderer.getScreenWidth());

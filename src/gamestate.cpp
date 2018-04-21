@@ -8,7 +8,7 @@ GameState::GameState(){
 	player = game::Player(0, 0, 30, 30, 15, 100);
 
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
-	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_stain.png"));
+	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//ui_stain.png"));
 	gunUi = core::gfx::Sprite(900, 650, 90, 45);
 
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::Gun());
@@ -206,7 +206,7 @@ void GameState::draw(core::gfx::Renderer& renderer){
 		renderer.drawText("ocr", 1024/2-200, 768/2, "Press F to Buy " + currentGun.getName() + "(" + std::to_string(currentGunPrice)+")", 0.8, 0.8, 0, 1);
 	}
 
-	gunUi.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\"+player.getGun().getName()+"_hud.png"));
+	gunUi.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//"+player.getGun().getName()+"_hud.png"));
 	scoreText.setText("Score: "+ std::to_string(world.getScore()), 14);
 	weaponText.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()), 14);
 	renderer.drawSprite(gunUi);

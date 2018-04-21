@@ -33,9 +33,9 @@ namespace core{
 			 * I'm certainly OpenGL allows this I could just make a shader manager
 			 * and cache the files loaded and reuse the objects instead of generating new objects.
 			 */
-			texture_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\textured.fs");
-			default_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\default.fs");
-			text_shader.loadFile("assests\\shaders\\default.vs", "assests\\shaders\\text.fs");
+			texture_shader.loadFile("assests//shaders//default.vs", "assests//shaders//textured.fs");
+			default_shader.loadFile("assests//shaders//default.vs", "assests//shaders//default.fs");
+			text_shader.loadFile("assests//shaders//default.vs", "assests//shaders//text.fs");
 
 			default_shader.uniformMatrix(default_shader.getUniform("projection"), projection);
 			default_shader.uniformMatrix(default_shader.getUniform("view"), view);
@@ -168,8 +168,8 @@ namespace core{
 
 		glm::vec2 Renderer::mouseToWorld(float x, float y){
 			// thank god for glm's convience functions
-			glm::vec2 result = glm::unProject(glm::vec3(glm::vec2(x,scrH-y), 0.0f), view, projection, glm::vec4(0, 0, scrW, scrH));
-			return result;
+			glm::vec3 result = glm::unProject(glm::vec3(glm::vec2(x,scrH-y), 0.0f), view, projection, glm::vec4(0, 0, scrW, scrH));
+			return glm::vec2(result);
 		}
 
 		void Renderer::centerCameraOn(float x, float y){

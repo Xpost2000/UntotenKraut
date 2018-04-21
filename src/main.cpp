@@ -57,41 +57,41 @@ int main( int argc, char** argv ){
 	core::gfx::Renderer renderer(1024, 768);
 
 
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_center.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_bottom_left.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_bottom_right.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_top_left.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_top_right.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_gun_buy.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_bars.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_center_blood.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\bunkergray\\bunker_floor.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_center.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_bottom_left.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_bottom_right.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_top_left.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_top_right.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_gun_buy.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_bars.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_center_blood.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//bunkergray//bunker_floor.png");
 
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_bottom.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_bottom_ripped.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_center.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_left.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_right.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\ironcrossbanner\\red_banner_top.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//ironcrossbanner//red_banner_bottom.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//ironcrossbanner//red_banner_bottom_ripped.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//ironcrossbanner//red_banner_center.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//ironcrossbanner//red_banner_left.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//ironcrossbanner//red_banner_right.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//ironcrossbanner//red_banner_top.png");
 
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\nature\\grass.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\nature\\mud.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//nature//grass.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//nature//mud.png");
 
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\crate.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk_paper.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\desk_typewriter.png");
-	core::TextureManager::getInstance()->loadTexture("assests\\textures\\props\\oil_drum.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//props//crate.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//props//desk.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//props//desk_paper.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//props//desk_typewriter.png");
+	core::TextureManager::getInstance()->loadTexture("assests//textures//props//oil_drum.png");
 
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\hurt.wav", "hurt");
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\hit.wav", "hit");
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\uiclick.wav", "uiclick");
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\bang.wav", "bang");
+	core::audio::SoundManager::getInstance()->addSound("assests//sounds//hurt.wav", "hurt");
+	core::audio::SoundManager::getInstance()->addSound("assests//sounds//hit.wav", "hit");
+	core::audio::SoundManager::getInstance()->addSound("assests//sounds//uiclick.wav", "uiclick");
+	core::audio::SoundManager::getInstance()->addSound("assests//sounds//bang.wav", "bang");
 
 	rapidxml::xml_document<> gunDocument;
 	rapidxml::xml_node<>* rootGunNode;
 
-	std::ifstream gunsFile("assests\\guns.xml");
+	std::ifstream gunsFile("assests//guns.xml");
 	std::vector<char> buffer((std::istreambuf_iterator<char>(gunsFile)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 	gunDocument.parse<0>(&buffer[0]);
@@ -110,14 +110,14 @@ int main( int argc, char** argv ){
 		game::GunManager::getInstance()->addGun(name, game::Gun(name, dmg, bulletSpeed, bulletLifeTime, delay, false, maxAmmo, clipAmmo, reloadSpeed, cost));
 	}
 
-	renderer.loadFont("assests\\fonts\\ocr.ttf",   "ocr");
-	renderer.loadFont("assests\\fonts\\arial.ttf", "arial");
-	renderer.loadFont("assests\\fonts\\tw.ttf", "typewriter");
+	renderer.loadFont("assests//fonts//ocr.ttf",   "ocr");
+	renderer.loadFont("assests//fonts//arial.ttf", "arial");
+	renderer.loadFont("assests//fonts//tw.ttf", "typewriter");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	core::audio::SoundManager::getInstance()->addSound("assests\\sounds\\round_end.wav", "round_end");
+	core::audio::SoundManager::getInstance()->addSound("assests//sounds//round_end.wav", "round_end");
 
 	StateMachine stateMachine;
 	GameState gameState;

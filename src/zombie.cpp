@@ -13,7 +13,7 @@ namespace game{
 	Zombie::Zombie(float x, float y, float w, float h, float speed, float hp) : Entity(x, y, w, h), speed(speed), hp(hp){
 		sprite.setW(w); 
 		sprite.setH(h); 
-		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_zombie_test.png"));	
+		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//dev_zombie_test.png"));	
 	}
 	Zombie::Zombie(){
 

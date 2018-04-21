@@ -31,7 +31,10 @@ namespace core{
 		SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL    , 1 );
 
 		m_context = SDL_GL_CreateContext(m_windowHandle);
-
+#ifdef __linux__
+		// glewExperimental needs to be on for the version of GLEW I have on linux
+		glewExperimental = true;
+#endif
 		if(glewInit()!=GLEW_OK){
 			std::cout << "GLEW Failed to Init... ABORT!" << std::endl;
 			return;	

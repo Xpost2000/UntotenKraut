@@ -14,8 +14,8 @@ PauseState::PauseState(){
 	backButton = GUIButton( 15, 360, "Quit To Menu", 20, 1, 1, 1, 1 );
 	quitButton = GUIButton( 15, 390, "Quit To Windows", 20, 1, 1, 1, 1 );
 
-	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
-	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
+	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//smog.png"));
+	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//ui_blob.png"));
 
 	inputManager.AddCallback(
 			SDL_QUIT,
@@ -51,7 +51,7 @@ void PauseState::update(float dt){
 }
 
 void PauseState::draw(core::gfx::Renderer& renderer){
-	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\menu.png"));
+	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//menu.png"));
 	renderer.identityCamera();
 	renderer.refreshCamera();
 	smog.setW(renderer.getScreenWidth());

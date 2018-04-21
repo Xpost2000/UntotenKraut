@@ -8,14 +8,14 @@
 MenuState::MenuState(){
 	blob = core::gfx::Sprite(0,0,0,0);
 	smog = core::gfx::Sprite(0, 0, 0, 0);
-	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
-	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
+	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//smog.png"));
+	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//ui_blob.png"));
 	startButton = GUIButton( 15, 300, "Start Game", 20, 1, 1, 1, 1 );
 	optionButton = GUIButton( 15, 330, "Options", 20, 1, 1, 1, 1 );
 	editModeButton = GUIButton( 15, 360, "Editor Mode", 20, 1, 1, 1, 1 );
 	quitButton = GUIButton( 15, 390, "Quit Game", 20, 1, 1, 1, 1 );
 
-	core::audio::SoundManager::getInstance()->addMusic( "assests\\sounds\\packupyourtroubles.mp3", "menu" );
+	core::audio::SoundManager::getInstance()->addMusic( "assests//sounds//packupyourtroubles.mp3", "menu" );
 
 	inputManager.AddCallback(
 			SDL_QUIT,
@@ -59,7 +59,7 @@ void MenuState::update(float dt){
 
 void MenuState::draw(core::gfx::Renderer& renderer){
 	screen = core::gfx::Sprite(0, 0, renderer.getScreenWidth(), renderer.getScreenHeight());
-	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\menu.png"));
+	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//menu.png"));
 	renderer.identityCamera();
 	renderer.refreshCamera();
 	smog.setW(renderer.getScreenWidth());

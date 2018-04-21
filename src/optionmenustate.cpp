@@ -10,13 +10,13 @@
 OptionMenuState::OptionMenuState(){
 	blob = core::gfx::Sprite(0,0,0,0);
 	smog = core::gfx::Sprite(0, 0, 0, 0);
-	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\smog.png"));
-	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\ui_blob.png"));
+	smog.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//smog.png"));
+	blob.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//ui_blob.png"));
 	fullscreenButton = GUIButton( 15, 300, "Toggle Fullscreen", 20, 1, 1, 1, 1 );
 	vsyncButton = GUIButton( 15, 325, "Toggle VSync", 20, 1, 1, 1, 1 );
 	backButton = GUIButton( 15, 700, "Return to Menu", 20, 1, 1, 1, 1 );
 
-	core::audio::SoundManager::getInstance()->addMusic( "assests\\sounds\\packupyourtroubles.mp3", "menu" );
+	core::audio::SoundManager::getInstance()->addMusic( "assests//sounds//packupyourtroubles.mp3", "menu" );
 
 	inputManager.AddCallback(
 			SDL_QUIT,
@@ -69,7 +69,7 @@ void OptionMenuState::update(float dt){
 
 void OptionMenuState::draw(core::gfx::Renderer& renderer){
 	screen = core::gfx::Sprite(0, 0, renderer.getScreenWidth(), renderer.getScreenHeight());
-	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests\\ui\\menu.png"));
+	screen.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//menu.png"));
 	renderer.identityCamera();
 	renderer.refreshCamera();
 	smog.setW(renderer.getScreenWidth());
