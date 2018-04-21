@@ -7,7 +7,7 @@
 
 
 namespace game{
-	Bullet::Bullet( float x, float y, float w, float h, float sX, float sY, float lifeTime, float damage ): Entity(x, y, w, h), speedX(sX), speedY(sY), lifeTime(lifeTime), damage(damage){
+	Bullet::Bullet( float x, float y, float w, float h, float sX, float sY, float lifeTime, float damage, float explosionSize, bool explosive ): Entity(x, y, w, h), speedX(sX), speedY(sY), lifeTime(lifeTime), damage(damage), explosionRange(explosionSize), explosive(explosive){
 		sprite.setW(w);
 		sprite.setH(h);
 		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_player_projectile.png"));
@@ -29,13 +29,16 @@ namespace game{
 				break;
 			}
 		}
+		Entity explosion(x, y, explosionRange, explosionRange);
 		for(auto& zombie : world.getZombies()){
-			if(touching(zombie) && zombie.getHp()>0){
+			if(explosive ?  : explosion.touching(zombie) && zombie.getHp()>0){
 				zombie.setHp( zombie.getHp() - damage );
 				zombie.bleed(speedX/6, speedY/6, dt);
 				world.getScore() +=10;
 				lifeTime=0;
-				break;
+				if(!explosive){
+					break;
+				}
 			}
 		}
 

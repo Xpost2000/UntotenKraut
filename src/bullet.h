@@ -6,7 +6,7 @@
 namespace game{
 	class Bullet : public Entity{
 		public:
-			Bullet( float x, float y, float w, float h, float sX, float sY, float lifeTime, float damage );
+			Bullet( float x, float y, float w, float h, float sX, float sY, float lifeTime, float damage, float explosionSize=0, bool explosive=false );
 			Bullet();
 			~Bullet();
 			void draw(core::gfx::Renderer&);
@@ -23,7 +23,11 @@ namespace game{
 			float getSpeedX() { return speedX; }
 			float getSpeedY() { return speedY; }
 			bool isAlive() { return lifeTime > 0; }
+			bool isExplosive() { return explosive;  }
+			float getExplosionRange() { return explosionRange; }
 		private:
+			float explosionRange=0;
+			bool explosive=false;
 			float damage=0;
 			float lifeTime=0;
 			float speedX=0, speedY=0;
