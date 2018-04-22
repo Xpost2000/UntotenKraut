@@ -3,22 +3,29 @@
 
 namespace game{
 	void World::draw(core::gfx::Renderer& renderer){
+		Entity cameraRect(-renderer.camX, -renderer.camY, 1024, 768);
 		for(auto& detail : detail_ents){
+			if(detail.touching(cameraRect))
 			detail.draw(renderer);
 		}
 		for(auto& bar : barricades){
+			if(bar.touching(cameraRect))
 			bar.draw(renderer);
 		}
 		for(auto& zombie : zombies){
+			if(zombie.touching(cameraRect))
 			zombie.draw(renderer);
 		}
 		for(auto& wall : walls){
+			if(wall.touching(cameraRect))
 			wall.draw(renderer);
 		}
 		for(auto& bullet : player->getBullets()){
+			if(bullet.touching(cameraRect))
 			bullet.draw(renderer);
 		}
 		player->draw(renderer);
+	//	renderer.drawRect(-renderer.camX/*-(1024/6)*/, -renderer.camY/*-(768/6)*/, 1024, 768, 0, 1, 0, 0.5);
 	}
 
 	void World::update(float dt){
@@ -36,11 +43,6 @@ namespace game{
 				zombie.cleared=true;
 				score+=50;
 			}
-			/*
-			if(zombie.getHp()<= 0 && zombie.doneBleeding()){
-				zombies.erase(zombies.begin()+i);
-			}
-			*/
 		}
 		for(int i = 0; i < player->getBullets().size(); ++i){
 			player->getBullets()[i].update( 0.1f, *this );

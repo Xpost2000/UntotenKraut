@@ -4,6 +4,8 @@
 #include "sprite.h"
 #include "particlesystem.h"
 #include "pathfindingnode.h"
+
+#include <list>
 namespace game{
 	class Zombie : public Entity{
 		public:
@@ -25,6 +27,8 @@ namespace game{
 			// zombies can't strafe. they move from an angle.
 			bool cleared=false;
 		private:
+			std::list<Node*> notTested;
+			std::list<Node*> path;
 			float bloodTimer=60;
 			std::vector<Node> gridWorld;
 			Node* current=nullptr;

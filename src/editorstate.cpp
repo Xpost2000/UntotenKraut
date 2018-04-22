@@ -243,19 +243,6 @@ std::string EditorState::genNameFromType(){
 void EditorState::draw(core::gfx::Renderer& renderer){
 	if(this->renderer==nullptr)
 	this->renderer=&renderer; // this line was to hack something together lol
-
-	renderer.setTextSize(11);
-	renderer.drawText("ocr", 0, 0, "Editor Mode (P saves the level as level.lvl(TODO: IMPLEMENT NAMING))");
-	renderer.drawText("ocr", 0, 15, "(Use R to reset camera, Use T to test level, X set A* world dimensions, B set to barricade, G set gun wall)(Number Keys 1 - 4 for block type, arrow keys select texture.)");
-	renderer.drawText("ocr", 0, 30, "Current Block Type : " + genNameFromType() );
-	// hope it works.
-	renderer.drawText("ocr", 0, 45, "Texture Path : " + core::TextureManager::getInstance()->getTextures()[textureIndex].first + "("+std::to_string(textureIndex)+")" );
-	renderer.drawText("ocr", 0, 60, "Current Gun : " + game::GunManager::getInstance()->getGuns()[gunIndex].first + "("+std::to_string(gunIndex)+")" );
-	if(editingAGrid)
-	renderer.drawText("ocr", 0, 60, "A* Grid Editing Mode On(press X again to leave)");
-
-	renderer.refreshCamera();
-
 	if(editingAGrid)
 	renderer.drawRect(0, 0, w, h, 0.8, 0.1, 0.1, 0.4);
 	else
@@ -271,6 +258,20 @@ void EditorState::draw(core::gfx::Renderer& renderer){
 	int mX=round(mouseInWorld.x/35)*35;
 	int mY=round(mouseInWorld.y/35)*35;
 	renderer.drawRect(mX, mY, 35, 35, 1, 1, 1, 1);
+	renderer.setTextSize(11);
+	renderer.drawText("ocr", 0, 0, "Editor Mode (P saves the level as level.lvl(TODO: IMPLEMENT NAMING))");
+	renderer.drawText("ocr", 0, 15, "(Use R to reset camera, Use T to test level, X set A* world dimensions, B set to barricade, G set gun wall)(Number Keys 1 - 4 for block type, arrow keys select texture.)");
+	renderer.drawText("ocr", 0, 30, "Current Block Type : " + genNameFromType() );
+	// hope it works.
+	renderer.drawText("ocr", 0, 45, "Texture Path : " + core::TextureManager::getInstance()->getTextures()[textureIndex].first + "("+std::to_string(textureIndex)+")" );
+	renderer.drawText("ocr", 0, 60, "Current Gun : " + game::GunManager::getInstance()->getGuns()[gunIndex].first + "("+std::to_string(gunIndex)+")" );
+	if(editingAGrid)
+	renderer.drawText("ocr", 0, 60, "A* Grid Editing Mode On(press X again to leave)");
+
+
+	renderer.refreshCamera();
+
+
 }
 
 void EditorState::writeToDisk(std::string filename){

@@ -4,7 +4,6 @@
 #include "math.h"
 #include "world.h"
 
-#include <list>
 #include <algorithm>
 #include <iostream>
 
@@ -26,7 +25,6 @@ namespace game{
 			for(int x = 0; x < world.getHeight()*world.getWidth(); ++x){
 				gridWorld.push_back(Node());
 			}
-		//	gridWorld = new Node[world.getWidth()*world.getHeight()];	
 			for(int y = 0; y < world.getHeight(); ++y){
 				for(int x = 0; x < world.getWidth(); ++x){
 					gridWorld[y*world.getWidth()+x]= Node(x,y);
@@ -74,7 +72,8 @@ namespace game{
 		current = start;
 		start->localValue=0;
 		start->globalValue=distance(start, goal);
-		std::list<Node*> notTested;
+		notTested.clear();
+		path.clear();
 		notTested.push_back(start);
 		while(!notTested.empty() && current != goal){
 			notTested.sort([](const Node* lhs, const Node* rhs){ return lhs->globalValue < rhs->globalValue; });
@@ -97,14 +96,12 @@ namespace game{
 				}
 			}
 		}
-		std::list<Node*> path;
 		toFollow=goal;
 		while(toFollow->parent != nullptr){
-			path.push_back(toFollow);
+			path.push_front(toFollow);
 			if(toFollow->parent != nullptr)
 			toFollow = toFollow->parent;
 		}
-		path.reverse();
 		if(hp > 0){
 			if(path.front() != goal && path.front() != nullptr){
 				if(moveToPoint(path.front()->x*35, path.front()->y*35, world, dt)){
