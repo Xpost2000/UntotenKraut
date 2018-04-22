@@ -12,7 +12,12 @@ namespace game{
 		public:
 			void load(std::string file, std::string levelName);
 			void loadNew(std::string file, std::string levelName);
-			Level getLevel(std::string name) { return levels[name]; }
+			Level getLevel(std::string name) { 
+				if(levels.count(name))
+				return levels[name]; 
+				else
+				return Level();
+			}
 		private:
 			std::map<std::string, Level> levels;
 	};

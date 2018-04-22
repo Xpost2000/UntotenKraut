@@ -1,0 +1,7 @@
+agrid 561 701
+playerPos 0 0
+wall 105 0 assests//textures//bunkergray//bunker_center.png
+wall 105 35 assests//textures//bunkergray//bunker_center.png
+wall 175 70 assests//textures//bunkergray//bunker_center.png
+wall 140 70 assests//textures//bunkergray//bunker_center.png
+wall 105 105 assests//textures//bunkergray//bunker_center.png

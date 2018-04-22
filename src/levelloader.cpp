@@ -5,6 +5,7 @@ namespace game{
 	void LevelLoader::loadNew(std::string file, std::string levelName){
 		if(levels.count(levelName)) { return; }
 		std::fstream f(file);
+		if(!f.good()){return;}
 		std::string processStr;
 		Level newLevel;
 		float x=0;

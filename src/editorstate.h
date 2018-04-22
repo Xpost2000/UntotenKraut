@@ -3,6 +3,7 @@
 
 #include "state.h"
 #include "input.h"
+#include "levelloader.h"
 #include "world.h"
 
 class EditorState : public State{
@@ -32,6 +33,7 @@ class EditorState : public State{
 		int blockType=1;
 		std::string genNameFromType();
 
+		game::LevelLoader lvlLoader;
 		game::World world;
 		game::Player player;
 		glm::vec2 mouseInWorld;

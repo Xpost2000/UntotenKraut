@@ -19,6 +19,8 @@ EditorState::EditorState(){
 	guns = game::GunManager::getInstance()->getGuns().size();
 
 	std::cout << "I report " << textures << " Textures loaded" << std::endl;
+	lvlLoader.loadNew("editor//level.lvl", "EDITOR_ID");
+	world.loadLevel(lvlLoader.getLevel("EDITOR_ID"));
 }
 
 EditorState::~EditorState(){
