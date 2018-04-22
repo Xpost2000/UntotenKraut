@@ -6,6 +6,7 @@
 
 GameState::GameState(){
 	player = game::Player(0, 0, 30, 30, 15, 100);
+	core::audio::SoundManager::getInstance()->addMusic( "assests//sounds//ambience.mp3", "ambience" );
 
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
 	uiBloodStain.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//ui_stain.png"));
@@ -54,6 +55,7 @@ void GameState::loadLevel(std::string fileName, std::string name){
 }
 
 void GameState::update(float dt){
+	core::audio::SoundManager::getInstance()->playMusic( "ambience" );
 	if(introDelay <= 0){
 	if(playerBuildDelay > 0){
 		playerBuildDelay-=dt;
