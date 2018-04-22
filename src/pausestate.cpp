@@ -1,4 +1,5 @@
 #include "pausestate.h"
+#include "sound.h"
 #include "texturemanager.h"
 #include "fsm.h"
 #include "gamestate.h"
@@ -37,6 +38,7 @@ void PauseState::update(float dt){
 		parent->setCurrentState("options");
 	}
 	if(backButton.isClicked(inputManager)){
+		core::audio::SoundManager::getInstance()->stopMusic();
 		parent->setCurrentState("menu");
 	}
 	if(quitButton.isClicked(inputManager)){

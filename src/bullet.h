@@ -28,6 +28,7 @@ namespace game{
 		private:
 			float explosionRange=0;
 			bool explosive=false;
+			bool exploding=false;
 			float damage=0;
 			float lifeTime=0;
 			float speedX=0, speedY=0;

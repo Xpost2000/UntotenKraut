@@ -23,7 +23,7 @@ namespace game{
 
 			void bleed(float sX, float sY, float dt){ps.speedX = sX; ps.speedY = sY; ps.active=true; bloodTimer=50; ps.x = x; ps.y = y; ps.resetPositions(); ps.update(dt);}
 			bool doneBleeding() { return bloodTimer<=0; }
-
+			core::gfx::ParticleSystem& getPs() { return ps; }
 			// zombies can't strafe. they move from an angle.
 			bool cleared=false;
 		private:

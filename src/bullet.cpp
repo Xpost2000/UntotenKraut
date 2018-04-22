@@ -18,32 +18,72 @@ namespace game{
 	}
 
 	void Bullet::draw(core::gfx::Renderer& renderer){
+		if(lifeTime<=25)
+		renderer.drawRect(x-explosionRange/2,y-explosionRange/2,explosionRange, explosionRange, 1, 0, 0, lifeTime/25);
 		renderer.drawSprite( sprite );
 	}
 
 	void Bullet::update(float dt, World& world){
 		for(auto& wall : world.getWalls()){
 			if(touching(wall)){
-				core::audio::SoundManager::getInstance()->playSound("hit", 4);
-				lifeTime=0;
+				if(!explosive){
+					core::audio::SoundManager::getInstance()->playSound("hit", 3);
+					lifeTime=0;
+				}else{
+					if(!exploding){
+						lifeTime = 23;	
+					}
+					exploding=true;
+				}
 				break;
 			}
 		}
-		Entity explosion(x, y, explosionRange, explosionRange);
+		Entity explosion(x-explosionRange/2, y-explosionRange/2, explosionRange, explosionRange);
 		for(auto& zombie : world.getZombies()){
-			if(explosive ?  : explosion.touching(zombie) && zombie.getHp()>0){
-				zombie.setHp( zombie.getHp() - damage );
-				zombie.bleed(speedX/6, speedY/6, dt);
-				world.getScore() +=10;
-				lifeTime=0;
-				if(!explosive){
-					break;
+			if(explosive ? explosion.touching(zombie) && zombie.getHp()>0 && lifeTime<=25 : touching(zombie) && zombie.getHp()>0){
+				if(explosive){
+					zombie.setHp( zombie.getHp() - damage );
+					zombie.bleed(speedX/6, speedY/6, dt);
+					world.getScore() +=10;
+				}else{
+					zombie.setHp( zombie.getHp() - damage );
+					zombie.bleed(speedX/6, speedY/6, dt);
+					world.getScore() +=10;
+				}
+				if(explosive){
+					if(!exploding)
+						lifeTime=23;
+					exploding=true;
+				}else{
+					lifeTime=0;
 				}
 			}
 		}
+		if(exploding){
+			if(explosion.touching(*world.getPlayer())&& lifeTime >= 22){
+				// won't kill ya instantly. But it's going to hurt.
+				world.getPlayer()->setHp(world.getPlayer()->getHp()-damage*0.55);
+				lifeTime=21;
+				if(!core::audio::SoundManager::getInstance()->isChannelPlaying(3)){	
+					core::audio::SoundManager::getInstance()->playSound("explosion", 3);
+				}
+			}
+		}
+		if(lifeTime <= 23 && lifeTime >= 22 && explosive){
+			if(!core::audio::SoundManager::getInstance()->isChannelPlaying(3)){	
+				core::audio::SoundManager::getInstance()->playSound("explosion", 3);
+			}
+		}
 
-		x += speedX;
-		y += speedY;
+		if(!explosive){
+			x += speedX;
+			y += speedY;
+		}else{
+			if(lifeTime > 25){
+				x += speedX;
+				y += speedY;
+			}
+		}
 		sprite.setX(x);
 		sprite.setY(y);
 		

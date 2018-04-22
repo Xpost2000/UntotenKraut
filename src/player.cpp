@@ -19,8 +19,15 @@ namespace game{
 	Player::~Player(){
 	}
 
-	void Player::fire(float mX, float mY){
+	void Player::fire(float mX, float mY, bool g){
 		float angle = atan2( mY-y , mX-x );
+		if(g){
+			if(grenadeDelay<=0){
+				bullets.push_back( Bullet(x, y, w/3, h/3, cos(angle)*7, sin(angle)*7, 28, 150, 165, true) );
+				grenadeDelay=50;
+			}
+			return;
+		}
 		if( currentGun->canFire() ){
 			if(currentGun->fire()){
 				// currentGun->getExplosive()
@@ -37,6 +44,9 @@ namespace game{
 	void Player::update( float dt, World& world ){
 		if(hp < maxHp){
 			hp+=dt*0.65;
+		}
+		if(grenadeDelay > 0){
+			grenadeDelay--;
 		}
 		sprite.setX(x);
 		sprite.setY(y);

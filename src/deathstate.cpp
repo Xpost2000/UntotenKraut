@@ -1,4 +1,5 @@
 #include "fsm.h"
+#include "sound.h"
 #include "deathstate.h"
 #include "gamestate.h"
 
@@ -8,6 +9,7 @@ void DeathState::update(float dt){
 	countDown-=dt*2;
 	if(countDown<=0){
 		countDown=100;
+		core::audio::SoundManager::getInstance()->stopMusic();
 		parent->setCurrentState("menu");
 	}
 }

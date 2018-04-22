@@ -40,6 +40,10 @@ namespace game{
 			}
 			else if(zombie.getHp() <= 0 && zombie.cleared==false){
 				killCount++;
+				// 10 more steps
+				for(int i = 0; i < 10; ++i){
+					zombie.getPs().update(0.1f);
+				}
 				zombie.cleared=true;
 				score+=50;
 			}

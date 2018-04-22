@@ -87,6 +87,7 @@ int main( int argc, char** argv ){
 	core::audio::SoundManager::getInstance()->addSound("assests//sounds//hit.wav", "hit");
 	core::audio::SoundManager::getInstance()->addSound("assests//sounds//uiclick.wav", "uiclick");
 	core::audio::SoundManager::getInstance()->addSound("assests//sounds//bang.wav", "bang");
+	core::audio::SoundManager::getInstance()->addSound("assests//sounds//explosion.wav", "explosion");
 
 	rapidxml::xml_document<> gunDocument;
 	rapidxml::xml_node<>* rootGunNode;

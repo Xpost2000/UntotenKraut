@@ -74,6 +74,9 @@ namespace game{
 			void update(float dt);
 
 			void nextWave() { 
+				if(grenadeCount <= 4){
+					grenadeCount+=2;
+				}
 				int sum=0;
 				zombies.clear();
 				zombieSpawnHp+=16;
@@ -107,10 +110,11 @@ namespace game{
 			}
 			int& getWidth(){ return w; }
 			int& getHeight() { return h; }
-
+			int& getGrenadeCount() { return grenadeCount; }
 		private:
 			float zombieSpawnHp=50;
 			int w=0,h=0;
+			int grenadeCount=0;
 			Player *player;
 			std::vector<Wall> walls;
 			std::vector<Barricade> barricades;

@@ -26,7 +26,7 @@ namespace game{
 			float getHp() { return hp; }
 			float getMaxHp() { return maxHp; }
 
-			void fire(float mX, float mY);
+			void fire(float mX, float mY, bool g=false);
 			
 			std::vector<Bullet>& getBullets() { return bullets; }
 
@@ -44,6 +44,7 @@ namespace game{
 			Gun* getGuns() { return guns; }
 
 			void move(float dt, int direction, World& world, float speedModifier=1);
+			float getGrenadeDelay(){ return grenadeDelay; }
 		private:
 			core::gfx::Sprite sprite;
 			Gun  guns[2];
@@ -55,6 +56,7 @@ namespace game{
 			float speed=0;
 			float hp=0;
 			float maxHp=0;
+			float grenadeDelay=0;
 	};
 };
 #endif

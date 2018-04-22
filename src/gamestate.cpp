@@ -146,6 +146,13 @@ void GameState::update(float dt){
 	if( inputManager.isMouseKeyDown( SDL_BUTTON_LEFT ) ){
 		if(!isPlayerReloading)
 		player.fire(inWorld.x, inWorld.y);
+	}	
+	if( inputManager.isMouseKeyDown( SDL_BUTTON_RIGHT ) ){
+		if(world.getGrenadeCount() >= 1){
+			if(!player.getGrenadeDelay())
+			world.getGrenadeCount()--;
+			player.fire(inWorld.x, inWorld.y, true);
+		}
 	}
 	if(inputManager.CheckForController()){
 		if( inputManager.GetJoystickState().left_vertical > 128 ){
@@ -210,6 +217,8 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	}
 
 	gunUi.setTexture(core::TextureManager::getInstance()->getTexture("assests//ui//"+player.getGun().getName()+"_hud.png"));
+	renderer.setTextSize(15);
+	renderer.drawText("ocr", 900, 740, "Grenades : " + std::to_string(world.getGrenadeCount()));
 	scoreText.setText("Score: "+ std::to_string(world.getScore()), 14);
 	weaponText.setText(player.getGun().getName()+": " + std::to_string(player.getGun().getCurrentCapacity()) + "/" + std::to_string(player.getGun().getMaxCapacity()), 14);
 	renderer.drawSprite(gunUi);
