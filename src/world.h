@@ -76,13 +76,13 @@ namespace game{
 			void nextWave() { 
 				int sum=0;
 				zombies.clear();
-				zombieSpawnHp+=10;
+				zombieSpawnHp+=16;
 				for(auto& spawner : zombieSpawners){
 					spawner.getClone().setHp(zombieSpawnHp);
 					sum+=spawner.getMax()+1;
 				}
 				// so the game doesn't crap itself.
-				if(sum <= 16){
+				if(sum <= 48){
 				for(auto& spawner : zombieSpawners){
 					spawner.reset();
 					spawner.setMaxSpawned(spawner.getMax()+1);
