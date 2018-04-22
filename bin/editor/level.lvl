@@ -1,14 +1,12 @@
-agrid 911 876
+agrid 876 876
 playerPos 420 315
 wall 105 105 assests//textures//bunkergray//bunker_top_left.png
 wall 665 105 assests//textures//bunkergray//bunker_top_right.png
 wall 105 245 assests//textures//bunkergray//bunker_bottom_left.png
 wall 665 245 assests//textures//bunkergray//bunker_bottom_right.png
 wall 315 280 assests//textures//bunkergray//bunker_center.png
-wall 315 315 assests//textures//bunkergray//bunker_center.png
 wall 315 350 assests//textures//bunkergray//bunker_center.png
 wall 525 350 assests//textures//bunkergray//bunker_center.png
-wall 525 315 assests//textures//bunkergray//bunker_center.png
 wall 525 280 assests//textures//bunkergray//bunker_center.png
 wall 315 420 assests//textures//bunkergray//bunker_center.png
 wall 525 420 assests//textures//bunkergray//bunker_center.png
@@ -61,7 +59,6 @@ wall 245 105 assests//textures//bunkergray//bunker_center.png
 wall 280 105 assests//textures//bunkergray//bunker_center.png
 wall 315 105 assests//textures//bunkergray//bunker_center.png
 wall 350 105 assests//textures//bunkergray//bunker_center.png
-wall 420 105 assests//textures//bunkergray//bunker_center.png
 wall 385 105 assests//textures//bunkergray//bunker_center.png
 wall 490 105 assests//textures//bunkergray//bunker_center.png
 wall 455 105 assests//textures//bunkergray//bunker_center.png
@@ -77,14 +74,11 @@ wall 105 630 assests//textures//bunkergray//bunker_center.png
 wall 175 630 assests//textures//bunkergray//bunker_center.png
 wall 210 630 assests//textures//bunkergray//bunker_center.png
 wall 245 630 assests//textures//bunkergray//bunker_center.png
-wall 280 630 assests//textures//bunkergray//bunker_center.png
 wall 350 630 assests//textures//bunkergray//bunker_center.png
 wall 315 630 assests//textures//bunkergray//bunker_center.png
 wall 385 630 assests//textures//bunkergray//bunker_center.png
-wall 420 630 assests//textures//bunkergray//bunker_center.png
 wall 455 630 assests//textures//bunkergray//bunker_center.png
 wall 490 630 assests//textures//bunkergray//bunker_center.png
-wall 560 630 assests//textures//bunkergray//bunker_center.png
 wall 525 630 assests//textures//bunkergray//bunker_center.png
 wall 595 630 assests//textures//bunkergray//bunker_center.png
 wall 630 630 assests//textures//bunkergray//bunker_center.png
@@ -94,6 +88,12 @@ wall 770 630 assests//textures//bunkergray//bunker_center.png
 wall 770 595 assests//textures//bunkergray//bunker_center.png
 wall 770 560 assests//textures//bunkergray//bunker_center.png
 wall 770 525 assests//textures//bunkergray//bunker_center.png
+gunwall 420 105 assests//textures//bunkergray//bunker_gun_buy.png KAR98
+gunwall 315 315 assests//textures//bunkergray//bunker_gun_buy.png MP40
+gunwall 525 315 assests//textures//bunkergray//bunker_gun_buy.png MP40
+gunwall 420 630 assests//textures//bunkergray//bunker_gun_buy.png Thompson
+gunwall 560 630 assests//textures//bunkergray//bunker_gun_buy.png Thompson
+gunwall 280 630 assests//textures//bunkergray//bunker_gun_buy.png Thompson
 detail 350 245 assests//textures//ironcrossbanner//red_banner_bottom.png
 detail 385 245 assests//textures//ironcrossbanner//red_banner_bottom.png
 detail 420 245 assests//textures//ironcrossbanner//red_banner_bottom.png
@@ -649,6 +649,20 @@ detail 735 770 assests//textures//nature//grass.png
 detail 700 770 assests//textures//nature//grass.png
 detail 700 805 assests//textures//nature//grass.png
 detail 700 840 assests//textures//nature//grass.png
+detail 35 140 assests//textures//nature//grass.png
+detail 175 420 assests//textures//nature//grass.png
+detail 140 350 assests//textures//nature//grass.png
+detail 70 420 assests//textures//nature//grass.png
+detail 210 700 assests//textures//nature//grass.png
+detail 700 700 assests//textures//nature//grass.png
+detail 770 280 assests//textures//nature//grass.png
+detail 805 210 assests//textures//nature//grass.png
+detail 805 105 assests//textures//nature//grass.png
+detail 700 350 assests//textures//nature//mud.png
+detail 420 385 assests//textures//bunkergray//bunker_floor.png
+detail 315 525 assests//textures//bunkergray//bunker_floor.png
+detail 280 525 assests//textures//bunkergray//bunker_floor.png
+detail 245 525 assests//textures//bunkergray//bunker_floor.png
 zspawner 175 420
 zspawner 35 140
 zspawner 805 210
