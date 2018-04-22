@@ -128,6 +128,7 @@ void EditorState::update(float dt){
 		int mX=round(mouseInWorld.x/35)*35;
 		int mY=round(mouseInWorld.y/35)*35;
 		game::Entity mouseCollideObj(mX, mY, 35, 35);
+		if(blockType != 2){
 		for(auto &w : world.getWalls()){
 			if(mouseCollideObj.touching(w)){
 				std::cout << "Touching wall" << std::endl;
@@ -146,6 +147,7 @@ void EditorState::update(float dt){
 				std::cout << "Touching Barricade" << std::endl;
 				return;
 			}
+		}
 		}
 		switch(blockType){
 			case 1:
