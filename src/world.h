@@ -82,7 +82,7 @@ namespace game{
 					sum+=spawner.getMax()+1;
 				}
 				// so the game doesn't crap itself.
-				if(sum <= 48){
+				if(sum <= 24){
 				for(auto& spawner : zombieSpawners){
 					spawner.reset();
 					spawner.setMaxSpawned(spawner.getMax()+1);

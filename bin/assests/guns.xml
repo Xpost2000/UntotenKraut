@@ -1,14 +1,20 @@
 <GunsDocument>
-	<Gun name="M1911A1" dmg="11" bulletSpeed="30" bulletLifeTime="500" delay="3" maxAmmo="80" clipAmmo="7" reloadSpeed="6.25" wallCost="150">
+	<Gun name="M1911A1" dmg="11" bulletSpeed="30" bulletLifeTime="500" delay="3" maxAmmo="80" clipAmmo="7" reloadSpeed="6.25" wallCost="150" shotgun="0">
 Old American classic. Basically crap in here though.
 	</Gun>
-	<Gun name="KAR98" dmg="45" bulletSpeed="50" bulletLifeTime="800" delay="5" maxAmmo="70" clipAmmo="5" reloadSpeed="7" wallCost="350">
+	<Gun name="KAR98" dmg="45" bulletSpeed="50" bulletLifeTime="800" delay="5" maxAmmo="70" clipAmmo="5" reloadSpeed="7" wallCost="350" shotgun="0">
 Germans make some good stuff.
 	</Gun>
-	<Gun name="MP40" dmg="15" bulletSpeed="30" bulletLifeTime="600" delay="0.7" maxAmmo="192" clipAmmo="32" reloadSpeed="5.3" wallCost="1200">
+	<Gun name="MP40" dmg="15" bulletSpeed="30" bulletLifeTime="600" delay="0.7" maxAmmo="192" clipAmmo="32" reloadSpeed="5.3" wallCost="1200" shotgun="0">
 Better than it looks in this file
 	</Gun>
-	<Gun name="Thompson" dmg="25" bulletSpeed="45" bulletLifeTime="450" delay="1.15" maxAmmo="200" clipAmmo="30" reloadSpeed="5.7" wallCost="1500">
+	<Gun name="Thompson" dmg="25" bulletSpeed="45" bulletLifeTime="450" delay="1.15" maxAmmo="200" clipAmmo="30" reloadSpeed="5.7" wallCost="1500" shotgun="0">
 1920s approved.
+	</Gun>
+	<Gun name="Musket" dmg="95" bulletSpeed="35" bulletLifeTime="450" delay="20" maxAmmo="30" clipAmmo="1" reloadSpeed="12" wallCost="450" shotgun="0">
+Probably not relevant at this time. You use what you get though.
+	</Gun>
+	<Gun name="Trenchgun" dmg="25" bulletSpeed="25" bulletLifeTime="200" delay="10" maxAmmo="50" clipAmmo="5" reloadSpeed="4" wallCost="100" shotgun="1">
+The only shotgun at the moment.
 	</Gun>
 </GunsDocument>

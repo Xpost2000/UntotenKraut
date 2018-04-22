@@ -1,4 +1,4 @@
-agrid 876 876
+agrid 911 876
 playerPos 420 315
 wall 105 105 assests//textures//bunkergray//bunker_top_left.png
 wall 665 105 assests//textures//bunkergray//bunker_top_right.png
@@ -88,12 +88,12 @@ wall 770 630 assests//textures//bunkergray//bunker_center.png
 wall 770 595 assests//textures//bunkergray//bunker_center.png
 wall 770 560 assests//textures//bunkergray//bunker_center.png
 wall 770 525 assests//textures//bunkergray//bunker_center.png
-gunwall 420 105 assests//textures//bunkergray//bunker_gun_buy.png KAR98
 gunwall 315 315 assests//textures//bunkergray//bunker_gun_buy.png MP40
-gunwall 525 315 assests//textures//bunkergray//bunker_gun_buy.png MP40
 gunwall 420 630 assests//textures//bunkergray//bunker_gun_buy.png Thompson
 gunwall 560 630 assests//textures//bunkergray//bunker_gun_buy.png Thompson
 gunwall 280 630 assests//textures//bunkergray//bunker_gun_buy.png Thompson
+gunwall 525 315 assests//textures//bunkergray//bunker_gun_buy.png Trenchgun
+gunwall 420 105 assests//textures//bunkergray//bunker_gun_buy.png Musket
 detail 350 245 assests//textures//ironcrossbanner//red_banner_bottom.png
 detail 385 245 assests//textures//ironcrossbanner//red_banner_bottom.png
 detail 420 245 assests//textures//ironcrossbanner//red_banner_bottom.png
