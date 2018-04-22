@@ -19,7 +19,7 @@ class GUIButton{
 		bool held=false;
 		GUIText text_gui;
 		
-		float hr=0,hg=0.5,hb=0.5,ha=1;
+		float hr=0.5,hg=0.2,hb=0.0,ha=1;
 		float r=1, g=1, b=1, a=1;
 };
 
