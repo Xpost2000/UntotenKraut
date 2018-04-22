@@ -119,7 +119,7 @@ namespace game{
 
 			std::vector<Spawner<Zombie>> zombieSpawners;
 
-			int score=0,killCount=0;
+			int score=200,killCount=0;
 	};
 };
 

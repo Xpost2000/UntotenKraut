@@ -34,7 +34,7 @@ namespace game{
 			else if(zombie.getHp() <= 0 && zombie.cleared==false){
 				killCount++;
 				zombie.cleared=true;
-				score+=150;
+				score+=50;
 			}
 			/*
 			if(zombie.getHp()<= 0 && zombie.doneBleeding()){
