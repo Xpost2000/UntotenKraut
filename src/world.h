@@ -67,7 +67,7 @@ namespace game{
 			std::vector<Wall>& getWalls() { return walls; }
 			std::vector<DetailEntity>& getDetailEntities() { return detail_ents; }
 			std::vector<Zombie>& getZombies() { return zombies; }
-			std::vector<Spawner<Zombie>> getSpawner() { return zombieSpawners; }
+			std::vector<Spawner<Zombie>>& getSpawner() { return zombieSpawners; }
 			std::vector<Barricade>& getBarricades() { return barricades; }
 
 			void draw(core::gfx::Renderer&);

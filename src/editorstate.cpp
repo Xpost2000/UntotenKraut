@@ -125,6 +125,26 @@ void EditorState::update(float dt){
 		// snaps it to a grid of 35 which the game runs with
 		int mX=round(mouseInWorld.x/35)*35;
 		int mY=round(mouseInWorld.y/35)*35;
+		game::Entity mouseCollideObj(mX, mY, 35, 35);
+		for(auto &w : world.getWalls()){
+			if(mouseCollideObj.touching(w)){
+				std::cout << "Touching wall" << std::endl;
+				return;
+			}
+		}
+		for(auto &ze : world.getSpawner()){
+			game::Entity collideObj(ze.x, ze.y, 35, 35);
+			if(mouseCollideObj.touching(collideObj)){
+				std::cout << "Touching Spawner" << std::endl;
+				return;
+			}
+		}
+		for(auto &bar : world.getBarricades()){
+			if(mouseCollideObj.touching(bar)){
+				std::cout << "Touching Barricade" << std::endl;
+				return;
+			}
+		}
 		switch(blockType){
 			case 1:
 				if((mX >= 0 && mX <= w) && (mY >= 0 && mY <= h)){
@@ -156,8 +176,39 @@ void EditorState::update(float dt){
 				}
 				break;
 		}
-		SDL_Delay(100);
+	SDL_Delay(100);
+	}else if(inputManager.isMouseKeyDown(SDL_BUTTON_RIGHT)){
+		int mX=round(mouseInWorld.x/35)*35;
+		int mY=round(mouseInWorld.y/35)*35;
+		game::Entity mouseCollideObj(mX, mY, 35, 35);
+		for(int i = 0; i < world.getWalls().size(); ++i){
+			auto& w = world.getWalls()[i];
+			if(mouseCollideObj.touching(w)){
+				std::cout << "deleting wall" << std::endl;
+				world.getWalls().erase(world.getWalls().begin()+i);	
+				return;
+			}
+		}
+		for(int i = 0; i < world.getSpawner().size(); ++i){
+			auto& ze = world.getSpawner()[i];
+			game::Entity mouseCollideObj(mX, mY, 35, 35);
+			game::Entity collideObj(ze.x, ze.y, 35, 35);
+			if(mouseCollideObj.touching(collideObj)){
+				world.getSpawner().erase(world.getSpawner().begin()+i);
+				std::cout << "deleting Spawner" << std::endl;
+				return;
+			}
+		}
+		for(int i = 0 ; i < world.getBarricades().size(); ++i){
+			auto& bar = world.getBarricades()[i];
+			if(mouseCollideObj.touching(bar)){
+				std::cout << "deleting Barricade" << std::endl;
+				world.getBarricades().erase(world.getBarricades().begin()+i);
+				return;
+			}
+		}
 	}
+
 	inputManager.Update();
 }
 
