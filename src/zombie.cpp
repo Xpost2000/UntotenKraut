@@ -19,12 +19,14 @@ namespace game{
 
 	}
 	Zombie::~Zombie(){
-		if(gridWorld) { delete gridWorld; gridWorld=nullptr; }
 	}
 
 	void Zombie::update(float dt, World& world){
-		if(gridWorld==nullptr){
-			gridWorld = new Node[world.getWidth()*world.getHeight()];	
+		if(gridWorld.empty()){
+			for(int x = 0; x < world.getHeight()*world.getWidth(); ++x){
+				gridWorld.push_back(Node());
+			}
+		//	gridWorld = new Node[world.getWidth()*world.getHeight()];	
 			for(int y = 0; y < world.getHeight(); ++y){
 				for(int x = 0; x < world.getWidth(); ++x){
 					gridWorld[y*world.getWidth()+x]= Node(x,y);
@@ -46,12 +48,6 @@ namespace game{
 					}
 				}
 			}
-			int gridX=x/35;
-			int gridY=y/35;
-			int pXGrid=world.getPlayer()->x/35;
-			int pYGrid=world.getPlayer()->y/35;
-			start = &gridWorld[gridY*world.getWidth()+gridX]; 
-			goal = &gridWorld[pYGrid*world.getWidth()+pXGrid]; 
 			for(auto &wall : world.getWalls()){
 				int gridX = wall.x/35;
 				int gridY = wall.y/35;
@@ -86,16 +82,18 @@ namespace game{
 				notTested.pop_front();
 			}
 			current=notTested.front();
-			current->visited=true;
-			for(auto& n : current->neighbors){
-				if(!n->visited && !n->block){
-					notTested.push_back(n);
-				}
-				float possible = current->localValue + distance(current, n);
-				if(possible < n->localValue){
-					n->parent= current;
-					n->localValue= possible;
-					n->globalValue= n->localValue + distance(n, goal);
+			if(current != nullptr){
+				current->visited=true;
+				for(auto& n : current->neighbors){
+					if(!n->visited && !n->block){
+						notTested.push_back(n);
+					}
+					float possible = current->localValue + distance(current, n);
+					if(possible < n->localValue){
+						n->parent= current;
+						n->localValue= possible;
+						n->globalValue= n->localValue + distance(n, goal);
+					}
 				}
 			}
 		}
@@ -103,15 +101,11 @@ namespace game{
 		toFollow=goal;
 		while(toFollow->parent != nullptr){
 			path.push_back(toFollow);
+			if(toFollow->parent != nullptr)
 			toFollow = toFollow->parent;
 		}
 		path.reverse();
 		if(hp > 0){
-			float targetX=0;
-			float targetY=0;
-
-			float angle = atan2(targetY - y, targetX - x); 
-
 			if(path.front() != goal && path.front() != nullptr){
 				if(moveToPoint(path.front()->x*35, path.front()->y*35, world, dt)){
 					path.pop_front();
@@ -128,14 +122,15 @@ namespace game{
 			}
 
 			hitDelay-=dt;
-		}
-		sprite.setX(x);
-		sprite.setY(y);
-		ps.update(dt);
-		if(bloodTimer <= 0){
-			ps.active=false;
-		}else{
-			bloodTimer--;
+
+			sprite.setX(x);
+			sprite.setY(y);
+			ps.update(dt);
+			if(bloodTimer <= 0){
+				ps.active=false;
+			}else{
+				bloodTimer--;
+			}
 		}
 	}
 
@@ -166,7 +161,7 @@ namespace game{
 
 		void Zombie::moveDirection(int direction, World& world, float dt){
 			int speedModifier=1;
-			Zombie clone= *this;
+			Zombie clone=Zombie(x,y,w,h,0,0);
 			switch(direction){
 				// up
 				case 1:
@@ -177,7 +172,7 @@ namespace game{
 						}
 					}
 					for(auto &z : world.getZombies()){
-						if(clone.touching(z) && &z != this){ return; break; }
+						if(clone.touching(z) && &z != this && !z.cleared){ return; break; }
 					}
 					for(auto &barricade : world.getBarricades()){
 						if(clone.touching(barricade) && barricade.getHealth()>0){
@@ -200,7 +195,7 @@ namespace game{
 						}
 					}
 					for(auto &z : world.getZombies()){
-						if(clone.touching(z) && &z != this){ return; break; }
+						if(clone.touching(z) && &z != this && !z.cleared){ return; break; }
 					}
 					for(auto &barricade : world.getBarricades()){
 						if(clone.touching(barricade) && barricade.getHealth()>0){
@@ -223,7 +218,7 @@ namespace game{
 						}
 					}
 					for(auto &z : world.getZombies()){
-						if(clone.touching(z) && &z != this){ return; break; }
+						if(clone.touching(z) && &z != this && !z.cleared){ return; break; }
 					}
 					for(auto &barricade : world.getBarricades()){
 						if(clone.touching(barricade) && barricade.getHealth()>0){
@@ -246,7 +241,7 @@ namespace game{
 						}
 					}
 					for(auto &z : world.getZombies()){
-						if(clone.touching(z) && &z != this){ return; break; }
+						if(clone.touching(z) && &z != this && !z.cleared){ return; break; }
 					}
 					for(auto &barricade : world.getBarricades()){
 						if(clone.touching(barricade) && barricade.getHealth()>0){
@@ -286,7 +281,8 @@ namespace game{
 				moveDirection(1, world, dt);
 			}
 			return false;
+		}else{
+			return true;
 		}
-		return true;
 	}
 };

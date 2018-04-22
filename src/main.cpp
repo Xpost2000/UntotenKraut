@@ -110,9 +110,10 @@ int main( int argc, char** argv ){
 		game::GunManager::getInstance()->addGun(name, game::Gun(name, dmg, bulletSpeed, bulletLifeTime, delay, false, maxAmmo, clipAmmo, reloadSpeed, cost));
 	}
 
-	renderer.loadFont("assests//fonts//ocr.ttf",   "ocr");
+//	renderer.loadFont("assests//fonts//ocr.ttf",   "ocr");
 	renderer.loadFont("assests//fonts//arial.ttf", "arial");
 	renderer.loadFont("assests//fonts//tw.ttf", "typewriter");
+	renderer.loadFont("assests//fonts//tw.ttf", "ocr");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -23,9 +23,10 @@ namespace game{
 			bool doneBleeding() { return bloodTimer<=0; }
 
 			// zombies can't strafe. they move from an angle.
+			bool cleared=false;
 		private:
 			float bloodTimer=60;
-			Node* gridWorld=nullptr;
+			std::vector<Node> gridWorld;
 			Node* current=nullptr;
 			Node* goal=nullptr;
 			Node* start=nullptr;

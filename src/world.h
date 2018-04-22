@@ -21,7 +21,7 @@ namespace game{
 	// and stuff.)
 	class World{
 		public:
-			World(){}
+			World(){ zombies.reserve(32); }
 			~World(){}
 
 			Player* getPlayer() { return player; }
@@ -75,6 +75,7 @@ namespace game{
 
 			void nextWave() { 
 				int sum=0;
+				zombies.clear();
 				zombieSpawnHp+=10;
 				for(auto& spawner : zombieSpawners){
 					spawner.getClone().setHp(zombieSpawnHp);

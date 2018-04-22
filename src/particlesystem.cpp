@@ -7,7 +7,7 @@
 #define BLOOD_SPEED 50.004
 namespace core{
 	namespace gfx{
-		ParticleSystem::ParticleSystem() : ParticleSystem(0, 0, 100){
+		ParticleSystem::ParticleSystem() : ParticleSystem(0, 0, 45){
 		}
 		ParticleSystem::ParticleSystem(float x, float y, int size) : size(size), x(x), y(y){
 			for(int i = 0 ; i < size; ++i){

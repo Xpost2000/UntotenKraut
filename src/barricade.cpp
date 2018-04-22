@@ -6,8 +6,8 @@ namespace game{
 	: Entity(x, y, w, h){
 		sprites[0] = core::gfx::Sprite(x,y,w,h);
 		sprites[1] = core::gfx::Sprite(x,y,w,h);
-		sprites[0].setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_barricade_test.png"));
-		sprites[1].setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_512_tset.png"));
+		sprites[0].setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//dev_barricade_test.png"));
+		sprites[1].setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//dev_512_tset.png"));
 		trigger = Entity(x-2,y-2,w+5,h+5);
 	}
 

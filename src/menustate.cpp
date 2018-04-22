@@ -80,7 +80,7 @@ void MenuState::draw(core::gfx::Renderer& renderer){
 	renderer.setTextSize(60);
 	renderer.drawText("ocr", 0, 0, "Untoten Kraut");
 	renderer.setTextSize(15);
-	renderer.drawText("ocr", 0, 65, "Welcome to Version 0.6");
+	renderer.drawText("ocr", 0, 65, "Welcome to Version 0.7");
 	smog.setX(0);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 	smog.setX(x1);

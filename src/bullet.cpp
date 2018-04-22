@@ -10,7 +10,7 @@ namespace game{
 	Bullet::Bullet( float x, float y, float w, float h, float sX, float sY, float lifeTime, float damage, float explosionSize, bool explosive ): Entity(x, y, w, h), speedX(sX), speedY(sY), lifeTime(lifeTime), damage(damage), explosionRange(explosionSize), explosive(explosive){
 		sprite.setW(w);
 		sprite.setH(h);
-		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests\\textures\\dev_player_projectile.png"));
+		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//dev_player_projectile.png"));
 	}
 
 	Bullet::~Bullet(){
