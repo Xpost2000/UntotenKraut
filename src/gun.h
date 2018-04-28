@@ -10,7 +10,7 @@ namespace game{
 		class Gun{
 			public:
 				Gun();
-				Gun( std::string name, float damage, float bulletSpeed, float bulletLifetime, float delay, bool shotgun, int maxAmmo, int magAmmo, float reloadSpeed, int cost=0, bool explosive=false );
+				Gun( std::string name, float damage, float bulletSpeed, float bulletLifetime, float delay, bool shotgun, int maxAmmo, int magAmmo, float reloadSpeed, int cost=0, bool explosive=false, float explosiveRange=0 );
 				// it will auto count down it's delay.
 				void update(float dt);
 
@@ -22,6 +22,7 @@ namespace game{
 				bool getExplosive() { return explosive; }
 				bool getShotgun() { return shotgun; }
 				
+				float getExplosiveRange() { return explosiveRange; }
 				float getDamage(){ return damage; }
 				float getBulletSpeed() { return bulletSpeed; }
 				float getBulletLifetime() { return bulletSpeed; }
@@ -37,6 +38,7 @@ namespace game{
 				std::string name="Nothing";
 
 				bool shotgun=false;
+				float explosiveRange=0;
 				bool explosive=false;
 
 				int currentMagSize=0;

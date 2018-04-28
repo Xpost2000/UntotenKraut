@@ -32,10 +32,21 @@ namespace game{
 			if(currentGun->fire()){
 				// currentGun->getExplosive()
 				// check gun types to determine how to fire.
-				bullets.push_back(Bullet(x, y, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
+				if(currentGun->getExplosive()){
+					std::cout << "Explosive gun fired." << std::endl;
+					bullets.push_back(Bullet(x, y, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage(), currentGun->getExplosiveRange(), true));
+				}else{
+					bullets.push_back(Bullet(x, y, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
+				}
 				if(currentGun->getShotgun()){
-					bullets.push_back(Bullet(x+3, y+5, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
-					bullets.push_back(Bullet(x-3, y-5, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
+					if(currentGun->getExplosive()){
+						bullets.push_back(Bullet(x+3, y+5, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage(), currentGun->getExplosiveRange(), true));
+						bullets.push_back(Bullet(x-3, y-5, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage(), currentGun->getExplosiveRange(), true));
+	
+					}else{
+						bullets.push_back(Bullet(x+3, y+5, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
+						bullets.push_back(Bullet(x-3, y-5, w/4, h/4, cos(angle)*currentGun->getBulletSpeed(), sin(angle)*currentGun->getBulletSpeed(), currentGun->getBulletLifetime(), currentGun->getDamage()));
+					}
 				}
 			}
 		}

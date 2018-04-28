@@ -32,7 +32,7 @@ namespace game{
 			float damage=0;
 			float lifeTime=0;
 			float speedX=0, speedY=0;
-			core::gfx::Sprite sprite;
+			core::gfx::Sprite sprite, explosionSprite;
 	};
 };
 
