@@ -29,7 +29,7 @@ namespace game{
 		gunSprite.setAngle(angle);
 		if(g){
 			if(grenadeDelay<=0){
-				bullets.push_back( Bullet(x, y, w/3, h/3, cos(angle)*8, sin(angle)*8, 40, 150, 165, true) );
+				bullets.push_back( Bullet(x, y, w/3, h/3, cos(angle)*7, sin(angle)*7, 40, 150, 165, true) );
 				grenadeDelay=50;
 			}
 			return;

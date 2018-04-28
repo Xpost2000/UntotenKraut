@@ -72,7 +72,8 @@ namespace game{
 			}
 		}
 		if(lifeTime <= 23 && lifeTime >= 22 && explosive){
-			core::audio::SoundManager::getInstance()->playSound("explosion", -1);
+			if(!core::audio::SoundManager::getInstance()->isChannelPlaying(4))
+			core::audio::SoundManager::getInstance()->playSound("explosion", 4);
 		}
 
 		if(!explosive){
