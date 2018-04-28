@@ -5,7 +5,7 @@
 #include <iostream>
 
 GameState::GameState(){
-	player = game::Player(0, 0, 30, 30, 15, 100);
+	player = game::Player(0, 0, 20, 20, 15, 100);
 	core::audio::SoundManager::getInstance()->addMusic( "assests//sounds//ambience.mp3", "ambience" );
 
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );

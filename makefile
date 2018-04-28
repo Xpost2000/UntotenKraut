@@ -1,7 +1,7 @@
 GCC=g++
 LIBS=`pkg-config --libs --cflags sdl2` `pkg-config --libs --cflags glew` -Wl,-Bstatic -lfreetype -Wl,-Bdynamic -lSDL2_image -lSDL2_mixer
 LLIBS=`pkg-config --libs --cflags sdl2` `pkg-config --libs --cflags glew` `pkg-config --libs --cflags freetype2` -lSDL2_image -lSDL2_mixer
-CFLAGS=-std=gnu++11 -O2
+CFLAGS=-std=gnu++11 -g
 #compile only needed parts.
 FILES=src/main.cpp\
       src/window.cpp\

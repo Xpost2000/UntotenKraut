@@ -46,7 +46,7 @@ namespace game{
 			void move(float dt, int direction, World& world, float speedModifier=1);
 			float getGrenadeDelay(){ return grenadeDelay; }
 		private:
-			core::gfx::Sprite sprite;
+			core::gfx::Sprite sprite, gunSprite;
 			Gun  guns[2];
 			Gun* currentGun;
 

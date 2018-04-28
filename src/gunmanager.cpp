@@ -14,6 +14,7 @@ namespace game{
 
 	void GunManager::addGun(std::string name, Gun gun){
 		core::TextureManager::getInstance()->loadTexture("assests//ui//" + name + "_hud.png");
+		core::TextureManager::getInstance()->loadTexture("assests//textures//"+name+".png");
 		core::audio::SoundManager::getInstance()->addSound("assests//sounds//"+name+"_fire.wav", name+"_fire");	
 		core::audio::SoundManager::getInstance()->addSound("assests//sounds//"+name+"_reload.wav", name+"_reload");	
 		guns.insert(std::make_pair(name, gun));
