@@ -41,8 +41,9 @@ void GameState::prepareGame(){
 	introDelay=15;
 	roundDelay=43;
 	gameWave=0;
-	world.getScore()=0;
+	world.getScore()=250;
 	world.getZombies().clear();
+	world.getKillCount()=0;
 	
 	player.setGuns(game::GunManager::getInstance()->get("M1911A1"), game::Gun());
 	player.useGun(0);

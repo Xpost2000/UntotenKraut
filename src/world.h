@@ -99,8 +99,8 @@ namespace game{
 				
 		        }
 
-			int &getScore(){ return score; }
-			int &getKillCount(){ return killCount; }
+			unsigned int &getScore(){ return score; }
+			unsigned int &getKillCount(){ return killCount; }
 			int getMaxZombies(){
 				int sum=0;
 				for(auto spawner : zombieSpawners){
@@ -123,7 +123,7 @@ namespace game{
 
 			std::vector<Spawner<Zombie>> zombieSpawners;
 
-			int score=200,killCount=0;
+			unsigned int score=200,killCount=0;
 	};
 };
 

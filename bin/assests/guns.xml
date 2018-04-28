@@ -17,7 +17,7 @@ Probably not relevant at this time. You use what you get though.
 	<Gun name="Trenchgun" dmg="45" bulletSpeed="25" bulletLifeTime="200" delay="10" maxAmmo="50" clipAmmo="5" reloadSpeed="4" wallCost="1600" shotgun="1" explosive="0" explosiveRange="0">
 The only shotgun at the moment.
 	</Gun>
-	<Gun name="RPzB" dmg="460" bulletSpeed="65" bulletLifeTime="450" delay="2" maxAmmo="30" clipAmmo="1" reloadSpeed="15" wallCost="2550" shotgun="0" explosive="1" explosiveRange="250">
+	<Gun name="RPzB" dmg="450" bulletSpeed="35" bulletLifeTime="450" delay="2" maxAmmo="30" clipAmmo="1" reloadSpeed="15" wallCost="5050" shotgun="0" explosive="1" explosiveRange="250">
 Scary.
 	</Gun>
 </GunsDocument>
