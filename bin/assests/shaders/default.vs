@@ -12,10 +12,11 @@ out vec2 aUvs;
 out vec2 aPos;
 
 uniform mat4 projection;
+uniform mat4 model; // couldn't calculate rotated vertices well enough in the renderer.
 uniform mat4 view;
 
 void main(){
-	gl_Position = projection*view*vec4( vPos, 0.0, 1.0 );
+	gl_Position = projection*view*model*vec4( vPos, 0.0, 1.0 );
 	aColors = vColors;
 	aPos    = vPos;
 	aUvs    = vUvs;

@@ -39,12 +39,15 @@ namespace core{
 
 			default_shader.uniformMatrix(default_shader.getUniform("projection"), projection);
 			default_shader.uniformMatrix(default_shader.getUniform("view"), view);
+			default_shader.uniformMatrix(default_shader.getUniform("model"), model);
 
 			texture_shader.uniformMatrix(texture_shader.getUniform("projection"), projection);
 			texture_shader.uniformMatrix(texture_shader.getUniform("view"), view);
+			texture_shader.uniformMatrix(texture_shader.getUniform("model"), model);
 
 			text_shader.uniformMatrix(text_shader.getUniform("projection"), projection);
 			text_shader.uniformMatrix(text_shader.getUniform("view"), view);
+			text_shader.uniformMatrix(text_shader.getUniform("model"), model);
 		}
 
 		Renderer::~Renderer(){
@@ -105,6 +108,7 @@ namespace core{
 		}
 		
 		void Renderer::drawSprite( Sprite& spr, float r, float g, float b, float a ){
+			model=glm::mat4();
 			float x = spr.getX();
 			float y = spr.getY();
 			float w = spr.getW();
@@ -118,6 +122,9 @@ namespace core{
 				x, y+h,     0, 1,  r, g, b, a,
 				x+w, y+h,   1, 1,  r, g, b, a
 			};
+			model = glm::translate(model, glm::vec3(x+w*0.5, y+h*0.5, 0));
+			model = glm::rotate(model, spr.getAngle(), glm::vec3(0, 0, 1));
+			model = glm::translate(model, glm::vec3(-x-w*0.5, -y-h*0.5, 0));
 	
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 			glBindVertexArray(vao);
@@ -130,6 +137,7 @@ namespace core{
 			glActiveTexture(GL_TEXTURE0);
 			texture_shader.useProgram();
 			texture_shader.uniformi(texture_shader.getUniform("texture"), 0);
+			texture_shader.uniformMatrix(texture_shader.getUniform("model"), model);
 			spr.getTexture()->use();
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}

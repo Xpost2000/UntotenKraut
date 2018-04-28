@@ -21,6 +21,7 @@ namespace game{
 
 	void Player::fire(float mX, float mY, bool g){
 		float angle = atan2( mY-y , mX-x );
+		sprite.setAngle(angle);
 		if(g){
 			if(grenadeDelay<=0){
 				bullets.push_back( Bullet(x, y, w/3, h/3, cos(angle)*8, sin(angle)*8, 40, 150, 165, true) );
