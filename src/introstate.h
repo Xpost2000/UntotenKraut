@@ -10,7 +10,7 @@ class IntroState : public State{
 		void draw(core::gfx::Renderer&);
 	private:
 		std::string introMessage = "A Game By Xpost2000";
-		std::string introDate    = "Made on April 30th 2018";
+		std::string introDate    = "Completed on May 4th 2018";
 
 		int pointerX=150;
 		int pointerY=300;

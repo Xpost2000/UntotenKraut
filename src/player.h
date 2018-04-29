@@ -45,6 +45,10 @@ namespace game{
 
 			void move(float dt, int direction, World& world, float speedModifier=1);
 			float getGrenadeDelay(){ return grenadeDelay; }
+			void setAngle(float angle){
+				sprite.setAngle(angle);
+				gunSprite.setAngle(angle);
+			}
 		private:
 			core::gfx::Sprite sprite, gunSprite;
 			Gun  guns[2];

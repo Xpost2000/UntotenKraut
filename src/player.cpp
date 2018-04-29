@@ -28,11 +28,11 @@ namespace game{
 
 	void Player::fire(float mX, float mY, bool g){
 		float angle = atan2( mY-y , mX-x );
-		sprite.setAngle(angle);
-		gunSprite.setAngle(angle);
+//		sprite.setAngle(angle);
+//		gunSprite.setAngle(angle);
 		if(g){
 			if(grenadeDelay<=0){
-				bullets.push_back( Bullet(x, y, w/3, h/3, cos(angle)*7, sin(angle)*7, 40, 150, 165, true) );
+				bullets.push_back( Bullet(x, y, w/3, h/3, cos(angle)*7, sin(angle)*7, 50, 150, 135, true) );
 				grenadeDelay=50;
 			}
 			return;

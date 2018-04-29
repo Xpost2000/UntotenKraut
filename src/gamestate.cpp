@@ -5,7 +5,7 @@
 #include <iostream>
 
 GameState::GameState(){
-	player = game::Player(0, 0, 20, 20, 15, 100);
+	player = game::Player(0, 0, 30, 30, 15, 100);
 	core::audio::SoundManager::getInstance()->addMusic( "assests//sounds//ambience.mp3", "ambience" );
 
 	uiBloodStain = core::gfx::Sprite( 0, 0, 0, 0, 0 );
@@ -144,7 +144,7 @@ void GameState::update(float dt){
 	if(isPlayerReloading){
 		isPlayerReloading=!player.getGun().reload(0.1f);
 	}
-
+	player.setAngle(atan2(inWorld.y-player.y, inWorld.x-player.x));
 	if( inputManager.isMouseKeyDown( SDL_BUTTON_LEFT ) ){
 		if(!isPlayerReloading)
 		player.fire(inWorld.x, inWorld.y);

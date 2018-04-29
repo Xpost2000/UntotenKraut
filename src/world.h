@@ -33,7 +33,7 @@ namespace game{
 				detail_ents = lvl.detail_ents;
 				for(auto& s : zombieSpawners){
 					s.setVectorPtr(&zombies);
-					s.setCloneOf(Zombie(0, 0, 20, 20, 5, 50));
+					s.setCloneOf(Zombie(0, 0, 32, 32, 5, 50));
 				}
 				player->x=lvl.pX;
 				player->y=lvl.pY;

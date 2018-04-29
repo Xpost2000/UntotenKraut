@@ -123,6 +123,7 @@ namespace game{
 			sprite.setX(x);
 			sprite.setY(y);
 			ps.update(dt);
+			sprite.setAngle(atan2(world.getPlayer()->y-y,world.getPlayer()->x-x));
 			if(bloodTimer <= 0){
 				ps.active=false;
 			}else{
