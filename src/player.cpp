@@ -12,6 +12,9 @@ namespace game{
 		sprite.setH(h);
 		gunSprite.setW(w+10);
 		gunSprite.setH(h+10);
+		gunSprite.useOwnOrigin=false;
+		gunSprite.rotateOriginOffsetX= w*0.5;
+		gunSprite.rotateOriginOffsetY= h*0.5;
 		gunSprite.setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//M1911A1.png"));
 		sprite.setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//dev_player_test.png"));
 
@@ -67,7 +70,7 @@ namespace game{
 		gunSprite.setTexture(core::TextureManager::getInstance()->getTexture("assests//textures//"+currentGun->getName()+".png"));
 		sprite.setX(x);
 		sprite.setY(y);
-		gunSprite.setX(x-3);
+		gunSprite.setX(x);
 		gunSprite.setY(y);
 		currentGun->update(dt);
 	}

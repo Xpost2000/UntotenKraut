@@ -113,6 +113,9 @@ namespace core{
 			float y = spr.getY();
 			float w = spr.getW();
 			float h = spr.getH();
+			const float& offX= spr.rotateOriginOffsetX;
+			const float& offY= spr.rotateOriginOffsetY;;
+			bool useOwnOrigin = spr.useOwnOrigin;
 
 			float data[]= {
 				x, y,       0, 0,  r, g, b, a,
@@ -122,9 +125,18 @@ namespace core{
 				x, y+h,     0, 1,  r, g, b, a,
 				x+w, y+h,   1, 1,  r, g, b, a
 			};
-			model = glm::translate(model, glm::vec3(x+w*0.5, y+h*0.5, 0));
+			if(useOwnOrigin){
+				model = glm::translate(model, glm::vec3(x+w*0.5, y+h*0.5, 0));
+			}
+			else{
+				model = glm::translate(model, glm::vec3(x+offX, y+offY, 0));
+			}
 			model = glm::rotate(model, spr.getAngle(), glm::vec3(0, 0, 1));
-			model = glm::translate(model, glm::vec3(-x-w*0.5, -y-h*0.5, 0));
+			if(useOwnOrigin){
+				model = glm::translate(model, glm::vec3(-x-w*0.5, -y-h*0.5, 0));
+			}else{
+				model = glm::translate(model, glm::vec3(-x-offX, -y-offY, 0));
+			}
 	
 			glBindBuffer(GL_ARRAY_BUFFER, vbo);
 			glBindVertexArray(vao);

@@ -27,6 +27,9 @@ namespace core{
 //				void loadTexture( std::string path );
 				void setTexture( Texture *tex ) { m_texture = tex; }
 				core::gfx::Texture* getTex() { return m_texture; }
+				float rotateOriginOffsetX=0;
+				float rotateOriginOffsetY=0;
+				bool useOwnOrigin=true;
 			private:
 				float m_x, m_y, m_w, m_h;
 				float m_angle;
