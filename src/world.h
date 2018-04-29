@@ -62,6 +62,7 @@ namespace game{
 					s.setVectorPtr(&zombies);
 					s.setCloneOf(Zombie(0, 0, 30, 30, 5, 50));
 				}
+				zombieSpawnHp=50;
 			}
 
 			std::vector<Wall>& getWalls() { return walls; }
