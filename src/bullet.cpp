@@ -44,7 +44,7 @@ namespace game{
 		}
 		Entity explosion(x-explosionRange/2, y-explosionRange/2, explosionRange, explosionRange);
 		for(auto& zombie : world.getZombies()){
-			if(explosive ? (explosion.touching(zombie)) && zombie.getHp()>0 && lifeTime>=22 : touching(zombie) && zombie.getHp()>0){
+			if(explosive ? touching(zombie) && zombie.getHp()>0 && lifeTime>=22 : touching(zombie) && zombie.getHp()>0){
 				if(explosive){
 					zombie.setHp( zombie.getHp() - damage );
 					zombie.bleed(speedX/6, speedY/6, dt);
