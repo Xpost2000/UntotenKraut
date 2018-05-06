@@ -90,7 +90,7 @@ void OptionMenuState::draw(core::gfx::Renderer& renderer){
 	renderer.setTextSize(60);
 	renderer.drawText("ocr", 0, 0, "Options Menu");
 	renderer.setTextSize(15);
-	renderer.drawText("ocr", 0, 65, "TODO: Add Resolution Selection. (While I'm at it, add uniform scaling that doesn't break the gui)");
+	renderer.drawText("ocr", 0, 65, "Two Graphical Options:");
 	smog.setX(0);
 	renderer.drawSprite(smog, 1, 1, 1, 0.2);
 	smog.setX(x1);
