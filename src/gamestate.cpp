@@ -96,7 +96,7 @@ void GameState::update(float dt){
 	for(auto& barricade : world.getBarricades()){
 		if(player.touching(barricade.getTrigger())&&barricade.getHealth() < 100){
 			canRepairBarricade=true;
-			if( inputManager.isKeyDown(SDL_SCANCODE_F) ){
+			if( inputManager.isKeyDown(SDL_SCANCODE_F) || inputManager.isButtonDown(SDL_CONTROLLER_BUTTON_X) ){
 				if(playerBuildDelay <= 0){
 					barricade.setHealth(barricade.getHealth()+25);
 					world.getScore()+=25;
@@ -115,7 +115,7 @@ void GameState::update(float dt){
 				canBuyWallGun=true;
 				currentGun = wall.getWallWeapon();
 				currentGunPrice=wall.getCost();
-			if( inputManager.isKeyDown(SDL_SCANCODE_F) ){
+			if( inputManager.isKeyDown(SDL_SCANCODE_F) || inputManager.isButtonDown(SDL_CONTROLLER_BUTTON_X) ){
 				if(playerBuyDelay <= 0 && world.getScore()>=wall.getCost()){
 					world.getScore()-=currentGunPrice;
 					//TODO: do more advanced checking.
@@ -158,23 +158,37 @@ void GameState::update(float dt){
 		}
 	}
 	if(inputManager.CheckForController()){
-		if( inputManager.GetJoystickState().left_vertical > 128 ){
-			player.move(0.1f, 3, world);
-
-		}else if ( inputManager.GetJoystickState().left_vertical < 128 ){
-			player.move(0.1f, 4, world);
-		}
-
-		if( inputManager.GetJoystickState().left_horizontal > 128 ){
+		// -255 up 255 down
+		// -255 left 255 right
+		if( inputManager.GetJoystickState().left_vertical < -128 ){
 			player.move(0.1f, 1, world);
-		}else if ( inputManager.GetJoystickState().left_horizontal < 128 ){
+			inWorld.y-=player.getSpeed()*dt;
+		}else if ( inputManager.GetJoystickState().left_vertical > 128 ){
 			player.move(0.1f, 2, world);
+			inWorld.y+=player.getSpeed()*dt;
 		}
-		std::cout << "Joystick value (LEFT HORIZONTAL): ";
-		std::cout << inputManager.GetJoystickState().left_horizontal << std::endl;
-		std::cout << "Joystick value (LEFT VERTICAL): ";
-		std::cout << inputManager.GetJoystickState().left_vertical << std::endl;
-
+		if( inputManager.GetJoystickState().left_horizontal < -128 ){
+			player.move(0.1f, 3, world);
+			inWorld.x-=player.getSpeed()*dt;
+		}else if ( inputManager.GetJoystickState().left_horizontal > 128 ){
+			player.move(0.1f, 4, world);
+			inWorld.x+=player.getSpeed()*dt;
+		}
+		if( inputManager.GetJoystickState().right_vertical < -128 ){
+			inWorld.y -= 140*dt;
+		}else if ( inputManager.GetJoystickState().right_vertical > 128 ){
+			inWorld.y += 140*dt;
+		}
+		if( inputManager.GetJoystickState().right_horizontal < -128 ){
+			inWorld.x -= 140*dt;
+		}else if ( inputManager.GetJoystickState().right_horizontal > 128 ){
+			inWorld.x += 140*dt;
+		}
+		if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_DPAD_UP ) ){
+			player.useGun(0);
+		}else if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_DPAD_DOWN ) ){
+			player.useGun(1);
+		}
 		if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_X ) ){
 			isPlayerReloading=true;
 		}
@@ -182,6 +196,15 @@ void GameState::update(float dt){
 			if(!isPlayerReloading)
 			player.fire(inWorld.x, inWorld.y);
 		}
+		if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_LEFTSHOULDER ) ){
+			if(world.getGrenadeCount() >= 1){
+				if(!player.getGrenadeDelay())
+					world.getGrenadeCount()--;
+					player.fire(inWorld.x, inWorld.y, true);
+			}
+		}
+		if( inputManager.isButtonDown( SDL_CONTROLLER_BUTTON_START ) )
+			parent->setCurrentState("pause");
 	}
 		world.update(dt);
 	}else{
@@ -198,7 +221,10 @@ void GameState::draw(core::gfx::Renderer& renderer){
 	renderer.centerCameraOn(player.x, player.y);
 	renderer.refreshCamera();
 	world.draw(renderer);
-	inWorld = renderer.mouseToWorld(inputManager.GetMouseX(), inputManager.GetMouseY());
+	if(!inputManager.CheckForController()){
+		inWorld = renderer.mouseToWorld(inputManager.GetMouseX(), inputManager.GetMouseY());
+	}else{
+	}
 	renderer.drawRect(inWorld.x, inWorld.y, 5, 5, 1, 0, 0, 1);
 	renderer.identityCamera();
 	renderer.refreshCamera();
